@@ -4,9 +4,9 @@ import PostItem from '../list/PostItem';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 
 const data = new Array(30).fill({
-  title: 'Kevin Rabefaritra',
+  title: 'Kevin Michel',
   subtitle: '4 minutes ago',
-  content: "A bit bored this weekend so I went to the USA.",
+  content: "I was a bit bored this weekend so made a short trip to the moon.",
   thumbnail: "",
   avatar: ""
 });

@@ -6,9 +6,9 @@ import React from 'react';
 import SignInModal from '../modals/SignInModal';
 
 const data = new Array(30).fill({
-  title: 'Item',
+  title: 'Weirdo',
   description: 'Hey how are you?',
-  src: "menja.png",
+  src: "pepe.jpg",
   timestamp: '5 min ago'
 });
 
@@ -77,7 +77,7 @@ const ChatListScreen = (props) => {
 
   // Get the height of the navigation bar
   const navBarHeight = useBottomTabBarHeight();
-  const isSignedIn = false;
+  const isSignedIn = true;
 
   return (
     <Layout>

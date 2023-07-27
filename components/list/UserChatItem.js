@@ -18,7 +18,7 @@ const UserChatItem = (props) => {
     <TouchableOpacity onPress={props.onclick} >
       <Layout style={styles.container}>
         <UserAvatar
-          source={require('../../assets/menja.jpg')}
+          source={require('../../assets/pepe.jpg')}
         />
         <Layout style={styles.contentContainer}>
           <Text category='p1'>{props.title}</Text>
