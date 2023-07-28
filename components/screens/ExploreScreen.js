@@ -19,6 +19,10 @@ const AppBar = () => {
   );
 };
 
+/**
+ * Explore Screen
+ * This is the home timeline
+ */
 const ExploreScreen = () => {
 
   const renderItem = ({item, index}) => (

@@ -21,6 +21,16 @@ const BottomTabBar = ({ navigation, state }) => (
   </>
 );
 
+/**
+ * MainScreen
+ * Contains the navigator (with a BottomNavigation component).
+ * 1) Explore
+ * This is the timeline view
+ * 2) Chat
+ * Shows the different conversations with other users / groups
+ * 3) Profile
+ * Shows the user profile (if they have an account)
+ */
 const MainScreen = ({props, navigation}) => {
 
   return (

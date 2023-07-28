@@ -1,11 +1,16 @@
 # Asura: another social app
-Oh look, here's another social app.. great.
+Here's another social app. Yay.. **exactly** what we needed.
+
+Home | Profile | Chat
+--- | --- | ---
+![That's the home screen](./screenshots/home.jpg) | ![That's the profile screen](./screenshots/profile.jpg) | ![That's the home screen](./screenshots/chat.jpg)
+Thread
+![That's the chat screen](./screenshots/conversation.jpg)
 
 ## 🍔 Ingredients
 - React Native 0.71.7
 - Eva Icons 5.3
 - Expo CLI
-- Caffeine ☕
 - Updog
 
 ## 🏈 Build the damn project
@@ -35,15 +40,7 @@ npm run ios
 ### Features
 - [X] Dark theme
 - [ ] Pagination
-- [ ] Like / comment count
-
-## 🎞️ Screenshots
-Home page | Profile
---- | ---
-![That's the home screen](./screenshots/home.jpg) | ![That's the home screen](./screenshots/profile.jpg)
-Chat
-![That's the home screen](./screenshots/chat.jpg)|![That's the home screen](./screenshots/conversation.jpg)
- 
+- [ ] Like / comment count 
 
 ## License
 ```

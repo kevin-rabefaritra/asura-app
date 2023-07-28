@@ -85,6 +85,10 @@ const InputBar = () => {
   );
 }
 
+/**
+ * Conversation screen
+ * Shows the conversation thread between two or more users
+ */
 const ConversationScreen = (props) => {
 
   const onCloseScreen = () => {

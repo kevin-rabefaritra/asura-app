@@ -2,6 +2,10 @@ import { Button, Divider, Icon, Input, Layout, Text } from "@ui-kitten/component
 import MainStatusBar from "../basic/MainStatusBar";
 import { StyleSheet } from "react-native";
 
+/**
+ * Sign up screen
+ * For the user to create an account
+ */
 const SignUpScreen = (props) => {
   const onCloseScreen = () => {
     props.navigation.goBack();

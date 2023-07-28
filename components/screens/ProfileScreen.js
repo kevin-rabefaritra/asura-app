@@ -94,6 +94,11 @@ const ProfileContainer = () => {
   );
 };
 
+/**
+ * Profile screen
+ * Shows the user profile, where the user can set their preferences
+ * and other settings.
+ */
 const ProfileScreen = () => (
   <Layout>
     <AppBar />

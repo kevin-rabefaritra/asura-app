@@ -1,6 +1,12 @@
 import { Avatar, Card, Layout, Text, useStyleSheet } from "@ui-kitten/components";
 import { ImageBackground, StyleSheet } from "react-native";
 
+/**
+ * Represents a individual conversation message item
+ * The item is divided into two categories:
+ * 1. me: message has been sent by the connected user
+ * 2. others: message has been sent by another user
+ */
 const ConversationMessageItem = (props) => {
   return (
     <Layout 

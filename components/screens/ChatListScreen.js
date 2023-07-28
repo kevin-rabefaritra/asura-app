@@ -54,13 +54,25 @@ const AppBar = () => {
   );
 };
 
+/**
+ * ChatList
+ * Shows the different conversation threads with other users.
+ * Clicking on a specific thread opens the corresponding conversation
+ * Ref. see ConversationScreen
+ */
 const ChatListScreen = (props) => {
   const theme = useTheme();
 
+  /**
+   * Opens the selected conversation thread
+   */
   onOpenConversation = () => {
     props.navigation.navigate('Conversation');
   };
 
+  /**
+   * Opens the sign up screen
+   */
   onOpenSignUpScreen = () => {
     props.navigation.navigate('SignUp');
   }
@@ -77,6 +89,8 @@ const ChatListScreen = (props) => {
 
   // Get the height of the navigation bar
   const navBarHeight = useBottomTabBarHeight();
+
+  // If the user is signed in, we direclty show the chat list items
   const isSignedIn = true;
 
   return (

@@ -1,6 +1,10 @@
 import { Button, Card, Divider, Input, Layout, Text, useTheme } from "@ui-kitten/components";
 import { StyleSheet } from "react-native";
 
+/**
+ * Sign up modal dialog
+ * For the user to sign in (provided they already have an account)
+ */
 const SignInModal = (props) => {
   const theme = useTheme();
 

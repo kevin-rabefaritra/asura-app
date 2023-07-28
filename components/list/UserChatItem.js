@@ -12,6 +12,10 @@ const UserAvatar = (props) => {
   );
 }
 
+/**
+ * Represents a chat item listed in the chat list
+ * We use it to display the last message per chat
+ */
 const UserChatItem = (props) => {
   
   return (

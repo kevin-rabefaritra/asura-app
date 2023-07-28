@@ -1,7 +1,9 @@
 import { Text, Avatar, Layout, useTheme, Card } from '@ui-kitten/components';
 import { View, Image, StyleSheet, ImageBackground } from 'react-native';
 
-
+/**
+ * Represents a single post item (displayed on the timeline)
+ */
 const PostItem = (props) => {
   const theme = useTheme();
 
