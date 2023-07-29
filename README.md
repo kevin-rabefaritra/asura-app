@@ -9,7 +9,7 @@ Thread
 
 ## 🍔 Ingredients
 - React Native 0.71.7
-- Eva Icons 5.3
+- [UI Kitten 5.3](https://akveo.github.io/react-native-ui-kitten/)
 - Expo CLI
 - Updog
 

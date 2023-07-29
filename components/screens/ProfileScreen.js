@@ -1,6 +1,8 @@
 import React from 'react';
 import { ApplicationProvider, BottomNavigation, MenuItem, Layout, Text, Button, Icon, Menu, useTheme, Card, Avatar, Toggle } from '@ui-kitten/components';
-import { StyleSheet, View, ImageBackground } from 'react-native';
+import { StyleSheet, View, ImageBackground, ToastAndroid } from 'react-native';
+import { ThemeContext } from '../theme-context';
+import { savePreference } from '../services/PreferenceServices';
 
 
 const AppBar = () => {
@@ -10,6 +12,10 @@ const AppBar = () => {
     </View>
   );
 };
+
+/**
+ * Icons
+ */
 
 const ForwardIcon = (props) => (
   <Icon {...props} name='arrow-right' />
@@ -39,7 +45,18 @@ const LogoutIcon = (props) => (
   <Icon {...props} name='log-out' />
 );
 
-const ProfileContainer = () => {
+/**
+ * Events
+ */
+const onThemeClicked = (themeContext) => {
+  // Apply the new theme
+  let newTheme = themeContext.theme === 'light' ? 'dark' : 'light';
+  themeContext.applyTheme(newTheme);
+  ToastAndroid.show(`Theme successfully set to ${newTheme} mode!`, ToastAndroid.SHORT);
+}
+
+const ProfileContainer = (props) => {
+  const context = props.context;
   const theme = useTheme();
   const [selectedIndex, setSelectedIndex] = React.useState(null);
 
@@ -68,9 +85,10 @@ const ProfileContainer = () => {
             accessoryRight={ForwardIcon}
           />
           <MenuItem
-            title='Dark mode'
+            title='Switch theme'
             accessoryLeft={DarkModeIcon}
             accessoryRight={ForwardIcon}
+            onPress={() => onThemeClicked(context)}
           />
           <MenuItem
             title='Language'
@@ -99,12 +117,18 @@ const ProfileContainer = () => {
  * Shows the user profile, where the user can set their preferences
  * and other settings.
  */
-const ProfileScreen = () => (
-  <Layout>
-    <AppBar />
-    <ProfileContainer />
-  </Layout>
-);
+const ProfileScreen = () => {
+
+  // We get the theme context to update the theme
+  const themeContext = React.useContext(ThemeContext);
+
+  return (
+    <Layout>
+      <AppBar />
+      <ProfileContainer context={themeContext} />
+    </Layout>
+  )
+}
 
 export default ProfileScreen;
 

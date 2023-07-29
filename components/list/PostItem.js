@@ -1,4 +1,4 @@
-import { Text, Avatar, Layout, useTheme, Card } from '@ui-kitten/components';
+import { Text, Avatar, Layout, useTheme, Card, Button, Icon } from '@ui-kitten/components';
 import { View, Image, StyleSheet, ImageBackground } from 'react-native';
 
 /**
@@ -28,6 +28,11 @@ const PostItem = (props) => {
           style={styles.postImage}
           source={require('../../assets/post.jpeg')}
         />
+        <Layout style={styles.actions}>
+          <Button appearance='ghost' style={{flex:1}} status='primary' accessoryLeft={<Icon name="heart"/>}>18</Button>
+          <Button appearance='ghost' style={{flex:1}} status='basic' accessoryLeft={<Icon name="message-circle"/>}>2</Button>
+          <Button appearance='ghost' style={{flex:1}} status='basic' accessoryLeft={<Icon name="share"/>}></Button>
+        </Layout>
       </Layout>
     </Card>
   );
@@ -56,10 +61,17 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   body: {
-    marginVertical: 10
+    marginVertical: 10,
+    lineHeight: 22
   },
   postImage: {
     width: '100%',
     borderRadius: 8,
   },
+  actions: {
+    marginTop: 10,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginBottom: -6
+  }
 });
