@@ -2,6 +2,7 @@ import { Divider, List, BottomNavigationTab, Layout, Text, Button, Icon, IconReg
 import { StyleSheet, View } from 'react-native';
 import PostItem from '../list/PostItem';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
+import DefaultStyle from '../DefaultStyle';
 
 const data = new Array(30).fill({
   title: 'Kevin Michel',
@@ -14,7 +15,7 @@ const data = new Array(30).fill({
 const AppBar = () => {
   return (
     <View style={styles.appBarContainer}>
-      <Text category='h2'>Explore</Text>
+      <Text style={DefaultStyle.heading}>Explore.</Text>
     </View>
   );
 };

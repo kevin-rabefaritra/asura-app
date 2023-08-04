@@ -3,12 +3,13 @@ import { ApplicationProvider, BottomNavigation, MenuItem, Layout, Text, Button, 
 import { StyleSheet, View, ImageBackground, ToastAndroid } from 'react-native';
 import { ThemeContext } from '../theme-context';
 import { savePreference } from '../services/PreferenceServices';
+import DefaultStyle from '../DefaultStyle';
 
 
 const AppBar = () => {
   return (
     <View style={styles.appBarContainer}>
-      <Text category='h2'>Profile</Text>
+      <Text style={DefaultStyle.heading}>Le me.</Text>
     </View>
   );
 };

@@ -4,6 +4,7 @@ import UserChatItem from '../list/UserChatItem';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import React from 'react';
 import SignInModal from '../modals/SignInModal';
+import DefaultStyle from '../DefaultStyle';
 
 const data = new Array(30).fill({
   title: 'Weirdo',
@@ -32,7 +33,7 @@ const AppBar = () => {
 
   return (
     <View style={styles.appBarContainer}>
-      <Text style={{flex: 1, textAlign: 'left'}} category='h2'>Chat</Text>
+      <Text style={[DefaultStyle.heading, {flex: 1, textAlign: 'left'}]}>Chat.</Text>
       <Button
         style={styles.rightButton}
         status='primary'
