@@ -12,10 +12,29 @@ const data = new Array(30).fill({
   avatar: ""
 });
 
-const AppBar = () => {
+const AppBar = (props) => {
+  
   return (
     <View style={styles.appBarContainer}>
-      <Text style={DefaultStyle.heading}>Explore.</Text>
+      <Text style={[DefaultStyle.heading, {flex: 1, textAlign: 'left'}]}>Explore.</Text>
+
+      <Button
+        style={styles.rightButton}
+        appearance='ghost'
+        status='basic'
+        size='small'
+        onPress={props.onOpenSearchScreen}
+        accessoryLeft={<Icon name='search' />}
+      />
+
+      <Button
+        style={styles.rightButton}
+        appearance='ghost'
+        status='primary'
+        size='small'
+        onPress={onOpenWritePostScreen}
+        accessoryLeft={<Icon name='plus-square' />}
+      />
     </View>
   );
 };
@@ -24,7 +43,7 @@ const AppBar = () => {
  * Explore Screen
  * This is the home timeline
  */
-const ExploreScreen = () => {
+const ExploreScreen = (props) => {
 
   const renderItem = ({item, index}) => (
     <PostItem 
@@ -39,9 +58,21 @@ const ExploreScreen = () => {
   // Get the height of the navigation bar
   const navBarHeight = useBottomTabBarHeight();
 
+  /**
+   * Opens the search screen
+   */
+  onOpenSearchScreen = () => {
+    props.navigation.navigate('Search');
+  }
+
+  // Writes a post
+  onOpenWritePostScreen = () => {
+    props.navigation.navigate('WritePost')
+  }
+
   return (
     <Layout>
-      <AppBar />
+      <AppBar onOpenSearchScreen={onOpenSearchScreen} onOpenWritePostScreen={onOpenWritePostScreen}/>
       <Divider />
       <List
         data={data}
@@ -58,10 +89,16 @@ export default ExploreScreen;
 
 const styles = StyleSheet.create({
   appBarContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     padding: 16,
   },
   contentContainer: {
     paddingTop: 4,
     paddingBottom: 4
-  }
+  },
+  rightButton: {
+    marginLeft: 8
+  },
 });

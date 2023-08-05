@@ -5,6 +5,8 @@ import MainScreen from './MainScreen';
 import ConversationScreen from './ConversationScreen';
 import MainStatusBar from '../basic/MainStatusBar';
 import SignUpScreen from './SignUpScreen';
+import SearchScreen from './SearchScreen';
+import WritePostScreen from './WritePostScreen';
 
 const { Navigator, Screen } = createNativeStackNavigator();
 
@@ -18,10 +20,12 @@ const { Navigator, Screen } = createNativeStackNavigator();
  */
 const AppNavigator = () => (
   <NavigationContainer>
-    <Navigator screenOptions={{ header: () => (<MainStatusBar />)}}>
+    <Navigator screenOptions={{ header: () => (<MainStatusBar />), animation: 'fade' }} >
       <Screen name='Main' component={MainScreen} />
       <Screen name='Conversation' component={ConversationScreen} />
       <Screen name='SignUp' component={SignUpScreen} />
+      <Screen name='Search' component={SearchScreen} />
+      <Screen name='WritePost' component={WritePostScreen} />
     </Navigator>
   </NavigationContainer>
 )

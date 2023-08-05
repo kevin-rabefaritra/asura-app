@@ -13,7 +13,7 @@ const data = new Array(30).fill({
   timestamp: '5 min ago'
 });
 
-const AppBar = () => {
+const AppBar = (props) => {
 
   const [visible, setVisible] = React.useState(false);
 
@@ -21,7 +21,7 @@ const AppBar = () => {
     setVisible(false);
   };
 
-  const renderToggleButton = () => (
+  const renderToggleButton = (props) => (
     <Button
       style={styles.rightButton}
       status='primary'
@@ -36,8 +36,10 @@ const AppBar = () => {
       <Text style={[DefaultStyle.heading, {flex: 1, textAlign: 'left'}]}>Chat.</Text>
       <Button
         style={styles.rightButton}
-        status='primary'
+        status='basic'
+        appearance='ghost'
         size='small'
+        onPress={props.onOpenSearchScreen}
         accessoryLeft={<Icon name='search'/>}
       />
 
@@ -78,6 +80,13 @@ const ChatListScreen = (props) => {
     props.navigation.navigate('SignUp');
   }
 
+  /**
+   * Opens the search screen
+   */
+  onOpenSearchScreen = () => {
+    props.navigation.navigate('Search');
+  }
+
   const renderItem = ({item, index}) => (
     <UserChatItem 
       title={`${item.title} ${index + 1}`}
@@ -96,7 +105,7 @@ const ChatListScreen = (props) => {
 
   return (
     <Layout>
-      <AppBar />
+      <AppBar onOpenSearchScreen={onOpenSearchScreen}/>
       <Divider />
       {isSignedIn &&
         <List
