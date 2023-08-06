@@ -101,7 +101,7 @@ const ChatListScreen = (props) => {
   const navBarHeight = useBottomTabBarHeight();
 
   // If the user is signed in, we direclty show the chat list items
-  const isSignedIn = true;
+  const isSignedIn = false;
 
   return (
     <Layout>

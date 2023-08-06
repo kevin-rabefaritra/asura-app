@@ -7,7 +7,7 @@ import { default as mapping } from './mapping.json';
 import { FeatherIconsPack } from './feather-icons';
 import AppNavigator from './components/screens/AppNavigator';
 import { ThemeContext } from './components/theme-context';
-import { getPreference, savePreference } from './components/services/PreferenceServices';
+import * as PreferenceServices  from './components/services/PreferenceServices';
 import * as Font from 'expo-font';
 
 const loadFonts = async () => {
@@ -24,11 +24,11 @@ export default function App() {
   // Set the applyTheme() implementation (will be passed by Provider)
   const applyTheme = (value) => {
     setTheme(value);
-    savePreference('theme', value);
+    PreferenceServices.savePreference(PreferenceServices.THEME, value);
   }
 
   // Load the current theme from preferences (default light)
-  getPreference('theme', 'light').then((result) => {
+  PreferenceServices.getPreference(PreferenceServices.THEME, 'light').then((result) => {
     applyTheme(result);
   });
 

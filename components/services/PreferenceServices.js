@@ -1,5 +1,8 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+export const THEME = 'theme';
+export const SESSION = 'session';
+
 export const savePreference = async (key, value) => {
     try {
         await AsyncStorage.setItem(key, value);

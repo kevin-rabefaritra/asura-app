@@ -1,4 +1,4 @@
-import { Button, Divider, Icon, Text, Layout } from "@ui-kitten/components";
+import { Button, Divider, Icon, Text, Layout, Input } from "@ui-kitten/components";
 import { StyleSheet, View } from "react-native";
 import DefaultStyle from "../DefaultStyle";
 
@@ -21,6 +21,12 @@ const AppBar = (props) => {
     );
 };
 
+/**
+ * Write Post screen
+ * v0.1 - Title (optional) + body
+ * @param {*} props 
+ * @returns 
+ */
 const WritePostScreen = (props) => {
 
     const onCloseScreen = () => {
@@ -31,7 +37,13 @@ const WritePostScreen = (props) => {
         <Layout style={styles.container}>
             <AppBar onBackPressed={onCloseScreen}/>
             <Divider />
-
+            <Layout style={styles.body}>
+                <Input label="Title (optional)" maxLength={250} />
+                <Input 
+                    multiline={true}
+                    textStyle={ {minHeight: 128, textAlignVertical: 'top', paddingVertical: 8} }
+                    placeholder="Write history here.." />
+            </Layout>
         </Layout>
     )
 }
@@ -47,5 +59,10 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1
+    },
+    body: {
+        flexDirection: 'column',
+        padding: 16,
+        gap: 16
     }
 });

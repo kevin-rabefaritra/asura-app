@@ -2,7 +2,6 @@ import React from 'react';
 import { ApplicationProvider, BottomNavigation, MenuItem, Layout, Text, Button, Icon, Menu, useTheme, Card, Avatar, Toggle } from '@ui-kitten/components';
 import { StyleSheet, View, ImageBackground, ToastAndroid } from 'react-native';
 import { ThemeContext } from '../theme-context';
-import { savePreference } from '../services/PreferenceServices';
 import DefaultStyle from '../DefaultStyle';
 
 

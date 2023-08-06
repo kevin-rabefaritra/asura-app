@@ -1,5 +1,6 @@
 import { Button, Card, Divider, Input, Layout, Text, useTheme } from "@ui-kitten/components";
 import { StyleSheet } from "react-native";
+import DefaultStyle from "../DefaultStyle";
 
 /**
  * Sign up modal dialog
@@ -10,7 +11,7 @@ const SignInModal = (props) => {
 
   return (
     <Card style={styles.signInModal}>
-      <Text category='h1'>Sign in</Text>
+      <Text style={DefaultStyle.title}>Sign in.</Text>
       <Text category='s1' appearance='hint'>Don't have an account yet? <Text status='primary' onPress={props.onOpenSignUpScreen}>Create one now</Text>!</Text>
       <Input
         style={styles.inputItem}

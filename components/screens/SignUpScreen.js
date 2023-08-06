@@ -1,6 +1,7 @@
 import { Button, Divider, Icon, Input, Layout, Text } from "@ui-kitten/components";
 import MainStatusBar from "../basic/MainStatusBar";
 import { StyleSheet } from "react-native";
+import DefaultStyle from "../DefaultStyle";
 
 /**
  * Sign up screen
@@ -20,10 +21,10 @@ const SignUpScreen = (props) => {
         onPress={onCloseScreen}
         accessoryLeft={<Icon name='arrow-left' />}
       />
-      <Text style={styles.inputItem} category='h1'>hello.</Text>
+      <Text style={[styles.inputItem, DefaultStyle.title]}>hello.</Text>
       <Input
         style={styles.inputItem}
-        label='Username'
+        label='Username (can be changed later)'
         placeholder='@'
       />
       <Layout style={[styles.inlineContainer, styles.inputItem]}>
