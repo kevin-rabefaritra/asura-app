@@ -7,9 +7,18 @@ import DefaultStyle from "../DefaultStyle";
  * Sign up screen
  * For the user to create an account
  */
+
+const [usernameError, setUsernameError] = React.useState(false);
+const [firstnameError, setFirstnameError] = React.useState(false);
+const [passwordError, setPasswordError] = React.useState(false);
+
 const SignUpScreen = (props) => {
   const onCloseScreen = () => {
     props.navigation.goBack();
+  }
+
+  const onClickValidate = () => {
+    // Validate the form
   }
 
   return (
@@ -25,6 +34,7 @@ const SignUpScreen = (props) => {
       <Input
         style={styles.inputItem}
         label='Username (can be changed later)'
+        status="basic"
         placeholder='@'
       />
       <Layout style={[styles.inlineContainer, styles.inputItem]}>
@@ -54,7 +64,8 @@ const SignUpScreen = (props) => {
       />
       <Button
         style={styles.inputItem}
-        status='primary'>
+        status='primary'
+        onPress={onClickValidate}>
         Create my account
       </Button>
     </Layout>
