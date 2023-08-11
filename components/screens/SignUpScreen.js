@@ -2,23 +2,41 @@ import { Button, Divider, Icon, Input, Layout, Text } from "@ui-kitten/component
 import MainStatusBar from "../basic/MainStatusBar";
 import { StyleSheet } from "react-native";
 import DefaultStyle from "../DefaultStyle";
+import React from "react";
 
 /**
  * Sign up screen
  * For the user to create an account
  */
 
-const [usernameError, setUsernameError] = React.useState(false);
-const [firstnameError, setFirstnameError] = React.useState(false);
-const [passwordError, setPasswordError] = React.useState(false);
+// Error messages
+const [usernameError, setUsernameError] = React.useState(null);
+const [firstnameError, setFirstnameError] = React.useState(null);
+const [emailError, setEmailError] = React.useState(null);
+const [passwordError, setPasswordError] = React.useState(null);
+
+// Form values
+const [username, setUsername] = React.useState();
+const [firstname, setFirstname] = React.useState();
+const [lastname, setLastname] = React.useState();
+const [email, setEmail] = React.useState();
+const [password, setPassword] = React.useState();
+const [confirmPassword, setConfirmPassword] = React.useState();
 
 const SignUpScreen = (props) => {
   const onCloseScreen = () => {
     props.navigation.goBack();
   }
 
+  // Validate the form
   const onClickValidate = () => {
-    // Validate the form
+    // 1. check that there are no empty fields (except last name)
+
+    // 2. check that the password / confirm password match
+
+    // 3. email address
+
+    // 4. check that the username is available 
   }
 
   return (
@@ -50,6 +68,11 @@ const SignUpScreen = (props) => {
         />
       </Layout>
       <Divider style={styles.inputItem} />
+      <Input
+        style={styles.inputItem}
+        label='Email'
+        placeholder='Enter your email address'
+      />
       <Input
         style={styles.inputItem}
         label='Password'
