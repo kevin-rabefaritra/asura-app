@@ -3,6 +3,7 @@ import MainStatusBar from "../basic/MainStatusBar";
 import { StyleSheet } from "react-native";
 import DefaultStyle from "../DefaultStyle";
 import React from "react";
+import { isAlpha, isEmail } from "../../helpers/string_helpers";
 
 /**
  * Sign up screen
@@ -44,6 +45,7 @@ const SignUpScreen = (props) => {
     }
 
     // 3. email address
+    
 
     // 4. check that the username is available 
   }
