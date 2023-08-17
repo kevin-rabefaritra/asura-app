@@ -9,7 +9,9 @@ import { isAlpha, isEmail } from "../../helpers/string_helpers";
  * Sign up screen
  * For the user to create an account
  */
-const PASSWORD_MIN_LENGTH = 8
+export const PASSWORD_MIN_LENGTH = 8
+export const USERNAME_MIN_LENGTH = 3
+const FIRST_NAME_MIN_LENGTH = 2 
 
 const SignUpScreen = (props) => {
 
@@ -34,20 +36,27 @@ const SignUpScreen = (props) => {
   // Validate the form
   const onClickValidate = () => {
     // 1. check that there are no empty fields (except last name)
-    setUsernameError(username.trim() == '' ? "Username cannot be empty" : "")
-    setFirstnameError(firstname.trim() == '' ? "First name cannot be empty": "")
-    setEmailError(email.trim() == "" ? "Email is invalid" : "")
-    setPasswordError(password.trim() == "" ? "Password is empty" : "")
+    setUsernameError(username.trim().length < USERNAME_MIN_LENGTH ? `Username must be at least ${USERNAME_MIN_LENGTH} characters` : "")
+    setFirstnameError(firstname.trim().length < FIRST_NAME_MIN_LENGTH ? `First name must be at least ${FIRST_NAME_MIN_LENGTH} characters` : "")
+    setEmailError(!isEmail(email.trim()) ? "Email is invalid" : "")
 
     // 2. check that the password / confirm password match
-    if (passwordError == "") {
-      setPasswordError(password.trim() != confirmPassword.trim() ? "Password must match" : "")
+    if (password.trim().length < PASSWORD_MIN_LENGTH) {
+      setPasswordError(`Password must be at least ${PASSWORD_MIN_LENGTH} characters`)
+    }
+    else if (password.trim() != confirmPassword.trim()) {
+      setPasswordError("Password must match")
+    }
+    else {
+      setPasswordError("")
     }
 
-    // 3. email address
-    
+    // 4. check that the username is available (only if all conditions above are completed)
+    if (usernameError != "" || firstnameError != "" || emailError != "" || passwordError != "") {
+      return
+    }
 
-    // 4. check that the username is available 
+    // make http request to check the username availability
   }
 
   return (
