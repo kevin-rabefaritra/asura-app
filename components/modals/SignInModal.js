@@ -1,8 +1,10 @@
 import { Button, Card, Divider, Input, Layout, Text, useTheme } from "@ui-kitten/components";
-import { StyleSheet } from "react-native";
+import { Keyboard, StyleSheet } from "react-native";
 import DefaultStyle from "../DefaultStyle";
 import React from "react";
 import { PASSWORD_MIN_LENGTH, USERNAME_MIN_LENGTH } from "../screens/SignUpScreen";
+import { sayHello } from "../../repositories/UserRepository";
+import { BASE_URI } from "../services/PreferenceServices";
 
 /**
  * Sign up modal dialog
@@ -15,14 +17,29 @@ const SignInModal = (props) => {
   // Username / password fields
   const [username, setUsername] = React.useState("")
   const [password, setPassword] = React.useState("")
+  const [isSigningIn, setIsSigningIn] = React.useState(false)
 
   // on sign up click
   const onSignInClick = () => {
-     if (username.trim().length < USERNAME_MIN_LENGTH || password.trim().length < PASSWORD_MIN_LENGTH) {
+    if (username.trim().length < USERNAME_MIN_LENGTH || password.trim().length < PASSWORD_MIN_LENGTH) {
       return
-     }
+    }
+
+    // Set the button text to ongoing
+    setIsSigningIn(true)
+
+    Keyboard.dismiss();
      
-     // Perform request
+    // Perform request
+    sayHello(`${BASE_URI}/hello`)
+    .then(response => response.json())
+    .then(json => {
+      console.log(json)
+      setIsSigningIn(false)
+    })
+    .catch(error => {
+      console.error(error);
+    });
   }
 
   return (
@@ -45,6 +62,7 @@ const SignInModal = (props) => {
       <Button
         style={styles.inputItem}
         status='primary'
+        disabled={isSigningIn}
         onPress={onSignInClick}>
         Log in
       </Button>

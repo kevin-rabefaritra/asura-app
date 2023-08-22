@@ -4,7 +4,8 @@ import { StyleSheet } from "react-native";
 import DefaultStyle from "../DefaultStyle";
 import React from "react";
 import { isAlpha, isEmail } from "../../helpers/string_helpers";
-import { BASE_URI } from "../../App";
+import { BASE_URI } from "../services/PreferenceServices";
+import { signUp } from "../../repositories/UserRepository";
 
 /**
  * Sign up screen
@@ -57,22 +58,8 @@ const SignUpScreen = (props) => {
       return
     }
 
-    // make http request to check the username availability
-    // better to put this block in a separate repository file, and use await instead
-    fetch(`${BASE_URI}/signinorsomething`, {
-      method: "POST",
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        username: username,
-        firstname: firstname,
-        lastname: lastname,
-        email: email,
-        password: password
-      })
-    })
+    // Todo: make http request to check the username availability
+    signUp(`${BASE_URI}/signinorsomething`, username, firstname, lastname, email, password)
     .then(response => response.json())
     .catch(error => {
       console.error(error)

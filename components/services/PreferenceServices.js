@@ -1,5 +1,10 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+
+// Global values
+export const BASE_URI = ""
+
+// Preference keys
 export const THEME = 'theme';
 export const SESSION = 'session';
 

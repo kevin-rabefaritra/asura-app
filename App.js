@@ -10,9 +10,6 @@ import { ThemeContext } from './components/theme-context';
 import * as PreferenceServices  from './components/services/PreferenceServices';
 import * as Font from 'expo-font';
 
-// Global values
-export const BASE_URI = "<!-- BASE URI -->"
-
 // Fonts
 const loadFonts = async () => {
   await Font.loadAsync({
