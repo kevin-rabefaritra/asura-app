@@ -11,4 +11,14 @@ export default StyleSheet.create({
         fontSize: 28,
         textTransform: 'uppercase'
     },
+    loading: {
+        zIndex: 1,
+        backgroundColor: '#FFFFFF',
+        opacity: 0.7,
+        height: '100%',
+        width: '100%',
+        position: 'absolute',
+        justifyContent: 'center',
+        alignItems: 'center'
+    }
 });

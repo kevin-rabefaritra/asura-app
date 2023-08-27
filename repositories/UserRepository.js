@@ -17,13 +17,12 @@ export function signUp(url, username, firstname, lastname, email, password) {
   return fetch(url, {
     method: "POST",
     headers: {
-      Accept: 'application/json',
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
       username: username,
-      firstname: firstname,
-      lastname: lastname,
+      first_name: firstname,
+      last_name: lastname,
       email: email,
       password: password
     })
