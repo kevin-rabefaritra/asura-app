@@ -2,9 +2,9 @@ import { Button, Divider, Icon, Input, Layout, Text, Card, Spinner } from "@ui-k
 import MainStatusBar from "../basic/MainStatusBar";
 import { StyleSheet, View } from "react-native";
 import DefaultStyle from "../DefaultStyle";
-import React from "react";
+import React, { useEffect } from "react";
 import { isAlpha, isEmail } from "../../helpers/string_helpers";
-import { BASE_URI } from "../services/PreferenceServices";
+import { BASE_URI, USERNAME, savePreference } from "../services/PreferenceServices";
 import { signUp } from "../../repositories/UserRepository";
 
 /**
@@ -32,10 +32,42 @@ const SignUpScreen = (props) => {
   const [password, setPassword] = React.useState('');
   const [confirmPassword, setConfirmPassword] = React.useState('');
 
+  const [hasErrors, setHasErrors] = React.useState(false);
   const [isProcessing, setIsProcessing] = React.useState(false);
 
   const onCloseScreen = () => {
     props.navigation.goBack();
+  }
+
+  const signUpUser = async () => {
+    setIsProcessing(true);
+    try {
+      const response = await signUp(`${BASE_URI}/users/`, username, firstname, lastname, email, password);
+      if (response.status == 201) {
+        const json = await response.json();
+
+        // Sign up succesfull, we store the account into to the preferences
+        savePreference(USERNAME, json.username);
+
+        setHasErrors(false)
+      }
+      else if (response.status == 400) {
+        // got expected error from server
+        setUsernameError("This username is already taken.")
+        setHasErrors(true)
+      }
+      else {
+        setGeneralError(`Error code ${response.status}`);
+        setHasErrors(true)
+      }
+    }
+    catch(error) {
+      setGeneralError('Error reaching out to the server.');
+      setHasErrors(true)
+    }
+    finally {
+      setIsProcessing(false);
+    }
   }
 
   // Validate the form
@@ -82,6 +114,7 @@ const SignUpScreen = (props) => {
     }
 
     // 3. check that the username is available (only if all conditions above are completed)
+    setHasErrors(errors);
     if (errors) {
       return null;
     }
@@ -89,30 +122,7 @@ const SignUpScreen = (props) => {
     // 4. Todo: make http request to check the username availability
 
     // 5. Signs the user up
-    // Display loading view
-    setIsProcessing(true);
-
-    signUp(`${BASE_URI}/users/`, username, firstname, lastname, email, password)
-    .then(response => {
-      setIsProcessing(false);
-      if (response.status == 201) {
-        // user has been created successfully
-      }
-      else if (response.status == 400) {
-        // got expected error from server
-        setUsernameError("This username is already taken.")
-      }
-      else {
-        setGeneralError(`Error code ${response.status}`);
-      }
-    })
-    .catch(error => {
-      setGeneralError('Error reaching out to the server.');
-    })
-  }
-
-  const hasErrors = (includingGeneral = false) => {
-    return (generalError != "" && includingGeneral) || usernameError != "" || firstnameError != "" || emailError != "" || passwordError != ""
+    signUpUser();
   }
 
   const getErrors = () => {
@@ -137,7 +147,7 @@ const SignUpScreen = (props) => {
         />
         <Text style={[styles.inputItem, DefaultStyle.title]}>hello.</Text>
         { 
-          hasErrors(true) && 
+          hasErrors && 
           <Card
             style={{marginTop: 8}}
             status='danger'>
