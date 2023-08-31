@@ -3,8 +3,8 @@ import { Keyboard, StyleSheet } from "react-native";
 import DefaultStyle from "../DefaultStyle";
 import React from "react";
 import { PASSWORD_MIN_LENGTH, USERNAME_MIN_LENGTH } from "../screens/SignUpScreen";
-import { sayHello } from "../../repositories/UserRepository";
-import { BASE_URI } from "../services/PreferenceServices";
+import { sayHello, signIn } from "../../repositories/UserRepository";
+import { BASE_URI, TOKEN, USERNAME, UUID, NAME, EMAIL, savePreference } from "../services/PreferenceServices";
 
 /**
  * Sign up modal dialog
@@ -14,32 +14,41 @@ import { BASE_URI } from "../services/PreferenceServices";
 const SignInModal = (props) => {
   const theme = useTheme();
 
+  const [signInError, setSignInError] = React.useState("")
+
   // Username / password fields
   const [username, setUsername] = React.useState("")
   const [password, setPassword] = React.useState("")
   const [isSigningIn, setIsSigningIn] = React.useState(false)
 
   // on sign up click
-  const onSignInClick = () => {
+  const onSignInClick = async () => {
     if (username.trim().length < USERNAME_MIN_LENGTH || password.trim().length < PASSWORD_MIN_LENGTH) {
       return
     }
-
     // Set the button text to ongoing
-    setIsSigningIn(true)
+    setIsSigningIn(true);
 
+    // Dismiss the keyboard
     Keyboard.dismiss();
      
     // Perform request
-    sayHello(`${BASE_URI}/hello`)
-    .then(response => response.json())
-    .then(json => {
-      console.log(json)
-      setIsSigningIn(false)
-    })
-    .catch(error => {
-      console.error(error);
-    });
+    const response = await signIn(`${BASE_URI}/users/signin`, username, password);
+    setIsSigningIn(false);
+    if (response.status == 200) {
+      let json = await response.json();
+      let user = json.user;
+
+      savePreference(TOKEN, json.token);
+      savePreference(UUID, user.uuid);
+      savePreference(USERNAME, user.username);
+      savePreference(NAME, `${user.first_name} ${user.last_name}`);
+      savePreference(EMAIL, user.email);
+      console.log("OK");
+    }
+    if (response.status == 404) {
+      // the user does not exist
+    }
   }
 
   return (

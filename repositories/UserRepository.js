@@ -30,6 +30,26 @@ export function signUp(url, username, firstname, lastname, email, password) {
 }
 
 /**
+ * Signs a user in
+ * @param {*} url 
+ * @param {*} username 
+ * @param {*} password 
+ * @returns 
+ */
+export function signIn(url, username, password) {
+  return fetch(url, {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      username: username,
+      password: password
+    })
+  })
+}
+
+/**
  * Sample HTTP GET request for saying hello
  * @param {*} url 
  * @returns 

@@ -2,11 +2,15 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 // Global values
-export const BASE_URI = ""
+export const BASE_URI = "http://asura.kianja.top/asura"
 
 // Preference keys
 export const THEME = 'theme';
-export const SESSION = 'session';
+export const TOKEN = 'token';
+export const USERNAME = 'username';
+export const UUID = 'uuid';
+export const NAME = 'uname';
+export const EMAIL = 'email';
 
 export const savePreference = async (key, value) => {
     try {

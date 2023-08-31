@@ -4,7 +4,7 @@ import { StyleSheet, View } from "react-native";
 import DefaultStyle from "../DefaultStyle";
 import React, { useEffect } from "react";
 import { isAlpha, isEmail } from "../../helpers/string_helpers";
-import { BASE_URI, USERNAME, savePreference } from "../services/PreferenceServices";
+import { BASE_URI, NAME, USERNAME, UUID, savePreference } from "../services/PreferenceServices";
 import { signUp } from "../../repositories/UserRepository";
 
 /**
@@ -46,8 +46,11 @@ const SignUpScreen = (props) => {
       if (response.status == 201) {
         const json = await response.json();
 
-        // Sign up succesfull, we store the account into to the preferences
+        // Sign up successful, we store the account into to the preferences
+        savePreference(UUID, json.uuid);
         savePreference(USERNAME, json.username);
+        savePreference(NAME, `${json.first_name} ${json.last_name}`);
+        savePreference(EMAIL, json.email);
 
         setHasErrors(false)
       }
