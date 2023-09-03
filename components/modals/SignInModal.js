@@ -5,6 +5,7 @@ import React from "react";
 import { PASSWORD_MIN_LENGTH, USERNAME_MIN_LENGTH } from "../screens/SignUpScreen";
 import { sayHello, signIn } from "../../repositories/UserRepository";
 import { BASE_URI, TOKEN, USERNAME, UUID, NAME, EMAIL, savePreference } from "../services/PreferenceServices";
+import User from "../models/User";
 
 /**
  * Sign up modal dialog
@@ -12,6 +13,7 @@ import { BASE_URI, TOKEN, USERNAME, UUID, NAME, EMAIL, savePreference } from "..
  */
 
 const SignInModal = (props) => {
+  const context = props.context;
   const theme = useTheme();
 
   const [signInError, setSignInError] = React.useState("")
@@ -23,31 +25,46 @@ const SignInModal = (props) => {
 
   // on sign up click
   const onSignInClick = async () => {
+    // Dismiss the keyboard
+    Keyboard.dismiss();
+
     if (username.trim().length < USERNAME_MIN_LENGTH || password.trim().length < PASSWORD_MIN_LENGTH) {
       return
     }
     // Set the button text to ongoing
     setIsSigningIn(true);
-
-    // Dismiss the keyboard
-    Keyboard.dismiss();
      
     // Perform request
-    const response = await signIn(`${BASE_URI}/users/signin`, username, password);
-    setIsSigningIn(false);
-    if (response.status == 200) {
-      let json = await response.json();
-      let user = json.user;
+    try {
+      const response = await signIn(`${BASE_URI}/users/signin`, username, password);
+      setIsSigningIn(false);
+      if (response.status == 200) {
+        setSignInError(null);
+        let json = await response.json();
+        let jsonUser = json.user;
 
-      savePreference(TOKEN, json.token);
-      savePreference(UUID, user.uuid);
-      savePreference(USERNAME, user.username);
-      savePreference(NAME, `${user.first_name} ${user.last_name}`);
-      savePreference(EMAIL, user.email);
-      console.log("OK");
+        savePreference(TOKEN, json.token);
+        
+        // Update the user in Context
+        const user = new User(
+          jsonUser.username,
+          jsonUser.uuid,
+          jsonUser.first_name,
+          jsonUser.last_name,
+          jsonUser.email
+        );
+        context.updateUser(user);
+      }
+      if (response.status == 404) {
+        // the user does not exist
+        setSignInError("The username / password does not exist.");
+      }
     }
-    if (response.status == 404) {
-      // the user does not exist
+    catch (e) {
+      console.log(e);
+      console.log(e.sta)
+      setIsSigningIn(false);
+      setSignInError("An error occured. Please try again.")
     }
   }
 
@@ -55,6 +72,9 @@ const SignInModal = (props) => {
     <Card style={styles.signInModal}>
       <Text style={DefaultStyle.title}>Sign in.</Text>
       <Text category='s1' appearance='hint'>Don't have an account yet? <Text status='primary' onPress={props.onOpenSignUpScreen}>Create one now</Text>!</Text>
+      { signInError && 
+        <Text category="label" status="danger" style={{marginTop: 8}}>{signInError}</Text>
+      }
       <Input
         style={styles.inputItem}
         label='Your username'

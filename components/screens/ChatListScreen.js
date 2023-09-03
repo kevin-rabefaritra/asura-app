@@ -5,6 +5,7 @@ import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import React from 'react';
 import SignInModal from '../modals/SignInModal';
 import DefaultStyle from '../DefaultStyle';
+import { ThemeContext } from '../theme-context';
 
 const data = new Array(30).fill({
   title: 'Weirdo',
@@ -64,7 +65,13 @@ const AppBar = (props) => {
  * Ref. see ConversationScreen
  */
 const ChatListScreen = (props) => {
+
+  // We get the theme context to update the theme
+  const context = React.useContext(ThemeContext);
   const theme = useTheme();
+
+  // If the user is signed in, we will show the chat list items
+  const isSignedIn = context.user !== null;
 
   /**
    * Opens the selected conversation thread
@@ -100,9 +107,6 @@ const ChatListScreen = (props) => {
   // Get the height of the navigation bar
   const navBarHeight = useBottomTabBarHeight();
 
-  // If the user is signed in, we direclty show the chat list items
-  const isSignedIn = false;
-
   return (
     <Layout>
       <AppBar onOpenSearchScreen={onOpenSearchScreen}/>
@@ -117,7 +121,7 @@ const ChatListScreen = (props) => {
       }
       {!isSignedIn && 
         <Layout style={[styles.content, {backgroundColor: theme['background-basic-color-3']}]}>
-          <SignInModal onOpenSignUpScreen={onOpenSignUpScreen}/>
+          <SignInModal onOpenSignUpScreen={onOpenSignUpScreen} context={context}/>
         </Layout>
       }
     </Layout>

@@ -55,6 +55,12 @@ const onThemeClicked = (themeContext) => {
   ToastAndroid.show(`Theme successfully set to ${newTheme} mode!`, ToastAndroid.SHORT);
 }
 
+const onSignOutClicked = (themeContext) => {
+  // set the user to null
+  themeContext.updateUser(null);
+  ToastAndroid.show(`You have successfully signed out!`, ToastAndroid.SHORT);
+}
+
 const ProfileContainer = (props) => {
   const context = props.context;
   const theme = useTheme();
@@ -104,6 +110,7 @@ const ProfileContainer = (props) => {
             title='Log out'
             accessoryLeft={LogoutIcon}
             accessoryRight={ForwardIcon}
+            onPress={() => onSignOutClicked(context)}
           />
         </Menu>
 

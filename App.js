@@ -20,8 +20,14 @@ const loadFonts = async () => {
 // Default App
 export default function App() {
 
+  // App theme (light, dark)
   const [theme, setTheme] = React.useState('light');
+
+  // Font loading state
   const [loaded, setLoaded] = React.useState(false);
+
+  // Store user info in memory
+  const [user, setUser] = React.useState(null);
 
   // Set the applyTheme() implementation (will be passed by Provider)
   const applyTheme = (value) => {
@@ -29,11 +35,29 @@ export default function App() {
     PreferenceServices.savePreference(PreferenceServices.THEME, value);
   }
 
+  // Update the user info
+  const updateUser = (user) => {
+    setUser(user);
+    if (user !== null) {
+      PreferenceServices.savePreference(PreferenceServices.UUID, user.uuid);
+      PreferenceServices.savePreference(PreferenceServices.USERNAME, user.username);
+      PreferenceServices.savePreference(PreferenceServices.NAME, `${user.firstName} ${user.lastName}`);
+      PreferenceServices.savePreference(PreferenceServices.EMAIL, user.email);
+    }
+    else {
+      PreferenceServices.savePreference(PreferenceServices.UUID, null);
+      PreferenceServices.savePreference(PreferenceServices.USERNAME, null);
+      PreferenceServices.savePreference(PreferenceServices.NAME, null);
+      PreferenceServices.savePreference(PreferenceServices.EMAIL, null);
+    }
+  }
+
   // Load the current theme from preferences (default light)
   PreferenceServices.getPreference(PreferenceServices.THEME, 'light').then((result) => {
     applyTheme(result);
   });
 
+  // Load fonts
   React.useEffect(() => {
     async function loadApp() {
       await loadFonts();
@@ -42,6 +66,7 @@ export default function App() {
     loadApp();
   }, []);
 
+  // Return null if the fonts haven't loaded yet
   if (!loaded) {
     return null;
   }
@@ -49,7 +74,7 @@ export default function App() {
   return (
     <>
       <IconRegistry icons={[FeatherIconsPack, EvaIconsPack]} />
-      <ThemeContext.Provider value={{ theme, applyTheme }}>
+      <ThemeContext.Provider value={{ theme, applyTheme, user, updateUser }}>
         <ApplicationProvider {...eva} theme={{...eva[theme], ...defaultTheme}} customMapping={mapping}>
           <AppNavigator {...eva} />
         </ApplicationProvider>
