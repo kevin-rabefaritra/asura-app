@@ -65,19 +65,34 @@ const ProfileContainer = (props) => {
   const context = props.context;
   const theme = useTheme();
   const [selectedIndex, setSelectedIndex] = React.useState(null);
+  const user = context.user;
 
   return (
     <Layout style={[styles.profileContainer, {backgroundColor: theme['background-basic-color-3']}]}>
       <Card style={styles.profileCard}>
-        <Avatar
-          shape='rounded'
-          size='giant'
-          source={require('../../assets/menja.jpg')}
-          ImageComponent={ImageBackground}
-          style={styles.userAvatar}
-        />
-        <Text category='h3' style={styles.text}>Kevin Michel</Text>
-        <Text category='h5' appearance='hint' style={styles.text}>@kevinmichel</Text>
+        { 
+          user && 
+          <Avatar
+            shape='rounded'
+            size='giant'
+            source={require('../../assets/menja.jpg')}
+            ImageComponent={ImageBackground}
+            style={styles.userAvatar}
+          />
+        }
+
+        { 
+          user ? (
+            <>
+              <Text category='h3' style={styles.text}>{user.firstName} {user.lastName}</Text>
+              <Text category='h5' appearance='hint' style={styles.text}>@{user.username}</Text>
+            </>
+          ) : (
+            <>
+              <Text category='h5' appearance='hint' style={styles.text}>You're not signed in.</Text>
+            </>
+          )
+        }
 
         <Menu onSelect={index => setSelectedIndex(index)} style={{marginTop: 8, marginHorizontal: -24}} >
           <MenuItem

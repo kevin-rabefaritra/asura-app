@@ -38,3 +38,14 @@ export const getPreference = async (key, defaultValue = null) => {
         return defaultValue;
     }
 }
+
+export const removePreference = async (key) => {
+    try {
+        await AsyncStorage.removeItem(key);
+        return true;
+    }
+    catch (e) {
+        // Unable to save the value
+        return false;
+    }
+}

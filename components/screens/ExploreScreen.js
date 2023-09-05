@@ -3,6 +3,8 @@ import { StyleSheet, View } from 'react-native';
 import PostItem from '../list/PostItem';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import DefaultStyle from '../DefaultStyle';
+import React from 'react';
+import { ThemeContext } from '../theme-context';
 
 const data = new Array(30).fill({
   title: 'Kevin Michel',
@@ -27,14 +29,17 @@ const AppBar = (props) => {
         accessoryLeft={<Icon name='search' />}
       />
 
-      <Button
-        style={styles.rightButton}
-        appearance='ghost'
-        status='primary'
-        size='small'
-        onPress={onOpenWritePostScreen}
-        accessoryLeft={<Icon name='plus-square' />}
-      />
+      { 
+        props.isSignedIn && 
+        <Button
+          style={styles.rightButton}
+          appearance='ghost'
+          status='primary'
+          size='small'
+          onPress={onOpenWritePostScreen}
+          accessoryLeft={<Icon name='plus-square' />}
+        />
+      }
     </View>
   );
 };
@@ -44,6 +49,9 @@ const AppBar = (props) => {
  * This is the home timeline
  */
 const ExploreScreen = (props) => {
+
+  const context = React.useContext(ThemeContext);
+  const isSignedIn = context.user !== null;
 
   const renderItem = ({item, index}) => (
     <PostItem 
@@ -72,7 +80,11 @@ const ExploreScreen = (props) => {
 
   return (
     <Layout>
-      <AppBar onOpenSearchScreen={onOpenSearchScreen} onOpenWritePostScreen={onOpenWritePostScreen}/>
+      <AppBar 
+        onOpenSearchScreen={onOpenSearchScreen} 
+        onOpenWritePostScreen={onOpenWritePostScreen}
+        isSignedIn={isSignedIn}
+      />
       <Divider />
       <List
         data={data}

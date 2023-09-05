@@ -9,6 +9,7 @@ import AppNavigator from './components/screens/AppNavigator';
 import { ThemeContext } from './components/theme-context';
 import * as PreferenceServices  from './components/services/PreferenceServices';
 import * as Font from 'expo-font';
+import User from './components/models/User';
 
 // Fonts
 const loadFonts = async () => {
@@ -37,24 +38,39 @@ export default function App() {
 
   // Update the user info
   const updateUser = (user) => {
-    setUser(user);
     if (user !== null) {
       PreferenceServices.savePreference(PreferenceServices.UUID, user.uuid);
       PreferenceServices.savePreference(PreferenceServices.USERNAME, user.username);
-      PreferenceServices.savePreference(PreferenceServices.NAME, `${user.firstName} ${user.lastName}`);
+      PreferenceServices.savePreference(PreferenceServices.NAME, `${user.firstName};${user.lastName}`);
       PreferenceServices.savePreference(PreferenceServices.EMAIL, user.email);
     }
     else {
-      PreferenceServices.savePreference(PreferenceServices.UUID, null);
-      PreferenceServices.savePreference(PreferenceServices.USERNAME, null);
-      PreferenceServices.savePreference(PreferenceServices.NAME, null);
-      PreferenceServices.savePreference(PreferenceServices.EMAIL, null);
+      PreferenceServices.removePreference(PreferenceServices.UUID);
+      PreferenceServices.removePreference(PreferenceServices.USERNAME);
+      PreferenceServices.removePreference(PreferenceServices.NAME);
+      PreferenceServices.removePreference(PreferenceServices.EMAIL);
     }
+    setUser(user);
   }
 
   // Load the current theme from preferences (default light)
   PreferenceServices.getPreference(PreferenceServices.THEME, 'light').then((result) => {
     applyTheme(result);
+  });
+
+  // Check if there is any user already signed in
+  PreferenceServices.getPreference(PreferenceServices.UUID, null).then((uuid) => {
+    if (user === null && uuid !== null) {
+      Promise.all([
+        PreferenceServices.getPreference(PreferenceServices.USERNAME, null),
+        PreferenceServices.getPreference(PreferenceServices.NAME, null),
+        PreferenceServices.getPreference(PreferenceServices.EMAIL, null)
+      ]).then((response) => {
+        const [firstName, lastName] = response[1].split(";");
+        const user = new User(response[0], uuid, firstName, lastName, response[2]);
+        setUser(user);
+      })
+    }
   });
 
   // Load fonts
