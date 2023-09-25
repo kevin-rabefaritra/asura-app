@@ -1,7 +1,7 @@
 import { Button, Card, Divider, Input, Layout, Text, useTheme } from "@ui-kitten/components";
 import { Keyboard, StyleSheet } from "react-native";
 import DefaultStyle from "../DefaultStyle";
-import React from "react";
+import React, { useEffect } from "react";
 import { PASSWORD_MIN_LENGTH, USERNAME_MIN_LENGTH } from "../screens/SignUpScreen";
 import { sayHello, signIn } from "../../repositories/UserRepository";
 import { BASE_URI, TOKEN, USERNAME, UUID, NAME, EMAIL, savePreference } from "../services/PreferenceServices";
@@ -22,14 +22,24 @@ const SignInModal = (props) => {
   const [username, setUsername] = React.useState("")
   const [password, setPassword] = React.useState("")
   const [isSigningIn, setIsSigningIn] = React.useState(false)
+  const [isFormValid, setIsFormValid] = React.useState(false)
+
+  const validateForm = () => {
+    return username.trim().length >= USERNAME_MIN_LENGTH && password.trim().length >= PASSWORD_MIN_LENGTH;
+  }
+
+  // Effect to keep track on the sign in button
+  useEffect(() => {
+    setIsFormValid(validateForm());
+  }, [username, password])
 
   // on sign up click
   const onSignInClick = async () => {
     // Dismiss the keyboard
     Keyboard.dismiss();
 
-    if (username.trim().length < USERNAME_MIN_LENGTH || password.trim().length < PASSWORD_MIN_LENGTH) {
-      return
+    if (!validateForm()) {
+      return;
     }
     // Set the button text to ongoing
     setIsSigningIn(true);
@@ -69,7 +79,7 @@ const SignInModal = (props) => {
   }
 
   return (
-    <Card style={styles.signInModal}>
+    <Card style={styles.signInModal} disabled={true}>
       <Text style={DefaultStyle.title}>Sign in.</Text>
       <Text category='s1' appearance='hint'>Don't have an account yet? <Text status='primary' onPress={props.onOpenSignUpScreen}>Create one now</Text>!</Text>
       { signInError && 
@@ -91,7 +101,7 @@ const SignInModal = (props) => {
       <Button
         style={styles.inputItem}
         status='primary'
-        disabled={isSigningIn}
+        disabled={isSigningIn || !isFormValid}
         onPress={onSignInClick}>
         Log in
       </Button>

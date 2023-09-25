@@ -56,7 +56,8 @@ const SignUpScreen = (props) => {
       }
       else if (response.status == 400) {
         // got expected error from server
-        setUsernameError("This username is already taken.")
+        // username or email might already been taken
+        setUsernameError("The username or email is already taken.")
         setHasErrors(true)
       }
       else {
@@ -65,6 +66,8 @@ const SignUpScreen = (props) => {
       }
     }
     catch(error) {
+      // Todo: [ReferenceError: Property 'EMAIL' doesn't exist] to be fixed
+      console.log(error);
       setGeneralError('Error reaching out to the server.');
       setHasErrors(true)
     }
@@ -156,7 +159,7 @@ const SignUpScreen = (props) => {
             status='danger'>
             <Text style={{lineHeight: 24}}>
               Error(s):
-              { getErrors().filter((item) => item != null && item.trim() != "").map((item) => `\n\u2022 ${item}.`)}
+              { getErrors().filter((item) => item != null && item.trim() != "").map((item) => `\n\u2022 ${item}`)}
             </Text>
           </Card>
         }

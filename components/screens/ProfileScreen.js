@@ -69,7 +69,7 @@ const ProfileContainer = (props) => {
 
   return (
     <Layout style={[styles.profileContainer, {backgroundColor: theme['background-basic-color-3']}]}>
-      <Card style={styles.profileCard}>
+      <Card style={styles.profileCard} disabled={true}>
         { 
           user && 
           <Avatar
