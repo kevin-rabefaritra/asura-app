@@ -57,3 +57,17 @@ export function signIn(url, username, password) {
 export function sayHello(url) {
   return fetch(url)
 }
+
+/**
+ * Search for user based on a keyword
+ * @param {*} url 
+ * @param {*} keyword 
+ */
+export function search(url, token, keyword) {
+  return fetch(url, {
+    method: "GET",
+    headers: {
+      'Content-Type': 'application/json'
+    },
+  });
+}

@@ -45,6 +45,10 @@ const LogoutIcon = (props) => (
   <Icon {...props} name='log-out' />
 );
 
+const InfoIcon = (props) => (
+  <Icon {...props} name='info' />
+);
+ 
 /**
  * Events
  */
@@ -71,40 +75,51 @@ const ProfileContainer = (props) => {
     <Layout style={[styles.profileContainer, {backgroundColor: theme['background-basic-color-3']}]}>
       <Card style={styles.profileCard} disabled={true}>
         { 
-          user && 
-          <Avatar
-            shape='rounded'
-            size='giant'
-            source={require('../../assets/menja.jpg')}
-            ImageComponent={ImageBackground}
-            style={styles.userAvatar}
-          />
-        }
-
-        { 
           user ? (
-            <>
-              <Text category='h3' style={styles.text}>{user.firstName} {user.lastName}</Text>
-              <Text category='h5' appearance='hint' style={styles.text}>@{user.username}</Text>
-            </>
+            <Layout style={styles.headerContainer}>
+              <Avatar
+                shape='rounded'
+                size='giant'
+                source={require('../../assets/menja.jpg')}
+                ImageComponent={ImageBackground}
+                style={styles.userAvatar}
+              />
+              <Layout style={styles.headerInfoContainer}>
+                <Text category='h6'>{user.firstName} {user.lastName}</Text>
+                <Text category='h6' appearance='hint'>@{user.username}</Text>
+              </Layout>
+            </Layout>
           ) : (
-            <>
-              <Text category='h5' appearance='hint' style={styles.text}>You're not signed in.</Text>
-            </>
+            <Layout style={styles.headerContainer}>
+              <Avatar
+                shape='rounded'
+                size='giant'
+                source={require('../../assets/menja_guest.jpg')}
+                ImageComponent={ImageBackground}
+                style={styles.userAvatar}
+              />
+              <Layout style={styles.headerInfoContainer}>
+                <Text category='h6'>Guest</Text>
+                <Text category='h6' appearance='hint'>You're not signed in.</Text>
+              </Layout>
+            </Layout>
           )
         }
-
-        <Menu onSelect={index => setSelectedIndex(index)} style={{marginTop: 8, marginHorizontal: -24}} >
-          <MenuItem
-            title='General information'
-            accessoryLeft={UserIcon}
-            accessoryRight={ForwardIcon}
-          />
-          <MenuItem
-            title='Security'
-            accessoryLeft={SecurityIcon}
-            accessoryRight={ForwardIcon}
-          />
+        <Menu onSelect={index => setSelectedIndex(index)} style={{marginTop: 16, marginHorizontal: -24}} >
+          { user &&
+            <>
+              <MenuItem
+                title='General information'
+                accessoryLeft={UserIcon}
+                accessoryRight={ForwardIcon}
+              />
+              <MenuItem
+                title='Security'
+                accessoryLeft={SecurityIcon}
+                accessoryRight={ForwardIcon}
+              />
+            </>
+          }
           <MenuItem
             title='Switch theme'
             accessoryLeft={DarkModeIcon}
@@ -122,13 +137,19 @@ const ProfileContainer = (props) => {
             accessoryRight={ForwardIcon}
           />
           <MenuItem
-            title='Log out'
-            accessoryLeft={LogoutIcon}
+            title='About'
+            accessoryLeft={InfoIcon}
             accessoryRight={ForwardIcon}
-            onPress={() => onSignOutClicked(context)}
           />
+          { user && 
+            <MenuItem
+              title='Log out'
+              accessoryLeft={LogoutIcon}
+              accessoryRight={ForwardIcon}
+              onPress={() => onSignOutClicked(context)}
+            />
+          }
         </Menu>
-
       </Card>
     </Layout>
   );
@@ -169,6 +190,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   userAvatar: {
+    alignSelf: 'center'
+  },
+  headerContainer: {
+    flexDirection: 'row',
+    alignItems: 'flex-start'
+  },
+  headerInfoContainer: {
+    flex: 1,
+    marginLeft: 16,
+    justifyContent: 'space-between',
     alignSelf: 'center'
   },
   text: {
