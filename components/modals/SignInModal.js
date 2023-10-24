@@ -10,6 +10,7 @@ import User from "../models/User";
 /**
  * Sign up modal dialog
  * For the user to sign in (provided they already have an account)
+ * Test user account: test / 12345678
  */
 
 const SignInModal = (props) => {

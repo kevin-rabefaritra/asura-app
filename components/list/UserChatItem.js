@@ -19,7 +19,7 @@ const UserAvatar = (props) => {
 const UserChatItem = (props) => {
   
   return (
-    <TouchableOpacity onPress={props.onclick} >
+    <TouchableOpacity onPress={props.onClick} >
       <Layout style={styles.container}>
         <UserAvatar
           source={require('../../assets/pepe.jpg')}

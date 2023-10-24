@@ -64,10 +64,12 @@ export function sayHello(url) {
  * @param {*} keyword 
  */
 export function search(url, token, keyword) {
-  return fetch(url, {
+  console.log(`${url}${keyword} - ${token}`);
+  return fetch(`${url}${keyword}`, {
     method: "GET",
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Authorization': `Basic ${token}`
     },
   });
 }

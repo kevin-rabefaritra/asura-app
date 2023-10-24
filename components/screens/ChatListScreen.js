@@ -100,7 +100,7 @@ const ChatListScreen = (props) => {
       src={`${item.src}`}
       description={item.description}
       timestamp={item.timestamp}
-      onclick={onOpenConversation}
+      onClick={onOpenConversation}
     />
   );
 
