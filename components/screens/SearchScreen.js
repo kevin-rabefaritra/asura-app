@@ -1,4 +1,4 @@
-import { Button, Divider, Icon, Input, Layout, List, useTheme } from "@ui-kitten/components";
+import { Button, Divider, Icon, Input, Layout, List, ProgressBar, Text, useTheme } from "@ui-kitten/components";
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import { search } from "../../repositories/UserRepository";
@@ -15,7 +15,7 @@ const data = new Array(5).fill({
 
 const AppBar = (props) => {
     return (
-        <View style={styles.appBarContainer}>
+        <View style={styles.appBarContainer} backgroundColor={props.backgroundColor}>
             <Button
                 style={styles.backButton}
                 appearance='ghost'
@@ -38,8 +38,13 @@ const AppBar = (props) => {
 const SearchScreen = (props) => {
 
     const [keyword, setKeyword] = React.useState(null);
-    const [isLoading, setIsLoading] = React.useState(false);
     const [data, setData] = React.useState([]);
+
+    // Used to display the progress bar under the search bar
+    const [progress, setProgress] = React.useState(0);
+
+    // Used to display search results information (such as "No result(s)")
+    const [isSearching, setIsSearching] = React.useState(false);
 
     const onCloseScreen = () => {
         props.navigation.goBack();
@@ -47,11 +52,11 @@ const SearchScreen = (props) => {
 
     const onValidateSearch = async () => {
         // send request using keyword
-        setIsLoading(true);
+        setProgress(.5);
         try {
             const token = await getPreference(TOKEN);
             const response = await search(`${BASE_URI}/users/search/`, token, keyword);
-            setIsLoading(false);
+            setProgress(1);
             if (response.status == 200) {
                 const json = await response.json();
                 setData(json);
@@ -62,8 +67,12 @@ const SearchScreen = (props) => {
         }
         catch(error) {
             // Todo: catch errors
-            setIsLoading(false);
+            setProgress(1);
             console.log(error);
+        }
+        finally {
+            setProgress(0);
+            setIsSearching(true);
         }
     }
 
@@ -81,14 +90,31 @@ const SearchScreen = (props) => {
     const theme = useTheme();
 
     return (
-        <Layout style={styles.container}>
-            <AppBar onChangeText={(value) => setKeyword(value)} onBackPressed={onCloseScreen} onValidateSearch={onValidateSearch}/>
-            <Divider />
-            <List
-                data={data}
-                renderItem={renderSearchItem}
-                ItemSeparatorComponent={Divider}
+        <Layout style={[styles.container, {backgroundColor: theme['background-basic-color-3']}]}>
+            <AppBar 
+                onChangeText={(value) => setKeyword(value)}
+                onBackPressed={onCloseScreen}
+                onValidateSearch={onValidateSearch}
+                backgroundColor={theme['background-basic-color-1']}
             />
+
+            { 
+                (progress > 0) &&
+                <ProgressBar progress={progress} />
+            }
+            <Divider />
+            {
+                (data.length > 0) &&
+                <List
+                    data={data}
+                    renderItem={renderSearchItem}
+                    ItemSeparatorComponent={Divider}
+                />
+            }
+            {
+                (data.length == 0) && isSearching &&
+                <Text appearance='hint' style={{margin: 16, textAlign: 'center'}}>No result(s) found.</Text>
+            }
         </Layout>
     )
 }
