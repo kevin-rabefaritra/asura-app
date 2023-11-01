@@ -1,11 +1,12 @@
-import { Button, Divider, Icon, Input, Layout, List, ProgressBar, Text, useTheme } from "@ui-kitten/components";
+import { Button, Divider, Icon, Input, Layout, List, Modal, ProgressBar, Text, useTheme } from "@ui-kitten/components";
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import { search } from "../../repositories/UserRepository";
 import { BASE_URI, TOKEN, getPreference } from "../services/PreferenceServices";
 import SearchItem from "../list/SearchItem";
+import UserProfileModal from "../modals/UserProfileModal";
 
-const data = new Array(5).fill({
+const test_data = new Array(5).fill({
     uuid: '1991911-3939939-939393',
     first_name: 'Kevin',
     last_name: "Michel",
@@ -38,13 +39,15 @@ const AppBar = (props) => {
 const SearchScreen = (props) => {
 
     const [keyword, setKeyword] = React.useState(null);
-    const [data, setData] = React.useState([]);
+    const [data, setData] = React.useState(test_data);
 
     // Used to display the progress bar under the search bar
     const [progress, setProgress] = React.useState(0);
 
     // Used to display search results information (such as "No result(s)")
     const [isSearching, setIsSearching] = React.useState(false);
+
+    const [showModal, setShowModal] = React.useState(false);
 
     const onCloseScreen = () => {
         props.navigation.goBack();
@@ -82,7 +85,7 @@ const SearchScreen = (props) => {
                 title={item.username}
                 icon={item.uuid}
                 subtitle={`${item.first_name} ${item.last_name}`}
-                onClick={() => {}}
+                onClick={() => setShowModal(true)}
             />
         )
     }
@@ -115,6 +118,11 @@ const SearchScreen = (props) => {
                 (data.length == 0) && isSearching &&
                 <Text appearance='hint' style={{margin: 16, textAlign: 'center'}}>No result(s) found.</Text>
             }
+
+            <UserProfileModal 
+                visible={showModal}
+                onBackdropPress={() => setShowModal(false)} />
+
         </Layout>
     )
 }
@@ -138,5 +146,5 @@ const styles = StyleSheet.create({
     input: {
         flex: 1,
         marginHorizontal: 8
-    },
+    }
 });
