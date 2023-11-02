@@ -1,6 +1,7 @@
 import { Avatar, Button, Card, Layout, Modal, Text, useTheme } from "@ui-kitten/components"
 import React from "react";
 import { ImageBackground, StyleSheet } from "react-native"
+import CustomIconButton from "../basic/CustomIconButton";
 
 const UserProfileModal = (props) => {
     const theme = useTheme()
@@ -22,7 +23,7 @@ const UserProfileModal = (props) => {
                 <Layout style={styles.header}>
                     <Avatar
                         shape='rounded'
-                        size='large'
+                        size='giant'
                         source={require('../../assets/pepe.jpg')}
                         ImageComponent={ImageBackground}
                     />
@@ -31,14 +32,14 @@ const UserProfileModal = (props) => {
                         <Text category='p1' appearance='hint'>{subtitle}</Text>
                     </Layout>
                 </Layout>
-                <Text style={{marginTop: 16}}category="s1">Bio</Text>
+                <Text style={{marginTop: 16}}category='s1'>Bio</Text>
                 <Text category='p1' appearance='hint'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sit amet odio tempus, laoreet arcu sit amet, tristique risus.</Text>
 
-                <Text style={{marginTop: 16}}category="s1">Joined on</Text>
+                <Text style={{marginTop: 16}}category='s1'>Joined on</Text>
                 <Text category='p1' appearance='hint'>14 Oct. 2023</Text>
 
-                <Button style={{marginTop: 16}}>Follow</Button>
-                <Button status="basic" style={{marginTop: 8}}>Send a message</Button>
+                <CustomIconButton style={{marginTop: 16}} iconName='plus'>Add to contacts</CustomIconButton>
+                <CustomIconButton status='basic' style={{marginTop: 8}} iconName='mail'>Send a message</CustomIconButton>
             </Card>
 
         </Modal>
@@ -49,6 +50,8 @@ export default UserProfileModal
 
 const styles = StyleSheet.create({
     container: {
+        paddingVertical: 8,
+        borderRadius: 16
     },
     header: {
         flexDirection: 'row',

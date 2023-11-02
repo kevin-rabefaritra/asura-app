@@ -20,34 +20,6 @@ const AppBar = () => {
 const ForwardIcon = (props) => (
   <Icon {...props} name='arrow-right' />
 );
-
-const UserIcon = (props) => (
-  <Icon {...props} name='user' />
-);
-
-const SecurityIcon = (props) => (
-  <Icon {...props} name='shield' />
-);
-
-const DarkModeIcon = (props) => (
-  <Icon {...props} name='moon' />
-);
-
-const LanguageIcon = (props) => (
-  <Icon {...props} name='globe' />
-);
-
-const LockIcon = (props) => (
-  <Icon {...props} name='lock' />
-);
-
-const LogoutIcon = (props) => (
-  <Icon {...props} name='log-out' />
-);
-
-const InfoIcon = (props) => (
-  <Icon {...props} name='info' />
-);
  
 /**
  * Events
@@ -110,41 +82,41 @@ const ProfileContainer = (props) => {
             <>
               <MenuItem
                 title='General information'
-                accessoryLeft={UserIcon}
+                accessoryLeft={<Icon {...props} name='user' />}
                 accessoryRight={ForwardIcon}
               />
               <MenuItem
                 title='Security'
-                accessoryLeft={SecurityIcon}
+                accessoryLeft={<Icon {...props} name='shield' />}
                 accessoryRight={ForwardIcon}
               />
             </>
           }
           <MenuItem
             title='Switch theme'
-            accessoryLeft={DarkModeIcon}
+            accessoryLeft={<Icon {...props} name='moon' />}
             accessoryRight={ForwardIcon}
             onPress={() => onThemeClicked(context)}
           />
           <MenuItem
             title='Language'
-            accessoryLeft={LanguageIcon}
+            accessoryLeft={<Icon {...props} name='globe' />}
             accessoryRight={ForwardIcon}
           />
           <MenuItem
             title='Privacy Policy'
-            accessoryLeft={LockIcon}
+            accessoryLeft={<Icon {...props} name='lock' />}
             accessoryRight={ForwardIcon}
           />
           <MenuItem
             title='About'
-            accessoryLeft={InfoIcon}
+            accessoryLeft={<Icon {...props} name='info' />}
             accessoryRight={ForwardIcon}
           />
           { user && 
             <MenuItem
               title='Log out'
-              accessoryLeft={LogoutIcon}
+              accessoryLeft={<Icon {...props} name='log-out' />}
               accessoryRight={ForwardIcon}
               onPress={() => onSignOutClicked(context)}
             />

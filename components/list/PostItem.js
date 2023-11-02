@@ -1,5 +1,6 @@
 import { Text, Avatar, Layout, useTheme, Card, Button, Icon } from '@ui-kitten/components';
 import { View, Image, StyleSheet, ImageBackground } from 'react-native';
+import CustomIconButton from '../basic/CustomIconButton';
 
 /**
  * Represents a single post item (displayed on the timeline)
@@ -29,9 +30,9 @@ const PostItem = (props) => {
           source={require('../../assets/post.jpeg')}
         />
         <Layout style={styles.actions}>
-          <Button appearance='ghost' style={{flex:1}} status='primary' accessoryLeft={<Icon name="heart"/>}>18</Button>
-          <Button appearance='ghost' style={{flex:1}} status='basic' accessoryLeft={<Icon name="message-circle"/>}>2</Button>
-          <Button appearance='ghost' style={{flex:1}} status='basic' accessoryLeft={<Icon name="share"/>}></Button>
+          <CustomIconButton appearance='ghost' style={{flex:1}} status='primary' iconName="heart">18</CustomIconButton>
+          <CustomIconButton appearance='ghost' style={{flex:1}} status='basic' iconName="message-circle">2</CustomIconButton>
+          <CustomIconButton appearance='ghost' style={{flex:1}} status='basic' iconName="share"></CustomIconButton>
         </Layout>
       </Layout>
     </Card>

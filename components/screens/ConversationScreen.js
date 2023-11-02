@@ -2,6 +2,7 @@ import { Avatar, Button, Divider, Icon, Input, Layout, List, MenuItem, OverflowM
 import ConversationMessageItem from '../list/ConversationMessageItem';
 import React from 'react';
 import { ImageBackground, StyleSheet, TextInput, View } from "react-native";
+import CustomIconButton from "../basic/CustomIconButton";
 
 const data = new Array(180).fill({
   content: 'Shtosharaka shtashakara Shtosharaka shtashakara Shtosharaka'
@@ -28,23 +29,23 @@ const AppBar = (props) => {
   };
 
   const renderToggleButton = () => (
-    <Button
+    <CustomIconButton
       style={styles.overflowMenu}
       status='primary'
       size='small'
       onPress={() => setVisible(true)}
-      accessoryLeft={<Icon name='more-horizontal'/>}
+      iconName='more-horizontal'
     />
   );
 
   return (
     <View style={styles.appBarContainer}>
-      <Button
+      <CustomIconButton
         style={styles.backButton}
         appearance='ghost'
         status='primary'
         onPress={props.onBackPressed}
-        accessoryLeft={<Icon name='arrow-left' />}
+        iconName='arrow-left'
       />
       
       <UserAvatar 

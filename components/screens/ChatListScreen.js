@@ -6,6 +6,7 @@ import React from 'react';
 import SignInModal from '../modals/SignInModal';
 import DefaultStyle from '../DefaultStyle';
 import { ThemeContext } from '../theme-context';
+import CustomIconButton from '../basic/CustomIconButton';
 
 const data = new Array(30).fill({
   title: 'Weirdo',
@@ -23,25 +24,25 @@ const AppBar = (props) => {
   };
 
   const renderToggleButton = (props) => (
-    <Button
+    <CustomIconButton
       style={styles.rightButton}
       status='primary'
       size='small'
       onPress={() => setVisible(true)}
-      accessoryLeft={<Icon name='more-horizontal'/>}
+      iconName='more-horizontal'
     />
   );
 
   return (
     <View style={styles.appBarContainer}>
       <Text style={[DefaultStyle.heading, {flex: 1, textAlign: 'left'}]}>Chat.</Text>
-      <Button
+      <CustomIconButton
         style={styles.rightButton}
         status='basic'
         appearance='ghost'
         size='small'
         onPress={props.onOpenSearchScreen}
-        accessoryLeft={<Icon name='search'/>}
+        iconName='search'
       />
 
       <OverflowMenu

@@ -5,6 +5,7 @@ import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import DefaultStyle from '../DefaultStyle';
 import React from 'react';
 import { ThemeContext } from '../theme-context';
+import CustomIconButton from '../basic/CustomIconButton';
 
 const data = new Array(30).fill({
   title: 'Kevin Michel',
@@ -20,24 +21,24 @@ const AppBar = (props) => {
     <View style={styles.appBarContainer}>
       <Text style={[DefaultStyle.heading, {flex: 1, textAlign: 'left'}]}>Explore.</Text>
 
-      <Button
+      <CustomIconButton
         style={styles.rightButton}
         appearance='ghost'
         status='basic'
         size='small'
         onPress={props.onOpenSearchScreen}
-        accessoryLeft={<Icon name='search' />}
+        iconName='search'
       />
 
       { 
         props.isSignedIn && 
-        <Button
+        <CustomIconButton
           style={styles.rightButton}
           appearance='ghost'
           status='primary'
           size='small'
           onPress={onOpenWritePostScreen}
-          accessoryLeft={<Icon name='plus-square' />}
+          iconName='plus-square'
         />
       }
     </View>

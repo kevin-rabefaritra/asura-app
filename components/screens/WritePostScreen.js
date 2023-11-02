@@ -1,6 +1,7 @@
 import { Button, Divider, Icon, Text, Layout, Input } from "@ui-kitten/components";
 import { StyleSheet, View } from "react-native";
 import DefaultStyle from "../DefaultStyle";
+import CustomIconButton from "../basic/CustomIconButton";
 
 const AppBar = (props) => {
     return (
@@ -13,10 +14,10 @@ const AppBar = (props) => {
                 size='small'
                 onPress={props.onBackPressed}>CANCEL
             </Button>
-            <Button
+            <CustomIconButton
                 status='primary'
                 size='small'
-                accessoryLeft={<Icon name='check' />}/>
+                iconName='check' />
         </View>
     );
 };

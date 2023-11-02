@@ -5,29 +5,30 @@ import { search } from "../../repositories/UserRepository";
 import { BASE_URI, TOKEN, getPreference } from "../services/PreferenceServices";
 import SearchItem from "../list/SearchItem";
 import UserProfileModal from "../modals/UserProfileModal";
+import CustomIconButton from "../basic/CustomIconButton";
 
 const test_data = new Array(5).fill({
     uuid: '1991911-3939939-939393',
     first_name: 'Kevin',
-    last_name: "Michel",
+    last_name: 'Michel',
     username: 'kevin',
-    email: "kevin@gmail.com"
+    email: 'kevin@gmail.com'
 });
 
 const AppBar = (props) => {
     return (
         <View style={styles.appBarContainer} backgroundColor={props.backgroundColor}>
-            <Button
+            <CustomIconButton
                 style={styles.backButton}
                 appearance='ghost'
                 status='primary'
                 size='small'
                 onPress={props.onBackPressed}
-                accessoryLeft={<Icon name='arrow-left' />}
+                iconName='arrow-left'
             />
             <Input
                 style={styles.input}
-                placeholder="Search"
+                placeholder='Search'
                 onChangeText={(value) => props.onChangeText(value)}
                 multiline={false}
                 onSubmitEditing={() => props.onValidateSearch()}
