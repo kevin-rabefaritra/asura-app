@@ -2,12 +2,12 @@ import { Button, Icon } from "@ui-kitten/components";
 
 
 const CustomIconButton = (props) => {
+    var {iconName, ...properties} = props;
     return (
         <Button 
-            {...props}
-            status={props.status}
-            accessoryLeft={<Icon name={props.iconName} />}>
-            {props.children}
+            {...properties}
+            accessoryLeft={<Icon name={iconName} />}>
+            {properties.children}
         </Button>
     );
 }
