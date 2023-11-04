@@ -24,25 +24,25 @@ const AppBar = (props) => {
   };
 
   const renderToggleButton = (props) => (
-    <CustomIconButton
+    <Button
       style={styles.rightButton}
       status='primary'
       size='small'
       onPress={() => setVisible(true)}
-      iconName='more-horizontal'
+      accessoryLeft={<Icon name='more-horizontal' />}
     />
   );
 
   return (
     <View style={styles.appBarContainer}>
       <Text style={[DefaultStyle.heading, {flex: 1, textAlign: 'left'}]}>Chat.</Text>
-      <CustomIconButton
+      <Button
         style={styles.rightButton}
         status='basic'
         appearance='ghost'
         size='small'
         onPress={props.onOpenSearchScreen}
-        iconName='search'
+        accessoryLeft={<Icon name='search' />}
       />
 
       <OverflowMenu

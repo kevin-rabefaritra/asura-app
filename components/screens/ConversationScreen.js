@@ -29,23 +29,23 @@ const AppBar = (props) => {
   };
 
   const renderToggleButton = () => (
-    <CustomIconButton
+    <Button
       style={styles.overflowMenu}
       status='primary'
       size='small'
       onPress={() => setVisible(true)}
-      iconName='more-horizontal'
+      accessoryLeft={<Icon name='more-horizontal' />}
     />
   );
 
   return (
     <View style={styles.appBarContainer}>
-      <CustomIconButton
+      <Button
         style={styles.backButton}
         appearance='ghost'
         status='primary'
         onPress={props.onBackPressed}
-        iconName='arrow-left'
+        accessoryLeft={<Icon name='arrow-left' />}
       />
       
       <UserAvatar 

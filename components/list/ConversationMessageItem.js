@@ -20,7 +20,7 @@ const ConversationMessageItem = (props) => {
         ImageComponent={ImageBackground}
         style={styles.avatar}
       />
-      <Text style={{textAlign: props.isMe ? 'right' : 'left'}}>
+      <Text style={{textAlign: props.isMe ? 'right' : 'left', flex: 1, flexWrap: 'wrap'}}>
         {props.content}
       </Text>
     </Layout>
