@@ -91,6 +91,15 @@ const SearchScreen = (props) => {
         )
     }
 
+    // Opens a conversation view (used by UserProfileModal)
+    const openConversationView = () => {
+        // dismiss the modal
+        setShowModal(false);
+
+        // open the conversation view
+        props.navigation.navigate('Conversation');
+    };
+
     const theme = useTheme();
 
     return (
@@ -122,7 +131,9 @@ const SearchScreen = (props) => {
 
             <UserProfileModal 
                 visible={showModal}
-                onBackdropPress={() => setShowModal(false)} />
+                navigation={props.navigation}
+                onBackdropPress={() => setShowModal(false)}
+                onOpenConversationView={openConversationView} />
 
         </Layout>
     )

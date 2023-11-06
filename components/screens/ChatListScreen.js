@@ -41,7 +41,7 @@ const AppBar = (props) => {
         status='basic'
         appearance='ghost'
         size='small'
-        onPress={props.onOpenSearchScreen}
+        onPress={props.openSearchScreen}
         accessoryLeft={<Icon name='search' />}
       />
 
@@ -77,21 +77,21 @@ const ChatListScreen = (props) => {
   /**
    * Opens the selected conversation thread
    */
-  onOpenConversation = () => {
+  openConversationView = () => {
     props.navigation.navigate('Conversation');
   };
 
   /**
    * Opens the sign up screen
    */
-  onOpenSignUpScreen = () => {
+  openSignUpScreen = () => {
     props.navigation.navigate('SignUp');
   }
 
   /**
    * Opens the search screen
    */
-  onOpenSearchScreen = () => {
+  openSearchScreen = () => {
     props.navigation.navigate('Search');
   }
 
@@ -101,7 +101,7 @@ const ChatListScreen = (props) => {
       src={`${item.src}`}
       description={item.description}
       timestamp={item.timestamp}
-      onClick={onOpenConversation}
+      onClick={openConversationView}
     />
   );
 
@@ -110,7 +110,7 @@ const ChatListScreen = (props) => {
 
   return (
     <Layout>
-      <AppBar onOpenSearchScreen={onOpenSearchScreen}/>
+      <AppBar openSearchScreen={openSearchScreen}/>
       <Divider />
       {isSignedIn &&
         <List
@@ -122,7 +122,7 @@ const ChatListScreen = (props) => {
       }
       {!isSignedIn && 
         <Layout style={[styles.content, {backgroundColor: theme['background-basic-color-3']}]}>
-          <SignInModal onOpenSignUpScreen={onOpenSignUpScreen} context={context}/>
+          <SignInModal openSignUpScreen={openSignUpScreen} context={context}/>
         </Layout>
       }
     </Layout>

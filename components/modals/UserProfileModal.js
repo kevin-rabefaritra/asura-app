@@ -5,6 +5,8 @@ import CustomIconButton from "../basic/CustomIconButton";
 
 /**
  * Component to show a user profile in a modal view 
+ * Props required:
+ * onOpenConversationView: navigate to conversation view
  */
 
 const UserProfileModal = (props) => {
@@ -44,7 +46,7 @@ const UserProfileModal = (props) => {
                 <Text category='p1' appearance='hint'>14 Oct. 2023</Text>
 
                 <CustomIconButton style={{marginTop: 16}} status='primary' iconName='plus'>Add to contacts</CustomIconButton>
-                <CustomIconButton status='basic' style={{marginTop: 8}} iconName='mail'>Send a message</CustomIconButton>
+                <CustomIconButton status='basic' style={{marginTop: 8}} iconName='mail' onPress={props.onOpenConversationView}>Send a message</CustomIconButton>
             </Card>
 
         </Modal>

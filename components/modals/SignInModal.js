@@ -82,7 +82,7 @@ const SignInModal = (props) => {
   return (
     <Card style={styles.signInModal} disabled={true}>
       <Text style={DefaultStyle.title}>Sign in.</Text>
-      <Text category='s1' appearance='hint'>Don't have an account yet? <Text status='primary' onPress={props.onOpenSignUpScreen}>Create one now</Text>!</Text>
+      <Text category='s1' appearance='hint'>Don't have an account yet? <Text status='primary' onPress={props.openSignUpScreen}>Create one now</Text>!</Text>
       { signInError && 
         <Text category="label" status="danger" style={{marginTop: 8}}>{signInError}</Text>
       }
