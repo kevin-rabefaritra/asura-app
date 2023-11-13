@@ -7,6 +7,8 @@ import MainStatusBar from '../basic/MainStatusBar';
 import SignUpScreen from './SignUpScreen';
 import SearchScreen from './SearchScreen';
 import WritePostScreen from './WritePostScreen';
+import GeneralInfoScreen from './profile/GeneralInfoScreen';
+import SecurityScreen from './profile/SecurityScreen';
 
 const { Navigator, Screen } = createNativeStackNavigator();
 
@@ -26,6 +28,9 @@ const AppNavigator = () => (
       <Screen name='SignUp' component={SignUpScreen} />
       <Screen name='Search' component={SearchScreen} />
       <Screen name='WritePost' component={WritePostScreen} />
+      
+      <Screen name='GeneralInfo' component={GeneralInfoScreen} />
+      <Screen name='Security' component={SecurityScreen} />
     </Navigator>
   </NavigationContainer>
 )

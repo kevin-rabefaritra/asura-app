@@ -40,6 +40,7 @@ const onSignOutClicked = (themeContext) => {
 const ProfileContainer = (props) => {
   const context = props.context;
   const theme = useTheme();
+  const navigation = props.navigation;
   const [selectedIndex, setSelectedIndex] = React.useState(null);
   const user = context.user;
 
@@ -84,11 +85,13 @@ const ProfileContainer = (props) => {
                 title='General information'
                 accessoryLeft={<Icon {...props} name='user' />}
                 accessoryRight={ForwardIcon}
+                onPress={() => {props.navigation.navigate('GeneralInfo')}}
               />
               <MenuItem
                 title='Security'
                 accessoryLeft={<Icon {...props} name='shield' />}
                 accessoryRight={ForwardIcon}
+                onPress={() => {props.navigation.navigate('Security')}}
               />
             </>
           }
@@ -132,7 +135,7 @@ const ProfileContainer = (props) => {
  * Shows the user profile, where the user can set their preferences
  * and other settings.
  */
-const ProfileScreen = () => {
+const ProfileScreen = (props) => {
 
   // We get the theme context to update the theme
   const themeContext = React.useContext(ThemeContext);
@@ -140,7 +143,7 @@ const ProfileScreen = () => {
   return (
     <Layout>
       <AppBar />
-      <ProfileContainer context={themeContext} />
+      <ProfileContainer context={themeContext} navigation={props.navigation}/>
     </Layout>
   )
 }
