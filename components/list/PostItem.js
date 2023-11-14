@@ -1,6 +1,7 @@
 import { Text, Avatar, Layout, useTheme, Card, Button, Icon } from '@ui-kitten/components';
 import { View, Image, StyleSheet, ImageBackground } from 'react-native';
 import CustomIconButton from '../basic/CustomIconButton';
+import DefaultStyle from '../DefaultStyle';
 
 /**
  * Represents a single post item (displayed on the timeline)
@@ -13,15 +14,15 @@ const PostItem = (props) => {
       <Layout style={{marginHorizontal: -8}}>
         <View style={styles.header}>
           <Avatar
-            shape='rounded'
+            shape='square'
             size='medium'
-            style={styles.profilePic}
+            style={[styles.profilePic, {borderColor: theme['color-primary-default']}]}
             source={require('../../assets/menja.jpg')}
             ImageComponent={ImageBackground}
           />
           <View style={styles.headerText}>
-            <Text style={styles.title} category='s1'>{props.title}</Text>
-            <Text category='s1' appearance='hint'>{props.subtitle}</Text>
+            <Text style={DefaultStyle.pixel} category='s1'>{props.title}</Text>
+            <Text style={DefaultStyle.pixel} category='s1' appearance='hint'>{props.subtitle}</Text>
           </View>
         </View>
         <Text style={styles.body} category='p1'>{props.content}</Text>
@@ -54,6 +55,8 @@ const styles = StyleSheet.create({
   },
   profilePic: {
     marginRight: 10,
+    borderRadius: 2,
+    borderWidth: 2
   },
   headerText: {
     flex: 1,
@@ -63,11 +66,12 @@ const styles = StyleSheet.create({
   },
   body: {
     marginVertical: 10,
-    lineHeight: 22
+    lineHeight: 22,
+    fontFamily: 'PixeloidSans',
   },
   postImage: {
     width: '100%',
-    borderRadius: 8,
+    borderRadius: 4,
   },
   actions: {
     marginTop: 10,

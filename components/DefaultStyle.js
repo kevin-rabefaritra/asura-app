@@ -2,14 +2,16 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
     title: {
-        fontFamily: 'RobotoCondensed-Bold',
+        fontFamily: 'PixeloidSans',
         fontSize: 36,
         textTransform: 'uppercase'
     },
     heading: {
-        fontFamily: 'RobotoCondensed-Bold',
+        fontFamily: 'PixeloidSans',
         fontSize: 28,
-        textTransform: 'uppercase'
+    },
+    pixel: {
+        fontFamily: 'PixeloidSans',
     },
     loading: {
         zIndex: 1,

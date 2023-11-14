@@ -14,7 +14,8 @@ import User from './components/models/User';
 // Fonts
 const loadFonts = async () => {
   await Font.loadAsync({
-    'RobotoCondensed-Bold': require('./assets/fonts/RobotoCondensed-Bold.ttf')
+    'RobotoCondensed-Bold': require('./assets/fonts/RobotoCondensed-Bold.ttf'),
+    'PixeloidSans': require('./assets/fonts/PixeloidSans-mLxMm.ttf')
   });
 };
 

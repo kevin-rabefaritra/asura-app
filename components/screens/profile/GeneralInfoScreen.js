@@ -42,7 +42,7 @@ const GeneralInfoScreen = (props) => {
             <Divider />
             <Layout style={styles.body}>
                 <Avatar
-                    shape='rounded'
+                    shape='square'
                     size='giant'
                     source={require('../../../assets/menja.jpg')}
                     ImageComponent={ImageBackground}
@@ -80,6 +80,7 @@ const styles = StyleSheet.create({
     },
     userAvatar: {
         alignSelf: 'center',
-        borderWidth: 2
+        borderWidth: 2,
+        borderRadius: 4
     },
 });

@@ -1,13 +1,17 @@
 import { StyleSheet, ImageBackground, TouchableHighlight, TouchableOpacity } from 'react-native';
-import { Avatar, Layout, ListItem, Text } from "@ui-kitten/components";
+import { Avatar, Layout, ListItem, Text, useTheme } from "@ui-kitten/components";
 
 const UserAvatar = (props) => {
+
+  const theme = useTheme();
+
   return (
     <Avatar
-      shape='rounded'
+      shape='square'
       size='medium'
       source={props.source}
       ImageComponent={ImageBackground}
+      style={{borderWidth: 2, borderRadius: 2, borderColor: theme['color-primary-disabled']}}
     />
   );
 }

@@ -1,4 +1,4 @@
-import { Avatar, Card, Layout, Text, useStyleSheet } from "@ui-kitten/components";
+import { Avatar, Card, Layout, Text, useStyleSheet, useTheme } from "@ui-kitten/components";
 import { ImageBackground, StyleSheet } from "react-native";
 
 /**
@@ -8,17 +8,19 @@ import { ImageBackground, StyleSheet } from "react-native";
  * 2. others: message has been sent by another user
  */
 const ConversationMessageItem = (props) => {
+  const theme = useTheme();
+
   return (
     <Layout 
       level={props.isMe ? '3' : '2'}
       style={props.isMe ? styles.messageBubbleRight : styles.messageBubble}
     >
       <Avatar
-        shape='rounded'
+        shape='square'
         size='small'
         source={props.source}
         ImageComponent={ImageBackground}
-        style={styles.avatar}
+        style={[styles.avatar, {borderColor: theme['color-primary-disabled']}]}
       />
       <Text style={{textAlign: props.isMe ? 'right' : 'left', flex: 1, flexWrap: 'wrap'}}>
         {props.content}
@@ -39,5 +41,9 @@ const styles = StyleSheet.create({
     padding: 16,
     flexDirection: 'row-reverse',
     gap: 16
+  },
+  avatar: {
+    borderWidth: 2,
+    borderRadius: 2
   }
 });

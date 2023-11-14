@@ -51,11 +51,11 @@ const ProfileContainer = (props) => {
           user ? (
             <Layout style={styles.headerContainer}>
               <Avatar
-                shape='rounded'
+                shape='square'
                 size='giant'
                 source={require('../../assets/menja.jpg')}
                 ImageComponent={ImageBackground}
-                style={styles.userAvatar}
+                style={[styles.userAvatar, {borderColor: theme['color-primary-default']}]}
               />
               <Layout style={styles.headerInfoContainer}>
                 <Text category='h6'>{user.firstName} {user.lastName}</Text>
@@ -165,7 +165,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   userAvatar: {
-    alignSelf: 'center'
+    alignSelf: 'center',
+    borderRadius: 4,
+    borderWidth: 2
   },
   headerContainer: {
     flexDirection: 'row',

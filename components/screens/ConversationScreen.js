@@ -9,13 +9,15 @@ const data = new Array(180).fill({
 });
 
 const UserAvatar = (props) => {
+  const theme = useTheme();
+
   return (
     <Avatar
-      shape='rounded'
+      shape='square'
       size='medium'
       source={props.source}
       ImageComponent={ImageBackground}
-      style={styles.avatar}
+      style={[styles.avatar, {borderColor: theme['color-primary-default']}]}
     />
   );
 }
@@ -137,7 +139,9 @@ const styles = StyleSheet.create({
     marginHorizontal: 8
   },
   avatar: {
-    marginRight: 16
+    marginRight: 16,
+    borderWidth: 2,
+    borderRadius: 2
   },
   overflowMenu: {
     marginRight: 16

@@ -28,11 +28,11 @@ const UserProfileModal = (props) => {
             <Card style={styles.container} disabled={true}>
                 <Layout style={styles.header}>
                     <Avatar
-                        shape='rounded'
+                        shape='square'
                         size='giant'
                         source={require('../../assets/pepe.jpg')}
                         ImageComponent={ImageBackground}
-                        style={{borderWidth: 2, borderColor: theme['background-basic-color-4']}}
+                        style={{borderWidth: 2, borderRadius: 2, borderColor: theme['color-primary-default']}}
                     />
                     <Layout style={styles.headerRight}>
                         <Text category='p1'>{title}</Text>

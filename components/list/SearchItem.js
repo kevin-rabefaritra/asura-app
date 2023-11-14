@@ -1,14 +1,16 @@
-import { Avatar, Layout, Text } from "@ui-kitten/components";
+import { Avatar, Layout, Text, useTheme } from "@ui-kitten/components";
 
 const { TouchableOpacity, StyleSheet, ImageBackground } = require("react-native")
 
 const SearchIcon = (props) => {
+    const theme = useTheme();
     return (
       <Avatar
-        shape='rounded'
+        shape='square'
         size='medium'
         source={props.source}
         ImageComponent={ImageBackground}
+        style={{borderRadius: 2, borderWidth: 2, borderColor: theme['color-primary-disabled']}}
       />
     );
   }
