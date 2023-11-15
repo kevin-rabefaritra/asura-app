@@ -1,4 +1,5 @@
-import { Button, Icon } from "@ui-kitten/components";
+import { Button, Icon, Text } from "@ui-kitten/components";
+import DefaultStyle from "../DefaultStyle";
 
 
 const CustomIconButton = (props) => {
@@ -6,8 +7,8 @@ const CustomIconButton = (props) => {
     return (
         <Button 
             {...properties}
-            accessoryLeft={<Icon name={iconName} />}>
-            {properties.children}
+            accessoryLeft={<Icon name={iconName} />}
+            children={() => (<Text>{properties.children}</Text>)}>
         </Button>
     );
 }

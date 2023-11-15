@@ -30,7 +30,7 @@ const UserChatItem = (props) => {
         />
         <Layout style={styles.contentContainer}>
           <Text category='p1'>{props.title}</Text>
-          <Text category='p1' appearance='hint'>{props.description}</Text>
+          <Text category='p1' style={{marginTop: 4}} appearance='hint'>{props.description}</Text>
         </Layout>
         <Text category='c1' appearance='hint' style={styles.timestamp}>{props.timestamp}</Text>
       </Layout>
@@ -50,6 +50,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginLeft: 16,
     justifyContent: 'space-between',
+    alignSelf: 'center'
   },
   timestamp: {
     textAlign: 'right',

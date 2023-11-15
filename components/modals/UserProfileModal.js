@@ -36,7 +36,7 @@ const UserProfileModal = (props) => {
                     />
                     <Layout style={styles.headerRight}>
                         <Text category='p1'>{title}</Text>
-                        <Text category='p1' appearance='hint'>{subtitle}</Text>
+                        <Text category='p1' appearance='hint' style={{marginTop: 2}}>{subtitle}</Text>
                     </Layout>
                 </Layout>
                 <Text style={{marginTop: 16}}category='s1'>Bio</Text>

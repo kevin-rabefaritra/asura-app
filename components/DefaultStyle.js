@@ -7,8 +7,10 @@ export default StyleSheet.create({
         textTransform: 'uppercase'
     },
     heading: {
-        fontFamily: 'PixeloidSans',
         fontSize: 28,
+    },
+    subtitle: {
+        fontSize: 20
     },
     pixel: {
         fontFamily: 'PixeloidSans',

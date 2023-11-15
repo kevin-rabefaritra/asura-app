@@ -24,7 +24,7 @@ const SearchItem = (props) => {
                 />
                 <Layout style={styles.contentContainer}>
                     <Text category='p1'>{props.title}</Text>
-                    <Text category='p1' appearance='hint'>{props.subtitle}</Text>
+                    <Text category='p1' appearance='hint' style={{marginTop: 4}}>@{props.subtitle}</Text>
                 </Layout>
             </Layout>
         </TouchableOpacity>
@@ -43,5 +43,6 @@ const styles = StyleSheet.create({
       flex: 1,
       marginLeft: 16,
       justifyContent: 'space-between',
+      alignSelf: 'center'
     }
   });

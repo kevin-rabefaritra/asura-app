@@ -12,7 +12,8 @@ const AppBar = (props) => {
                 appearance='ghost'
                 status='basic'
                 size='small'
-                onPress={props.onBackPressed}>CANCEL
+                onPress={props.onBackPressed}
+                children={() => (<Text>CANCEL</Text>)}>
             </Button>
             <CustomIconButton
                 status='primary'

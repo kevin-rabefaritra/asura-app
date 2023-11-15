@@ -13,7 +13,8 @@ const AppBar = (props) => {
                 appearance='ghost'
                 status='basic'
                 size='small'
-                onPress={props.onBackPressed}>BACK
+                onPress={props.onBackPressed}
+                children={() => (<Text>BACK</Text>)}>
             </Button>
             <CustomIconButton
                 status='primary'

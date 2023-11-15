@@ -3,6 +3,7 @@ import ConversationMessageItem from '../list/ConversationMessageItem';
 import React from 'react';
 import { ImageBackground, StyleSheet, TextInput, View } from "react-native";
 import CustomIconButton from "../basic/CustomIconButton";
+import DefaultStyle from "../DefaultStyle";
 
 const data = new Array(180).fill({
   content: 'Shtosharaka shtashakara Shtosharaka shtashakara Shtosharaka'
@@ -53,7 +54,7 @@ const AppBar = (props) => {
       <UserAvatar 
         source={require('../../assets/menja.jpg')}
       />
-      <Text style={{flex: 1, textAlign: 'left'}} category='h6'>Kevin Michel</Text>
+      <Text style={[DefaultStyle.subtitle, {flex: 1, textAlign: 'left'}]}>Kevin Michel</Text>
 
       <OverflowMenu
         style={styles.overflowMenu}

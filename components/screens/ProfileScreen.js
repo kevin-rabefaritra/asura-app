@@ -58,8 +58,8 @@ const ProfileContainer = (props) => {
                 style={[styles.userAvatar, {borderColor: theme['color-primary-default']}]}
               />
               <Layout style={styles.headerInfoContainer}>
-                <Text category='h6'>{user.firstName} {user.lastName}</Text>
-                <Text category='h6' appearance='hint'>@{user.username}</Text>
+                <Text>{user.firstName} {user.lastName}</Text>
+                <Text appearance='hint' style={{marginTop: 4}}>@{user.username}</Text>
               </Layout>
             </Layout>
           ) : (

@@ -13,7 +13,8 @@ const AppBar = (props) => {
                 appearance='ghost'
                 status='basic'
                 size='small'
-                onPress={props.onBackPressed}>BACK
+                onPress={props.onBackPressed}
+                children={() => (<Text>BACK</Text>)}>
             </Button>
             <CustomIconButton
                 status='primary'
@@ -41,9 +42,9 @@ const SecurityScreen = (props) => {
             <AppBar onBackPressed={onCloseScreen}/>
             <Divider />
             <Layout style={styles.body}>
-                <Input label="Current password" maxLength={50} value="" />
-                <Input label="New password" maxLength={50} value="" />
-                <Input label="Confirm new password" maxLength={50} value="" />
+                <Input label="Current password" maxLength={50} />
+                <Input label="New password" maxLength={50} />
+                <Input label="Confirm new password" maxLength={50} />
             </Layout>
         </Layout>
     )

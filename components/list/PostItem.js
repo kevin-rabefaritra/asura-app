@@ -21,8 +21,8 @@ const PostItem = (props) => {
             ImageComponent={ImageBackground}
           />
           <View style={styles.headerText}>
-            <Text style={DefaultStyle.pixel} category='s1'>{props.title}</Text>
-            <Text style={DefaultStyle.pixel} category='s1' appearance='hint'>{props.subtitle}</Text>
+            <Text category='s1'>{props.title}</Text>
+            <Text category='s1' appearance='hint' style={{marginTop: 2}}>{props.subtitle}</Text>
           </View>
         </View>
         <Text style={styles.body} category='p1'>{props.content}</Text>
@@ -31,9 +31,9 @@ const PostItem = (props) => {
           source={require('../../assets/post.jpeg')}
         />
         <Layout style={styles.actions}>
-          <CustomIconButton appearance='ghost' style={{flex:1}} status='primary' iconName="heart">18</CustomIconButton>
-          <CustomIconButton appearance='ghost' style={{flex:1}} status='basic' iconName="message-circle">2</CustomIconButton>
-          <CustomIconButton appearance='ghost' style={{flex:1}} status='basic' iconName="share"></CustomIconButton>
+          <CustomIconButton appearance='ghost' style={{flex:1}} status='primary' iconName="arrow-up">18</CustomIconButton>
+          <CustomIconButton appearance='ghost' style={{flex:1}} status='basic' iconName="message-square">2</CustomIconButton>
+          <CustomIconButton appearance='ghost' style={{flex:1}} status='basic' iconName="arrow-right"></CustomIconButton>
         </Layout>
       </Layout>
     </Card>
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
   container: {
     marginHorizontal: 8,
     marginVertical: 4,
-    borderRadius: 10
+    borderRadius: 4
   },
   header: {
     flexDirection: 'row',
@@ -66,8 +66,7 @@ const styles = StyleSheet.create({
   },
   body: {
     marginVertical: 10,
-    lineHeight: 22,
-    fontFamily: 'PixeloidSans',
+    lineHeight: 22
   },
   postImage: {
     width: '100%',

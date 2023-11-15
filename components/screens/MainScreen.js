@@ -15,7 +15,7 @@ const BottomTabBar = ({ navigation, state }) => (
     selectedIndex={state.index}
     onSelect={index => navigation.navigate(state.routeNames[index])}>
     <BottomNavigationTab icon={<Icon name='compass'/>}/>
-    <BottomNavigationTab icon={<Icon name='message-circle'/>}/>
+    <BottomNavigationTab icon={<Icon name='message-square'/>}/>
     <BottomNavigationTab icon={<Icon name='user'/>}/>
   </BottomNavigation>
   </>

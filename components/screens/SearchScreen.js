@@ -83,9 +83,9 @@ const SearchScreen = (props) => {
     const renderSearchItem = ({item, index}) => {
         return (
             <SearchItem
-                title={item.username}
                 icon={item.uuid}
-                subtitle={`${item.first_name} ${item.last_name}`}
+                title={`${item.first_name} ${item.last_name}`}
+                subtitle={item.username}
                 onClick={() => setShowModal(true)}
             />
         )

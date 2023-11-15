@@ -34,11 +34,10 @@ const AppBar = (props) => {
         props.isSignedIn && 
         <CustomIconButton
           style={styles.rightButton}
-          appearance='ghost'
           status='primary'
           size='small'
           onPress={onOpenWritePostScreen}
-          iconName='plus-square'
+          iconName='plus'
         />
       }
     </View>
