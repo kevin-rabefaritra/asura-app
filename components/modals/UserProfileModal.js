@@ -46,7 +46,13 @@ const UserProfileModal = (props) => {
                 <Text category='p1' appearance='hint'>14 Oct. 2023</Text>
 
                 <CustomIconButton style={{marginTop: 16}} status='primary' iconName='plus'>Add to contacts</CustomIconButton>
-                <CustomIconButton status='basic' style={{marginTop: 8}} iconName='mail' onPress={props.onOpenConversationView}>Send a message</CustomIconButton>
+                <CustomIconButton 
+                    status='info'
+                    style={{marginTop: 8}}
+                    iconName='mail'
+                    onPress={props.onOpenConversationView}>
+                        Send a message
+                </CustomIconButton>
             </Card>
 
         </Modal>
@@ -58,7 +64,7 @@ export default UserProfileModal
 const styles = StyleSheet.create({
     container: {
         paddingVertical: 8,
-        borderRadius: 16
+        borderRadius: 4
     },
     header: {
         flexDirection: 'row',
