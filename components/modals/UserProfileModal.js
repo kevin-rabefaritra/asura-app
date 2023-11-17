@@ -45,10 +45,11 @@ const UserProfileModal = (props) => {
                 <Text style={{marginTop: 16}}category='s1'>Joined on</Text>
                 <Text category='p1' appearance='hint'>14 Oct. 2023</Text>
 
-                <CustomIconButton style={{marginTop: 16}} status='primary' iconName='plus'>Add to contacts</CustomIconButton>
+                <CustomIconButton style={{marginTop: 16}} status='primary' iconName='plus' textColor={theme['color-basic-100']}>Add to contacts</CustomIconButton>
                 <CustomIconButton 
                     status='info'
                     style={{marginTop: 8}}
+                    textColor={theme['color-basic-100']}
                     iconName='mail'
                     onPress={props.onOpenConversationView}>
                         Send a message
