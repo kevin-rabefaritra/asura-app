@@ -73,7 +73,6 @@ const SignInModal = (props) => {
     }
     catch (e) {
       console.log(e);
-      console.log(e.sta)
       setIsSigningIn(false);
       setSignInError("An error occured. Please try again.")
     }

@@ -31,11 +31,19 @@ const AppBar = (props) => {
  */
 const SecurityScreen = (props) => {
 
+    const theme = useTheme();
+
+    const [oldPassword, setOldPassword] = React.useState();
+    const [newPassword, setNewPassword] = React.useState();
+    const [newPasswordConfirm, setNewPasswordConfirm] = React.useState();
+
     const onCloseScreen = () => {
         props.navigation.goBack();
     }
 
-    const theme = useTheme();
+    const onValidatePressed = () => {
+        
+    }
 
     return (
         <Layout style={styles.container}>

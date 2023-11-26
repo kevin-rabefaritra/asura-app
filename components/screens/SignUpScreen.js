@@ -11,7 +11,7 @@ import { signUp } from "../../repositories/UserRepository";
  * Sign up screen
  * For the user to create an account
  */
-export const PASSWORD_MIN_LENGTH = 8
+export const PASSWORD_MIN_LENGTH = 6
 export const USERNAME_MIN_LENGTH = 3
 const FIRST_NAME_MIN_LENGTH = 2 
 

@@ -73,3 +73,45 @@ export function search(url, token, keyword) {
     },
   });
 }
+
+/**
+ * Updates a user's basic info, including:
+ * (1) birth date
+ * (2) email address
+ * (3) bio
+ * @param {*} url 
+ * @param {String} birthDate In ISO format (YYYY-MM-DD)
+ * @param {String} email 
+ * @param {String} bio 
+ */
+export function updateBasicInfo(url, token, birthDate, email, bio) {
+  console.log(`POST ${url}`);
+  return fetch(`${url}`, {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Basic ${token}`
+    },
+    body: JSON.stringify({
+      birthday: birthDate,
+      email: email,
+      bio: bio,
+    })
+  });
+}
+
+/**
+ * Fetches user basic info from the token
+ * @param {String} url 
+ * @param {String} token 
+ */
+export function getBasicInfo(url, token) {
+  console.log(`GET ${url}`);
+  return fetch(`${url}`, {
+    method: "GET",
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Basic ${token}`
+    }
+  });
+}
