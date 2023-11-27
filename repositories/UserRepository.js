@@ -115,3 +115,25 @@ export function getBasicInfo(url, token) {
     }
   });
 }
+
+/**
+ * Updates a user password
+ * @param {String} url 
+ * @param {String} token 
+ * @param {String} oldPassword 
+ * @param {String} newPassword 
+ */
+export function updatePassword(url, token, oldPassword, newPassword) {
+  console.log(`POST ${url}`);
+  return fetch(`${url}`, {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Basic ${token}`
+    },
+    body: JSON.stringify({
+      oldPassword: oldPassword,
+      newPassword: newPassword,
+    })
+  });
+}

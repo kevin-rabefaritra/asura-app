@@ -73,17 +73,18 @@ const GeneralInfoScreen = (props) => {
 
             if (response.status == 200) {
                 // User profile updated successfully
-                setIsLoading(false);
                 ToastAndroid.show(`Profile updated successfully!`, ToastAndroid.SHORT);
             }
             else {
-                setIsLoading(false);
                 ToastAndroid.show(`An error occured. Please try again later.`, ToastAndroid.SHORT);
             }
         }
         catch (e) {
             console.log(e);
             ToastAndroid.show(`An error occured. Please try again later.`, ToastAndroid.SHORT);
+        }
+        finally {
+            setIsLoading(false);
         }
     }
 

@@ -1,8 +1,9 @@
 import React from 'react';
-import { Button, Divider, Icon, Text, Layout, Input, Datepicker, Avatar, useTheme } from "@ui-kitten/components";
+import { Button, Divider, Icon, Text, Layout, Input, Datepicker, Avatar, useTheme, Card, Spinner } from "@ui-kitten/components";
 import { StyleSheet, View } from "react-native";
 import DefaultStyle from "../../DefaultStyle";
 import CustomIconButton from "../../basic/CustomIconButton";
+import { updatePassword } from '../../../repositories/UserRepository';
 
 const AppBar = (props) => {
     return (
@@ -19,7 +20,8 @@ const AppBar = (props) => {
             <CustomIconButton
                 status='primary'
                 size='small'
-                iconName='check' />
+                iconName='check'
+                onPress={props.onValidatePressed} />
         </View>
     );
 };
@@ -36,24 +38,105 @@ const SecurityScreen = (props) => {
     const [oldPassword, setOldPassword] = React.useState();
     const [newPassword, setNewPassword] = React.useState();
     const [newPasswordConfirm, setNewPasswordConfirm] = React.useState();
+    const [errors, setErrors] = React.useState([]);
+    const [isLoading, setIsLoading] = React.useState(false);
 
     const onCloseScreen = () => {
         props.navigation.goBack();
     }
 
-    const onValidatePressed = () => {
+    /**
+     * Updates the user's password
+     */
+    const onValidatePressed = async () => {
+        if (isLoading) {
+            return;
+        }
+
+        Keyboard.dismiss();
+        setIsLoading(true);
+
+        // Clear all errors
+        setErrors([]);
+
+        // Confirm that new password and new password confirm match
+        if (newPassword !== newPasswordConfirm) {
+            setErrors([...errors, 'New password / new password confirm do not match.']);
+        }
         
+        // Confirm that the old password is different from the new one
+        if (oldPassword === newPassword) {
+            setErrors([...errors, 'Old and new password must be different.']);
+        }
+
+        // If no errors, we can perform the password update
+        if (errors.length === 0) {
+            try {
+                const token = await getPreference(TOKEN);
+                const response = await updatePassword(
+                    `${BASE_URI}/users/password/update`,
+                    token,
+                    oldPassword,
+                    newPassword
+                );
+    
+                if (response.status == 200) {
+                    ToastAndroid.show(`Password updated successfully!`, ToastAndroid.SHORT);
+                }
+                else {
+                    ToastAndroid.show(`An error occured. Please try again later.`, ToastAndroid.SHORT);
+                }
+            }
+            catch (e) {
+                console.log(e);
+                ToastAndroid.show(`An error occured. Please try again later.`, ToastAndroid.SHORT);
+            }
+            finally {
+                setIsLoading(false);
+            }
+        }
+        setIsLoading(false);
     }
 
     return (
         <Layout style={styles.container}>
-            <AppBar onBackPressed={onCloseScreen}/>
+            <AppBar onBackPressed={onCloseScreen} onValidatePressed={onValidatePressed}/>
             <Divider />
-            <Layout style={styles.body}>
-                <Input label="Current password" maxLength={50} />
-                <Input label="New password" maxLength={50} />
-                <Input label="Confirm new password" maxLength={50} />
-            </Layout>
+            {
+                !isLoading &&
+                <Layout style={styles.body}>
+                    { errors.length > 0 && 
+                        <Card
+                            style={{marginTop: 8}}
+                            status='danger'>
+                            <Text style={{lineHeight: 24}}>
+                            Error(s):
+                            { errors.filter((item) => item != null && item.trim() != "").map((item) => `\n\u2022 ${item}`)}
+                            </Text>
+                        </Card>
+                    }
+                    <Input 
+                        label="Current password"
+                        maxLength={50}
+                        onChangeText={value => setOldPassword(value)} />
+
+                    <Input
+                        label="New password"
+                        maxLength={50}
+                        onChangeText={value => setNewPassword(value)} />
+
+                    <Input
+                        label="Confirm new password"
+                        maxLength={50}
+                        onChangeText={value => setNewPasswordConfirm(value)} />
+                </Layout>
+            }
+            {
+                isLoading &&
+                <Layout style={{ alignItems: 'center', flex: 1, justifyContent: 'center' }}>
+                    <Spinner />
+                </Layout>
+            }
         </Layout>
     )
 }
