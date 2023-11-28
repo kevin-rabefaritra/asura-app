@@ -1,9 +1,11 @@
 import React from 'react';
 import { Button, Divider, Icon, Text, Layout, Input, Datepicker, Avatar, useTheme, Card, Spinner } from "@ui-kitten/components";
-import { StyleSheet, View } from "react-native";
+import { Keyboard, StyleSheet, ToastAndroid, View } from "react-native";
 import DefaultStyle from "../../DefaultStyle";
 import CustomIconButton from "../../basic/CustomIconButton";
 import { updatePassword } from '../../../repositories/UserRepository';
+import { PASSWORD_MIN_LENGTH } from '../SignUpScreen';
+import { BASE_URI, TOKEN, getPreference } from '../../services/PreferenceServices';
 
 const AppBar = (props) => {
     return (
@@ -35,9 +37,9 @@ const SecurityScreen = (props) => {
 
     const theme = useTheme();
 
-    const [oldPassword, setOldPassword] = React.useState();
-    const [newPassword, setNewPassword] = React.useState();
-    const [newPasswordConfirm, setNewPasswordConfirm] = React.useState();
+    const [oldPassword, setOldPassword] = React.useState("");
+    const [newPassword, setNewPassword] = React.useState("");
+    const [newPasswordConfirm, setNewPasswordConfirm] = React.useState("");
     const [errors, setErrors] = React.useState([]);
     const [isLoading, setIsLoading] = React.useState(false);
 
@@ -57,20 +59,27 @@ const SecurityScreen = (props) => {
         setIsLoading(true);
 
         // Clear all errors
-        setErrors([]);
+        let formErrors = [];
 
         // Confirm that new password and new password confirm match
         if (newPassword !== newPasswordConfirm) {
-            setErrors([...errors, 'New password / new password confirm do not match.']);
+            formErrors.push('New password / new password confirm do not match.');
         }
         
         // Confirm that the old password is different from the new one
         if (oldPassword === newPassword) {
-            setErrors([...errors, 'Old and new password must be different.']);
+            formErrors.push('Old and new password must be different.');
         }
 
+        console.log(newPassword.trim().length);
+        if (newPassword.trim().length < PASSWORD_MIN_LENGTH) {
+            formErrors.push(`Password must be at least ${PASSWORD_MIN_LENGTH} characters`);
+        }
+
+        setErrors(formErrors);
+
         // If no errors, we can perform the password update
-        if (errors.length === 0) {
+        if (formErrors.length === 0) {
             try {
                 const token = await getPreference(TOKEN);
                 const response = await updatePassword(
@@ -119,12 +128,10 @@ const SecurityScreen = (props) => {
                         label="Current password"
                         maxLength={50}
                         onChangeText={value => setOldPassword(value)} />
-
                     <Input
                         label="New password"
                         maxLength={50}
                         onChangeText={value => setNewPassword(value)} />
-
                     <Input
                         label="Confirm new password"
                         maxLength={50}

@@ -40,7 +40,7 @@ const AppBar = (props) => {
 const SearchScreen = (props) => {
 
     const [keyword, setKeyword] = React.useState(null);
-    const [data, setData] = React.useState(test_data);
+    const [data, setData] = React.useState([]);
 
     // Used to display the progress bar under the search bar
     const [progress, setProgress] = React.useState(0);
