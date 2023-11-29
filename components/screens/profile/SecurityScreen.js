@@ -76,8 +76,6 @@ const SecurityScreen = (props) => {
             formErrors.push(`Password must be at least ${PASSWORD_MIN_LENGTH} characters`);
         }
 
-        setErrors(formErrors);
-
         // If no errors, we can perform the password update
         if (formErrors.length === 0) {
             try {
@@ -89,8 +87,11 @@ const SecurityScreen = (props) => {
                     newPassword
                 );
     
-                if (response.status == 200) {
+                if (response.status === 200) {
                     ToastAndroid.show(`Password updated successfully!`, ToastAndroid.SHORT);
+                }
+                else if (response.status === 400) {
+                    formErrors.push('Password is incorrect.');
                 }
                 else {
                     ToastAndroid.show(`An error occured. Please try again later.`, ToastAndroid.SHORT);
@@ -104,6 +105,8 @@ const SecurityScreen = (props) => {
                 setIsLoading(false);
             }
         }
+
+        setErrors(formErrors);
         setIsLoading(false);
     }
 
