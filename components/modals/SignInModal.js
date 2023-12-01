@@ -89,14 +89,14 @@ const SignInModal = (props) => {
         style={styles.inputItem}
         label='Your username'
         placeholder='@'
-        onChangeText={value => {setUsername(value)}}
+        onChangeText={setUsername}
       />
       <Input
         style={styles.inputItem}
         label='Password'
         secureTextEntry={true}
         placeholder='Enter your password'
-        onChangeText={value => setPassword(value)}
+        onChangeText={setPassword}
       />
       <Button
         style={styles.inputItem}

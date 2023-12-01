@@ -125,19 +125,19 @@ const GeneralInfoScreen = (props) => {
                         maxLength={50}
                         value={username}
                         disabled={true}
-                        onChangeText={value => setUsername(value)} />
+                        onChangeText={setUsername} />
 
                     <Input
                         label="Birth date"
                         maxLength={50}
                         value={birthDate}
-                        onChangeText={value => setBirthDate(value)} />
+                        onChangeText={setBirthDate} />
 
                     <Input
                         label="Email address"
                         maxLength={50}
                         value={email}
-                        onChangeText={value => setEmail(value)} />
+                        onChangeText={setEmail} />
 
                     <Input 
                         label='Bio'
@@ -145,7 +145,7 @@ const GeneralInfoScreen = (props) => {
                         textStyle={ {minHeight: 128, textAlignVertical: 'top', paddingVertical: 8} }
                         placeholder="Hi! I'm available!"
                         value={bio}
-                        onChangeText={value => setBio(value)} />
+                        onChangeText={setBio} />
                 </Layout>
             }
             {

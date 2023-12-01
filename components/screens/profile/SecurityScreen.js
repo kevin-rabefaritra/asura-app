@@ -130,15 +130,15 @@ const SecurityScreen = (props) => {
                     <Input 
                         label="Current password"
                         maxLength={50}
-                        onChangeText={value => setOldPassword(value)} />
+                        onChangeText={setOldPassword} />
                     <Input
                         label="New password"
                         maxLength={50}
-                        onChangeText={value => setNewPassword(value)} />
+                        onChangeText={setNewPassword} />
                     <Input
                         label="Confirm new password"
                         maxLength={50}
-                        onChangeText={value => setNewPasswordConfirm(value)} />
+                        onChangeText={setNewPasswordConfirm} />
                 </Layout>
             }
             {

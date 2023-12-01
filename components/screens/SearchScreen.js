@@ -29,7 +29,7 @@ const AppBar = (props) => {
             <Input
                 style={styles.input}
                 placeholder='Search'
-                onChangeText={(value) => props.onChangeText(value)}
+                onChangeText={props.onChangeText}
                 multiline={false}
                 onSubmitEditing={() => props.onValidateSearch()}
             />
@@ -105,7 +105,7 @@ const SearchScreen = (props) => {
     return (
         <Layout style={[styles.container, {backgroundColor: theme['background-basic-color-3']}]}>
             <AppBar 
-                onChangeText={(value) => setKeyword(value)}
+                onChangeText={setKeyword}
                 onBackPressed={onCloseScreen}
                 onValidateSearch={onValidateSearch}
                 backgroundColor={theme['background-basic-color-1']}

@@ -167,7 +167,7 @@ const SignUpScreen = (props) => {
           style={styles.inputItem}
           label='Username (can be changed later)'
           status={usernameError && "danger" || "info"}
-          onChangeText={value => setUsername(value)}
+          onChangeText={setUsername}
           placeholder='@'
         />
         <Layout style={[styles.inlineContainer, styles.inputItem]}>
@@ -176,13 +176,13 @@ const SignUpScreen = (props) => {
             label='First name'
             status={firstnameError && "danger" || "info"}
             placeholder='Your first name'
-            onChangeText={value => setFirstname(value)}
+            onChangeText={setFirstname}
           />
           <Input
             style={styles.inlineContainerItem}
             label='Last name'
             placeholder='Your last name'
-            onChangeText={value => setLastname(value)}
+            onChangeText={setLastname}
           />
         </Layout>
         <Divider style={styles.inputItem} />
@@ -191,7 +191,7 @@ const SignUpScreen = (props) => {
           label='Email'
           status={emailError && "danger" || "info"}
           placeholder='Enter your email address'
-          onChangeText={value => setEmail(value)}
+          onChangeText={setEmail}
         />
         <Input
           style={styles.inputItem}
@@ -199,7 +199,7 @@ const SignUpScreen = (props) => {
           secureTextEntry={true}
           status={passwordError && "danger" || "info"}
           placeholder={`Enter your password (at least ${PASSWORD_MIN_LENGTH} characters)`}
-          onChangeText={value => setPassword(value)}
+          onChangeText={setPassword}
         />
         <Input
           style={styles.inputItem}
@@ -207,7 +207,7 @@ const SignUpScreen = (props) => {
           secureTextEntry={true}
           status={passwordError && "danger" || "info"}
           placeholder='Enter your password again'
-          onChangeText={value => setConfirmPassword(value)}
+          onChangeText={setConfirmPassword}
         />
         <Button
           style={styles.inputItem}
