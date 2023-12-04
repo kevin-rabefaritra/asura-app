@@ -9,6 +9,7 @@ import SearchScreen from './SearchScreen';
 import WritePostScreen from './WritePostScreen';
 import GeneralInfoScreen from './profile/GeneralInfoScreen';
 import SecurityScreen from './profile/SecurityScreen';
+import DebugScreen from './debug/DebugScreen';
 
 const { Navigator, Screen } = createNativeStackNavigator();
 
@@ -31,6 +32,8 @@ const AppNavigator = () => (
       
       <Screen name='GeneralInfo' component={GeneralInfoScreen} />
       <Screen name='Security' component={SecurityScreen} />
+
+      <Screen name='Debug' component={DebugScreen} />
     </Navigator>
   </NavigationContainer>
 )

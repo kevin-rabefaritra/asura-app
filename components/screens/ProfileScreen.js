@@ -115,6 +115,7 @@ const ProfileContainer = (props) => {
             title='About'
             accessoryLeft={<Icon {...props} name='info' />}
             accessoryRight={ForwardIcon}
+            onLongPress={() => {props.navigation.navigate('Debug')}}
           />
           { user && 
             <MenuItem

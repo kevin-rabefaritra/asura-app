@@ -7,7 +7,7 @@ export const BASE_URI = "http://asura.kianja.top/asura"
 // Preference keys
 export const THEME = 'theme';
 export const TOKEN = 'token';
-export const TOKEN_VALIDITY = 'token_validity';
+export const REFRESH_TOKEN = 'refresh_token';
 export const USERNAME = 'username';
 export const UUID = 'uuid';
 export const NAME = 'uname';
