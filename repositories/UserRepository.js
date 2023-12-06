@@ -2,6 +2,8 @@
  * User-related functions
  */
 
+import { BASE_URI } from "../components/services/PreferenceServices";
+
 
 /**
  * Signs a user up
@@ -54,8 +56,8 @@ export function signIn(url, username, password) {
  * @param {*} url 
  * @returns 
  */
-export function sayHello(url) {
-  return fetch(url)
+export function sayHello() {
+  return fetch(`${BASE_URI}/hello`);
 }
 
 /**
