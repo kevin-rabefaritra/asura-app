@@ -2,7 +2,9 @@ import { Button, Card, Layout, Text, useTheme } from "@ui-kitten/components";
 import { StyleSheet, View } from "react-native";
 import DefaultStyle from "../../DefaultStyle";
 import React, { useEffect } from "react";
-import { sayHello } from "../../../repositories/UserRepository";
+import { getBasicInfo, sayHello } from "../../../repositories/UserRepository";
+import { BASE_URI, REFRESH_TOKEN, TOKEN, getPreference } from "../../services/PreferenceServices";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 /**
  * Screen for performing debug operation
@@ -35,11 +37,15 @@ const DebugScreen = (props) => {
     };
 
     useEffect(() => {
-        if (displayedOutput !== "") {
-            setDisplayedOutput(`${displayedOutput}\n${output}`);
-        }
-        else {
-            setDisplayedOutput(output);
+        if (output !== "") {
+            if (displayedOutput !== "") {
+                setDisplayedOutput(`${displayedOutput}\n${output}`);
+            }
+            else {
+                setDisplayedOutput(output);
+            }
+            // Reset output value to avoid unecessary useEffect call
+            setOutput("");
         }
     }, [output]);
 
@@ -47,12 +53,42 @@ const DebugScreen = (props) => {
         // 1. Start 1
         setOutput("Starting debug.\n(1) Sending /hello to the other side..");
 
+        // 2. GET request to /hello
         let response = await sayHello();
         if (response.status === 200) {
-            setOutput("(2) Hello successfull!");
+            setOutput("(1) Hello successfull!\n(2) Authenticating user..");
         }
         else {
-            setOutput(`(2) Hello failed with status code ${response.status}.`);
+            setOutput(`(1) Hello failed with status code ${response.status}.`);
+            return;
+        }
+
+        // 3. Test token validity by fetching user basic info
+        let err, stores = await AsyncStorage.multiGet([TOKEN, REFRESH_TOKEN]);
+        let [accessToken, refreshToken] = [stores[0][1], stores[1][1]];
+
+        let authSuccess = false;
+        response = await getBasicInfo(`${BASE_URI}/users/profile/basic`, accessToken);
+        if (response.status === 200) {
+            setOutput("(2) User authenticated successfully!");
+            authSuccess = true;
+        }
+        else {
+            setOutput(`(2) Authentication failed with status code ${response.status}.`);
+        }
+
+        if (!authSuccess) {
+            setOutput(`(2) Updating token..`);
+            const headers = {'Content-Type': 'application/json', 'Authorization': `Basic ${accessToken}`};
+            response = await fetch(`${BASE_URI}/token/renew`, "POST", headers, {'refreshToken': stores[1][1]});
+
+            if (response.status === 200) {
+                setOutput(`(2) Token updated successfully!`);
+                authSuccess = True;
+            }
+            else {
+                setOutput(`(2) Token could not be updated.`);
+            }
         }
 
         setOutput("(2) Authenticating user");
