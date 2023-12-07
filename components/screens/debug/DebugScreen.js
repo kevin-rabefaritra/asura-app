@@ -1,9 +1,9 @@
-import { Button, Card, Layout, Text, useTheme } from "@ui-kitten/components";
+import { Button, Card, Input, Layout, Text, useTheme } from "@ui-kitten/components";
 import { StyleSheet, View } from "react-native";
 import DefaultStyle from "../../DefaultStyle";
 import React, { useEffect } from "react";
-import { getBasicInfo, sayHello } from "../../../repositories/UserRepository";
-import { BASE_URI, REFRESH_TOKEN, TOKEN, getPreference } from "../../services/PreferenceServices";
+import { getBasicInfo, sayHello, signIn } from "../../../repositories/UserRepository";
+import { BASE_URI, REFRESH_TOKEN, TOKEN, getPreference, savePreference } from "../../services/PreferenceServices";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 /**
@@ -27,6 +27,9 @@ const Footer = (props) => (
 
 const DebugScreen = (props) => {
     const theme = useTheme();
+
+    const [username, setUsername] = React.useState();
+    const [password, setPassword] = React.useState();
     
     const [output, setOutput] = React.useState("");
     const [displayedOutput, setDisplayedOutput] = React.useState("");
@@ -64,7 +67,7 @@ const DebugScreen = (props) => {
         }
 
         // 3. Test token validity by fetching user basic info
-        let err, stores = await AsyncStorage.multiGet([TOKEN, REFRESH_TOKEN]);
+        let _, stores = await AsyncStorage.multiGet([TOKEN, REFRESH_TOKEN]);
         let [accessToken, refreshToken] = [stores[0][1], stores[1][1]];
 
         let authSuccess = false;
@@ -74,30 +77,53 @@ const DebugScreen = (props) => {
             authSuccess = true;
         }
         else {
-            setOutput(`(2) Authentication failed with status code ${response.status}.`);
+            setOutput(`(2) Authentication failed with status code ${response.status}.\n(3) Updating token..`);
         }
 
         if (!authSuccess) {
-            setOutput(`(2) Updating token..`);
             const headers = {'Content-Type': 'application/json', 'Authorization': `Basic ${accessToken}`};
-            response = await fetch(`${BASE_URI}/token/renew`, "POST", headers, {'refreshToken': stores[1][1]});
+            response = await fetch(`${BASE_URI}/token/renew`, "POST", headers, {'refreshToken': refreshToken});
 
             if (response.status === 200) {
-                setOutput(`(2) Token updated successfully!`);
+                setOutput(`(3) Token updated successfully!`);
                 authSuccess = True;
             }
             else {
-                setOutput(`(2) Token could not be updated.`);
+                setOutput(`(3) Token could not be updated.\n(4) Generating from credentials..`);
             }
         }
 
-        setOutput("(2) Authenticating user");
-        // Todo: authenticate
+        if (!authSuccess) {
+            response = await signIn(`${BASE_URI}/users/signin`, username, password);
+            if (response === 200) {
+                setOutput(`(4) Sign in successfull! Saving new tokens..`);
+                let json = response.json();
+                await savePreference(TOKEN, json.token);
+                await savePreference(REFRESH_TOKEN, json.refreshToken);
+            }
+            else {
+                setOutput(`(4) Sign in failed with status code ${response.status}.`);
+            }
+        }
     };
     
     return (
         <Layout style={{padding: 16, flex: 1, backgroundColor: theme['background-basic-color-3']}}>
-            <Card header={Header} footer={<Footer onPress={debug}/>} style={{backgroundColor: theme['background-basic-color-1']}}>
+            <Card style={{backgroundColor: theme['background-basic-color-1']}}>
+            <Input
+                label='Your username'
+                placeholder='@'
+                onChangeText={setUsername}
+            />
+            <Input
+                style={{marginTop: 16}}
+                label='Password'
+                secureTextEntry={true}
+                placeholder='Enter your password'
+                onChangeText={setPassword}
+            />
+            </Card>
+            <Card header={Header} footer={<Footer onPress={debug}/>} style={{backgroundColor: theme['background-basic-color-1'], marginTop: 16}}>
                 <Text>{displayedOutput}</Text>
             </Card>
         </Layout>
@@ -116,5 +142,5 @@ const styles = StyleSheet.create({
     },
     footerControl: {
         marginHorizontal: 2,
-    },
+    }
 });
