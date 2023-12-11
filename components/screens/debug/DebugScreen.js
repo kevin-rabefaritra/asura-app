@@ -67,6 +67,7 @@ const DebugScreen = (props) => {
         }
 
         // 3. Test token validity by fetching user basic info
+        // multiGet returns error and stores
         let _, stores = await AsyncStorage.multiGet([TOKEN, REFRESH_TOKEN]);
         let [accessToken, refreshToken] = [stores[0][1], stores[1][1]];
 
@@ -95,9 +96,9 @@ const DebugScreen = (props) => {
 
         if (!authSuccess) {
             response = await signIn(`${BASE_URI}/users/signin`, username, password);
-            if (response === 200) {
+            if (response.status === 200) {
                 setOutput(`(4) Sign in successfull! Saving new tokens..`);
-                let json = response.json();
+                let json = await response.json();
                 await savePreference(TOKEN, json.token);
                 await savePreference(REFRESH_TOKEN, json.refreshToken);
             }
