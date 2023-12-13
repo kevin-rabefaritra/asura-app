@@ -1,11 +1,11 @@
 # Asura: another social app
 Here's another social app. Yay.. **exactly** what we needed.
 
-Home | Profile | Chat
---- | --- | ---
-![That's the home screen](./screenshots/home.png) | ![That's the profile screen](./screenshots/profile.png) | ![That's the home screen](./screenshots/chat.png)
-Thread
-![That's the chat screen](./screenshots/conversation.png)
+Home | Profile
+--- | ---
+![That's the home screen](./screenshots/home.png) | ![That's the profile screen](./screenshots/profile.png)
+Thread | Chat
+![That's the thread screen](./screenshots/conversation.png) | ![That's the chat screen](./screenshots/chat.png)
 
 ## 🍔 Ingredients
 - React Native 0.71.7
