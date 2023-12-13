@@ -72,7 +72,7 @@ const DebugScreen = (props) => {
         let [accessToken, refreshToken] = [stores[0][1], stores[1][1]];
 
         let authSuccess = false;
-        response = await getBasicInfo(`${BASE_URI}/users/profile/basic`, accessToken);
+        response = await getBasicInfo();
         if (response.status === 200) {
             setOutput("(2) User authenticated successfully!");
             authSuccess = true;

@@ -5,6 +5,8 @@ import DefaultStyle from "../../DefaultStyle";
 import CustomIconButton from "../../basic/CustomIconButton";
 import { getBasicInfo, updateBasicInfo } from '../../../repositories/UserRepository';
 import { BASE_URI, TOKEN, getPreference } from '../../services/PreferenceServices';
+import APIException from '../../../exceptions/APIException';
+import { isEmail } from '../../../helpers/string_helpers';
 
 const AppBar = (props) => {
     return (
@@ -61,15 +63,24 @@ const GeneralInfoScreen = (props) => {
         Keyboard.dismiss();
         setIsLoading(true);
 
+        // Validate form
+        let hasErrors = false;
+
+        // 1. Check email address
+        if (!isEmail(email)) {
+            hasErrors = true;
+        }
+
+        // 2. Check birthdate
+        // Todo: implement
+
+        if (hasErrors) {
+            return;
+        }
+
         try {
             const token = await getPreference(TOKEN);
-            const response = await updateBasicInfo(
-                `${BASE_URI}/users/profile/basic`,
-                token,
-                birthDate,
-                email,
-                bio
-            );
+            const response = await updateBasicInfo(token, birthDate, email, bio);
 
             if (response.status == 200) {
                 // User profile updated successfully
@@ -90,20 +101,19 @@ const GeneralInfoScreen = (props) => {
 
     // Fetch token from preferences
     if (!isProfileLoaded) {
-        getPreference(TOKEN)
-        .then(token => {
-            // Fetch user basic info from server
-            getBasicInfo(`${BASE_URI}/users/profile/basic`, token)
-                .then(response => response.json())
-                .then(json => {
-                    setUsername(`@${json.username}`);
-                    setBirthDate(json.birthday);
-                    setEmail(json.email);
-                    setBio(json.bio);
-                    setIsLoading(false);
-                    setIsProfileLoaded(true);
-                });
-        })
+        getBasicInfo()
+            .then(response => response.json())
+            .then(json => {
+                setUsername(`@${json.username}`);
+                setBirthDate(json.birthday);
+                setEmail(json.email);
+                setBio(json.bio);
+                setIsLoading(false);
+                setIsProfileLoaded(true);
+            })
+            .catch((e) => {
+                console.error(e);
+            });
     }
 
     return (
@@ -131,6 +141,7 @@ const GeneralInfoScreen = (props) => {
                         label="Birth date"
                         maxLength={50}
                         value={birthDate}
+                        placeholder="DD-MM-YYYY"
                         onChangeText={setBirthDate} />
 
                     <Input

@@ -42,7 +42,7 @@ const SignUpScreen = (props) => {
   const signUpUser = async () => {
     setIsProcessing(true);
     try {
-      const response = await signUp(`${BASE_URI}/users/`, username, firstname, lastname, email, password);
+      const response = await signUp(username, firstname, lastname, email, password);
       if (response.status == 201) {
         const json = await response.json();
 

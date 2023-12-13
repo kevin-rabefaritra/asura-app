@@ -10,19 +10,24 @@ import APIException from "../exceptions/APIException";
  * @param {Map} body 
  * @param {Boolean} passToken 
  * @returns {Promise}
+ * @throws
+ * UserSessionExpiredException
+ * APIException
  */
-export const callAPI = async (endpoint, method, body, passToken=false) => {
+export const callAPI = async (endpoint, method, body=null, passToken=false) => {
+    console.log(`Calling ${method} ${endpoint} passToken=${passToken}`);
     let headers = {'Content-Type': 'application/json'};
 
     // Retrieve authorization and access token
-    err, stores = await AsyncStorage.multiGet([TOKEN, REFRESH_TOKEN]);
+    let _, stores = await AsyncStorage.multiGet([TOKEN, REFRESH_TOKEN]);
 
     // Add access token if required
     if (passToken) {
         headers['Authorization'] = `Basic ${stores[0][1]}`;
     }
 
-    let response = await fetch(`${BASE_URI}/${endpoint}`, {method: method, headers: headers, body: body})
+    let response = await fetch(`${BASE_URI}/${endpoint}`, {method: method, headers: headers, body: body});
+    console.log(`Returned status ${response.status}`);
     if (response.status >= 200 && response.status < 300) {
         return response; // Returns response as Promise
     }
@@ -39,6 +44,7 @@ export const callAPI = async (endpoint, method, body, passToken=false) => {
             throw new UserSessionExpiredException();
         }
         else {
+            // We throw any other status code
             throw new APIException(response.status);
         }
     }

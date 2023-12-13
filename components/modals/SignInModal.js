@@ -44,10 +44,10 @@ const SignInModal = (props) => {
     }
     // Set the button text to ongoing
     setIsSigningIn(true);
-     
+    
     // Perform request
     try {
-      const response = await signIn(`${BASE_URI}/users/signin`, username, password);
+      const response = await signIn(username, password);
       setIsSigningIn(false);
       if (response.status == 200) {
         setSignInError(null);

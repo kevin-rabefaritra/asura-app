@@ -5,7 +5,7 @@ import DefaultStyle from "../../DefaultStyle";
 import CustomIconButton from "../../basic/CustomIconButton";
 import { updatePassword } from '../../../repositories/UserRepository';
 import { PASSWORD_MIN_LENGTH } from '../SignUpScreen';
-import { BASE_URI, TOKEN, getPreference } from '../../services/PreferenceServices';
+import APIException from '../../../exceptions/APIException';
 
 const AppBar = (props) => {
     return (
@@ -79,27 +79,20 @@ const SecurityScreen = (props) => {
         // If no errors, we can perform the password update
         if (formErrors.length === 0) {
             try {
-                const token = await getPreference(TOKEN);
-                const response = await updatePassword(
-                    `${BASE_URI}/users/password/update`,
-                    token,
-                    oldPassword,
-                    newPassword
-                );
-    
+                const response = await updatePassword(oldPassword, newPassword);
                 if (response.status === 200) {
                     ToastAndroid.show(`Password updated successfully!`, ToastAndroid.SHORT);
                 }
-                else if (response.status === 400) {
-                    formErrors.push('Password is incorrect.');
-                }
-                else {
-                    ToastAndroid.show(`An error occured. Please try again later.`, ToastAndroid.SHORT);
-                }
             }
             catch (e) {
-                console.log(e);
-                ToastAndroid.show(`An error occured. Please try again later.`, ToastAndroid.SHORT);
+                if (e instanceof APIException) {
+                    if (e.statusCode === 400) {
+                        formErrors.push('Password is incorrect.');
+                    }
+                    else {
+                        ToastAndroid.show(`An error occured. Please try again later.`, ToastAndroid.SHORT);
+                    }
+                }
             }
             finally {
                 setIsLoading(false);
@@ -130,14 +123,17 @@ const SecurityScreen = (props) => {
                     <Input 
                         label="Current password"
                         maxLength={50}
+                        secureTextEntry={true}
                         onChangeText={setOldPassword} />
                     <Input
                         label="New password"
                         maxLength={50}
+                        secureTextEntry={true}
                         onChangeText={setNewPassword} />
                     <Input
                         label="Confirm new password"
                         maxLength={50}
+                        secureTextEntry={true}
                         onChangeText={setNewPasswordConfirm} />
                 </Layout>
             }

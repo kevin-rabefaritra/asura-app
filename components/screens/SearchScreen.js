@@ -58,8 +58,7 @@ const SearchScreen = (props) => {
         // send request using keyword
         setProgress(.5);
         try {
-            const token = await getPreference(TOKEN);
-            const response = await search(`${BASE_URI}/users/search/`, token, keyword);
+            const response = await search(keyword);
             setProgress(1);
             if (response.status == 200) {
                 const json = await response.json();
