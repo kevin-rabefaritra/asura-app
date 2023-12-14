@@ -2,7 +2,6 @@ import { Button, Divider, Icon, Input, Layout, List, Modal, ProgressBar, Text, u
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import { search } from "../../repositories/UserRepository";
-import { BASE_URI, TOKEN, getPreference } from "../services/PreferenceServices";
 import SearchItem from "../list/SearchItem";
 import UserProfileModal from "../modals/UserProfileModal";
 import CustomIconButton from "../basic/CustomIconButton";

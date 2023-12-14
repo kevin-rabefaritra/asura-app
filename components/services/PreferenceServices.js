@@ -40,9 +40,15 @@ export const getPreference = async (key, defaultValue = null) => {
     }
 }
 
-export const removePreference = async (key) => {
+/**
+ * Remove multiple preference keys
+ * @param {Array|String} keys 
+ * @returns 
+ */
+export const removePreference = async (keys) => {
+    const _keys = Array.isArray(keys) ? keys : [keys];
     try {
-        await AsyncStorage.removeItem(key);
+        await AsyncStorage.multiRemove(_keys);
         return true;
     }
     catch (e) {

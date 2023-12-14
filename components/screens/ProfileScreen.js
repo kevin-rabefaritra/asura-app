@@ -1,5 +1,5 @@
 import React from 'react';
-import { ApplicationProvider, BottomNavigation, MenuItem, Layout, Text, Button, Icon, Menu, useTheme, Card, Avatar, Toggle } from '@ui-kitten/components';
+import { MenuItem, Layout, Text, Icon, Menu, useTheme, Card, Avatar } from '@ui-kitten/components';
 import { StyleSheet, View, ImageBackground, ToastAndroid } from 'react-native';
 import { ThemeContext } from '../theme-context';
 import DefaultStyle from '../DefaultStyle';

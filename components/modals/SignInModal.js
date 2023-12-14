@@ -1,10 +1,10 @@
-import { Button, Card, Divider, Input, Layout, Text, useTheme } from "@ui-kitten/components";
+import { Button, Card, Divider, Input, Text, useTheme } from "@ui-kitten/components";
 import { Keyboard, StyleSheet } from "react-native";
 import DefaultStyle from "../DefaultStyle";
 import React, { useEffect } from "react";
 import { PASSWORD_MIN_LENGTH, USERNAME_MIN_LENGTH } from "../screens/SignUpScreen";
-import { sayHello, signIn } from "../../repositories/UserRepository";
-import { BASE_URI, TOKEN, USERNAME, UUID, NAME, EMAIL, savePreference } from "../services/PreferenceServices";
+import { signIn } from "../../repositories/UserRepository";
+import { TOKEN, savePreference } from "../services/PreferenceServices";
 import User from "../models/User";
 
 /**

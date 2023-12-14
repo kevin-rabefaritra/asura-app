@@ -3,7 +3,6 @@ import ChatListScreen from './ChatListScreen';
 import ProfileScreen from './ProfileScreen';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { BottomNavigation, BottomNavigationTab, Icon, Divider } from '@ui-kitten/components';
-import MainStatusBar from '../basic/MainStatusBar';
 
 const { Navigator, Screen } = createBottomTabNavigator();
 

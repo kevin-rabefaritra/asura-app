@@ -1,4 +1,4 @@
-import {  MenuItem, OverflowMenu, Layout, Text, Button, Icon, IconRegistry, List, ListItem, Divider, TopNavigation, TopNavigationAction, useTheme } from '@ui-kitten/components';
+import {  MenuItem, OverflowMenu, Layout, Text, Button, Icon, List, Divider, useTheme } from '@ui-kitten/components';
 import { StyleSheet, View } from 'react-native';
 import UserChatItem from '../list/UserChatItem';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
@@ -6,7 +6,6 @@ import React from 'react';
 import SignInModal from '../modals/SignInModal';
 import DefaultStyle from '../DefaultStyle';
 import { ThemeContext } from '../theme-context';
-import CustomIconButton from '../basic/CustomIconButton';
 
 const data = new Array(30).fill({
   title: 'Weirdo',

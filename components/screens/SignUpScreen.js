@@ -1,10 +1,9 @@
 import { Button, Divider, Icon, Input, Layout, Text, Card, Spinner } from "@ui-kitten/components";
-import MainStatusBar from "../basic/MainStatusBar";
 import { StyleSheet, View } from "react-native";
 import DefaultStyle from "../DefaultStyle";
-import React, { useEffect } from "react";
-import { isAlpha, isEmail } from "../../helpers/string_helpers";
-import { BASE_URI, NAME, USERNAME, UUID, savePreference } from "../services/PreferenceServices";
+import React from "react";
+import { isEmail } from "../../helpers/string_helpers";
+import { NAME, USERNAME, UUID, savePreference } from "../services/PreferenceServices";
 import { signUp } from "../../repositories/UserRepository";
 
 /**

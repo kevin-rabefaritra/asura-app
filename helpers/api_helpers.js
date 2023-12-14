@@ -23,7 +23,7 @@ export const callAPI = async (endpoint, method, body=null, passToken=false) => {
 
     // Add access token if required
     if (passToken) {
-        headers['Authorization'] = `Basic ${stores[0][1]}`;
+        headers['Authorization'] = `Bearer ${stores[0][1]}`;
     }
 
     let response = await fetch(`${BASE_URI}/${endpoint}`, {method: method, headers: headers, body: body});
@@ -33,13 +33,20 @@ export const callAPI = async (endpoint, method, body=null, passToken=false) => {
     }
     else if (response.status === 401) {
         // 401 Non authorized, need to refresh access token
-        response = await fetch(`${BASE_URI}/token/renew`, "POST", headers, {'refreshToken': stores[1][1]})
+        response = await fetch(`${BASE_URI}/token/renew`, {
+            method: "POST",
+            headers: headers,
+            body: {'refreshToken': stores[1][1]}
+        });
+        
         if (response.status === 200) {
+            console.log("Refreshing session ok.");
             let json = await response.json();
             await savePreference(TOKEN, json.accessToken);
             return callAPI(url, method, body, passToken);
         }
         else if (response.status === 401) {
+            console.log("Refreshing session failed.");
             // Refresh token has also expired, throw exception
             throw new UserSessionExpiredException();
         }

@@ -7,6 +7,8 @@ import { getBasicInfo, updateBasicInfo } from '../../../repositories/UserReposit
 import { BASE_URI, TOKEN, getPreference } from '../../services/PreferenceServices';
 import APIException from '../../../exceptions/APIException';
 import { isEmail } from '../../../helpers/string_helpers';
+import { ThemeContext } from '../../theme-context';
+import UserSessionExpiredException from '../../../exceptions/UserSessionExpiredException';
 
 const AppBar = (props) => {
     return (
@@ -37,6 +39,7 @@ const AppBar = (props) => {
 const GeneralInfoScreen = (props) => {
 
     const theme = useTheme();
+    const themeContext = React.useContext(ThemeContext);
 
     const [username, setUsername] = React.useState();
     const [birthDate, setBirthDate] = React.useState();
@@ -73,7 +76,6 @@ const GeneralInfoScreen = (props) => {
 
         // 2. Check birthdate
         // Todo: implement
-
         if (hasErrors) {
             return;
         }
@@ -112,7 +114,14 @@ const GeneralInfoScreen = (props) => {
                 setIsProfileLoaded(true);
             })
             .catch((e) => {
-                console.error(e);
+                if (e instanceof UserSessionExpiredException) {
+                    themeContext.updateUser(null);
+                    onCloseScreen();
+                    ToastAndroid.show("Session expired. Please sign in again.", ToastAndroid.SHORT);
+                }
+                else {
+                    console.error(e);
+                }
             });
     }
 

@@ -1,4 +1,4 @@
-import { Avatar, Card, Layout, Text, useStyleSheet, useTheme } from "@ui-kitten/components";
+import { Avatar, Layout, Text, useTheme } from "@ui-kitten/components";
 import { ImageBackground, StyleSheet } from "react-native";
 
 /**

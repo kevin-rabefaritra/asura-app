@@ -1,6 +1,7 @@
 /**
  * User-related functions
  */
+import { EMAIL, NAME, REFRESH_TOKEN, TOKEN, USERNAME, UUID, removePreference } from "../components/services/PreferenceServices";
 import { callAPI } from "../helpers/api_helpers";
 
 
@@ -86,4 +87,11 @@ export function updatePassword(oldPassword, newPassword) {
     oldPassword: oldPassword,
     newPassword: newPassword,
   }, true);
+}
+
+/**
+ * Signs a user out
+ */
+export function signOut() {
+  removePreference(TOKEN, REFRESH_TOKEN, USERNAME, UUID, NAME, EMAIL);
 }

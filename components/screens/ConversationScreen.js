@@ -1,8 +1,7 @@
 import { Avatar, Button, Divider, Icon, Input, Layout, List, MenuItem, OverflowMenu, Text, useTheme } from "@ui-kitten/components"
 import ConversationMessageItem from '../list/ConversationMessageItem';
 import React from 'react';
-import { ImageBackground, StyleSheet, TextInput, View } from "react-native";
-import CustomIconButton from "../basic/CustomIconButton";
+import { ImageBackground, StyleSheet, View } from "react-native";
 import DefaultStyle from "../DefaultStyle";
 
 const data = new Array(180).fill({
