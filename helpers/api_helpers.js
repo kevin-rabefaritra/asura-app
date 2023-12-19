@@ -14,6 +14,7 @@ import APIException from "../exceptions/APIException";
  * UserSessionExpiredException
  * APIException
  */
+// Todo: add props.navigation to parameters
 export const callAPI = async (endpoint, method, body=null, passToken=false) => {
     console.log(`Calling ${method} ${endpoint} passToken=${passToken}`);
     let headers = {'Content-Type': 'application/json'};
