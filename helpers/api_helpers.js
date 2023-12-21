@@ -5,7 +5,9 @@ import APIException from "../exceptions/APIException";
 
 /**
  * Performs a HTTP request to the server
- * @param {String} url 
+ * If status code 401 is returned when getting a new access token, redirect the
+ * user to the sign in screen.
+ * @param {String} endpoint 
  * @param {String} method 
  * @param {Map} body 
  * @param {Boolean} passToken 
@@ -14,9 +16,11 @@ import APIException from "../exceptions/APIException";
  * UserSessionExpiredException
  * APIException
  */
-// Todo: add props.navigation to parameters
 export const callAPI = async (endpoint, method, body=null, passToken=false) => {
-    console.log(`Calling ${method} ${endpoint} passToken=${passToken}`);
+    console.log(`Calling ${method} ${BASE_URI}/${endpoint} passToken=${passToken}`);
+    if (body) {
+        console.log(JSON.stringify(body));
+    }
     let headers = {'Content-Type': 'application/json'};
 
     // Retrieve authorization and access token
@@ -27,7 +31,7 @@ export const callAPI = async (endpoint, method, body=null, passToken=false) => {
         headers['Authorization'] = `Bearer ${stores[0][1]}`;
     }
 
-    let response = await fetch(`${BASE_URI}/${endpoint}`, {method: method, headers: headers, body: body});
+    let response = await fetch(`${BASE_URI}/${endpoint}`, {method: method, headers: headers, body: JSON.stringify(body)});
     console.log(`Returned status ${response.status}`);
     if (response.status >= 200 && response.status < 300) {
         return response; // Returns response as Promise
@@ -37,7 +41,7 @@ export const callAPI = async (endpoint, method, body=null, passToken=false) => {
         response = await fetch(`${BASE_URI}/token/renew`, {
             method: "POST",
             headers: headers,
-            body: {'refreshToken': stores[1][1]}
+            body: JSON.stringify({'refreshToken': stores[1][1]})
         });
         
         if (response.status === 200) {
@@ -48,7 +52,7 @@ export const callAPI = async (endpoint, method, body=null, passToken=false) => {
         }
         else if (response.status === 401) {
             console.log("Refreshing session failed.");
-            // Refresh token has also expired, throw exception
+            // Refresh token has also expired, request user to sign in again
             throw new UserSessionExpiredException();
         }
         else {

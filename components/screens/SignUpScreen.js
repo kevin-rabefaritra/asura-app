@@ -3,8 +3,9 @@ import { StyleSheet, View } from "react-native";
 import DefaultStyle from "../DefaultStyle";
 import React from "react";
 import { isEmail } from "../../helpers/string_helpers";
-import { NAME, USERNAME, UUID, savePreference } from "../services/PreferenceServices";
+import { EMAIL, NAME, USERNAME, UUID, savePreference } from "../services/PreferenceServices";
 import { signUp } from "../../repositories/UserRepository";
+import APIException from "../../exceptions/APIException";
 
 /**
  * Sign up screen
@@ -51,24 +52,28 @@ const SignUpScreen = (props) => {
         savePreference(NAME, `${json.first_name} ${json.last_name}`);
         savePreference(EMAIL, json.email);
 
-        setHasErrors(false)
-      }
-      else if (response.status == 400) {
-        // got expected error from server
-        // username or email might already been taken
-        setUsernameError("The username or email is already taken.")
-        setHasErrors(true)
-      }
-      else {
-        setGeneralError(`Error code ${response.status}`);
-        setHasErrors(true)
+        setHasErrors(false);
+
+        // Redirect user to sign in screen
+        onCloseScreen();
       }
     }
     catch(error) {
-      // Todo: [ReferenceError: Property 'EMAIL' doesn't exist] to be fixed
       console.log(error);
-      setGeneralError('Error reaching out to the server.');
-      setHasErrors(true)
+      setHasErrors(true);
+      if (error instanceof APIException) {
+        if (error.statusCode == 400) {
+          // got expected error from server
+          // username or email might already been taken
+          setUsernameError("The username or email is already taken.");
+        }
+        else {
+          setGeneralError(`Error code ${error.statusCode}`);
+        }
+      }
+      else {
+        setGeneralError('Error reaching out to the server.');
+      }
     }
     finally {
       setIsProcessing(false);

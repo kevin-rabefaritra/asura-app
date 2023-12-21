@@ -4,7 +4,7 @@ import DefaultStyle from "../DefaultStyle";
 import React, { useEffect } from "react";
 import { PASSWORD_MIN_LENGTH, USERNAME_MIN_LENGTH } from "../screens/SignUpScreen";
 import { signIn } from "../../repositories/UserRepository";
-import { TOKEN, savePreference } from "../services/PreferenceServices";
+import { TOKEN, USERNAME, getPreference, savePreference } from "../services/PreferenceServices";
 import User from "../models/User";
 
 /**
@@ -32,7 +32,14 @@ const SignInModal = (props) => {
   // Effect to keep track on the sign in button
   useEffect(() => {
     setIsFormValid(validateForm());
-  }, [username, password])
+  }, [username, password]);
+
+  // Load default username if set in preferences
+  getPreference(USERNAME).then((username) => {
+    if (username) {
+      setUsername(username);
+    }
+  });
 
   // on sign up click
   const onSignInClick = async () => {
@@ -80,7 +87,7 @@ const SignInModal = (props) => {
 
   return (
     <Card style={styles.signInModal} disabled={true}>
-      <Text style={DefaultStyle.title}>Sign in.</Text>
+      <Text style={DefaultStyle.title} >Sign in.</Text>
       <Text category='s1' appearance='hint'>Don't have an account yet? <Text status='primary' onPress={props.openSignUpScreen}>Create one now</Text>!</Text>
       { signInError && 
         <Text category="label" status="danger" style={{marginTop: 8}}>{signInError}</Text>
@@ -89,6 +96,7 @@ const SignInModal = (props) => {
         style={styles.inputItem}
         label='Your username'
         placeholder='@'
+        value={username}
         onChangeText={setUsername}
       />
       <Input

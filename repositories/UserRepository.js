@@ -21,7 +21,7 @@ export function signUp(username, firstname, lastname, email, password) {
       last_name: lastname,
       email: email,
       password: password
-    }, true);
+    }, false);
 }
 
 /**
