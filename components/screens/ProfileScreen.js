@@ -1,7 +1,7 @@
 import React from 'react';
 import { MenuItem, Layout, Text, Icon, Menu, useTheme, Card, Avatar } from '@ui-kitten/components';
 import { StyleSheet, View, ImageBackground, ToastAndroid } from 'react-native';
-import { ThemeContext } from '../theme-context';
+import { DefaultContext } from '../default-context';
 import DefaultStyle from '../DefaultStyle';
 
 
@@ -24,16 +24,16 @@ const ForwardIcon = (props) => (
 /**
  * Events
  */
-const onThemeClicked = (themeContext) => {
+const onThemeClicked = (DefaultContext) => {
   // Apply the new theme
-  let newTheme = themeContext.theme === 'light' ? 'dark' : 'light';
-  themeContext.applyTheme(newTheme);
+  let newTheme = DefaultContext.theme === 'light' ? 'dark' : 'light';
+  DefaultContext.applyTheme(newTheme);
   ToastAndroid.show(`Theme successfully set to ${newTheme} mode!`, ToastAndroid.SHORT);
 }
 
-const onSignOutClicked = (themeContext) => {
+const onSignOutClicked = (DefaultContext) => {
   // set the user to null
-  themeContext.updateUser(null);
+  DefaultContext.updateUser(null);
   ToastAndroid.show(`You have successfully signed out!`, ToastAndroid.SHORT);
 }
 
@@ -139,12 +139,12 @@ const ProfileContainer = (props) => {
 const ProfileScreen = (props) => {
 
   // We get the theme context to update the theme
-  const themeContext = React.useContext(ThemeContext);
+  const context = React.useContext(DefaultContext);
 
   return (
     <Layout>
       <AppBar />
-      <ProfileContainer context={themeContext} navigation={props.navigation}/>
+      <ProfileContainer context={context} navigation={props.navigation}/>
     </Layout>
   )
 }

@@ -3,9 +3,11 @@ import { Button, Divider, Icon, Text, Layout, Input, Datepicker, Avatar, useThem
 import { Keyboard, StyleSheet, ToastAndroid, View } from "react-native";
 import DefaultStyle from "../../DefaultStyle";
 import CustomIconButton from "../../basic/CustomIconButton";
-import { updatePassword } from '../../../repositories/UserRepository';
+import { signOutAndRedirect, updatePassword } from '../../../repositories/UserRepository';
 import { PASSWORD_MIN_LENGTH } from '../SignUpScreen';
 import APIException from '../../../exceptions/APIException';
+import UserSessionExpiredException from '../../../exceptions/UserSessionExpiredException';
+import { DefaultContext } from '../../default-context';
 
 const AppBar = (props) => {
     return (
@@ -36,6 +38,7 @@ const AppBar = (props) => {
 const SecurityScreen = (props) => {
 
     const theme = useTheme();
+    const context = React.useContext(DefaultContext);
 
     const [oldPassword, setOldPassword] = React.useState("");
     const [newPassword, setNewPassword] = React.useState("");
@@ -92,6 +95,9 @@ const SecurityScreen = (props) => {
                     else {
                         ToastAndroid.show(`An error occured. Please try again later.`, ToastAndroid.SHORT);
                     }
+                }
+                else if (e instanceof UserSessionExpiredException) {
+                    signOutAndRedirect(context, props.navigation, "Profile");
                 }
             }
             finally {

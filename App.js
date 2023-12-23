@@ -6,7 +6,7 @@ import { default as defaultTheme } from './theme.json';
 import { default as mapping } from './mapping.json';
 import { FeatherIconsPack } from './feather-icons';
 import AppNavigator from './components/screens/AppNavigator';
-import { ThemeContext } from './components/theme-context';
+import { DefaultContext } from './components/default-context';
 import * as PreferenceServices  from './components/services/PreferenceServices';
 import * as Font from 'expo-font';
 import User from './components/models/User';
@@ -91,11 +91,11 @@ export default function App() {
   return (
     <>
       <IconRegistry icons={[FeatherIconsPack, EvaIconsPack]} />
-      <ThemeContext.Provider value={{ theme, applyTheme, user, updateUser }}>
+      <DefaultContext.Provider value={{ theme, applyTheme, user, updateUser }}>
         <ApplicationProvider {...eva} theme={{...eva[theme], ...defaultTheme}} customMapping={mapping}>
           <AppNavigator {...eva} />
         </ApplicationProvider>
-      </ThemeContext.Provider>
+      </DefaultContext.Provider>
     </>
   );
 };

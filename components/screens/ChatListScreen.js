@@ -5,7 +5,7 @@ import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import React from 'react';
 import SignInModal from '../modals/SignInModal';
 import DefaultStyle from '../DefaultStyle';
-import { ThemeContext } from '../theme-context';
+import { DefaultContext } from '../default-context';
 
 const data = new Array(30).fill({
   title: 'Weirdo',
@@ -67,7 +67,7 @@ const AppBar = (props) => {
 const ChatListScreen = (props) => {
 
   // We get the theme context to update the theme
-  const context = React.useContext(ThemeContext);
+  const context = React.useContext(DefaultContext);
   const theme = useTheme();
 
   // If the user is signed in, we will show the chat list items

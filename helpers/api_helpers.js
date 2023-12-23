@@ -31,7 +31,8 @@ export const callAPI = async (endpoint, method, body=null, passToken=false) => {
         headers['Authorization'] = `Bearer ${stores[0][1]}`;
     }
 
-    let response = await fetch(`${BASE_URI}/${endpoint}`, {method: method, headers: headers, body: JSON.stringify(body)});
+    let requestBody = body ? JSON.stringify(body) : null;
+    let response = await fetch(`${BASE_URI}/${endpoint}`, {method: method, headers: headers, body: requestBody});
     console.log(`Returned status ${response.status}`);
     if (response.status >= 200 && response.status < 300) {
         return response; // Returns response as Promise

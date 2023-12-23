@@ -47,14 +47,13 @@ const SignUpScreen = (props) => {
         const json = await response.json();
 
         // Sign up successful, we store the account into to the preferences
-        savePreference(UUID, json.uuid);
-        savePreference(USERNAME, json.username);
-        savePreference(NAME, `${json.first_name} ${json.last_name}`);
-        savePreference(EMAIL, json.email);
+        await savePreference(UUID, json.uuid);
+        await savePreference(USERNAME, json.username);
+        await savePreference(NAME, `${json.first_name} ${json.last_name}`);
+        await savePreference(EMAIL, json.email);
 
         setHasErrors(false);
 
-        // Redirect user to sign in screen
         onCloseScreen();
       }
     }

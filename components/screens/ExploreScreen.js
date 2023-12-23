@@ -4,7 +4,7 @@ import PostItem from '../list/PostItem';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import DefaultStyle from '../DefaultStyle';
 import React from 'react';
-import { ThemeContext } from '../theme-context';
+import { DefaultContext } from '../default-context';
 import CustomIconButton from '../basic/CustomIconButton';
 
 const data = new Array(30).fill({
@@ -50,7 +50,7 @@ const AppBar = (props) => {
  */
 const ExploreScreen = (props) => {
 
-  const context = React.useContext(ThemeContext);
+  const context = React.useContext(DefaultContext);
   const isSignedIn = context.user !== null;
 
   const renderItem = ({item, index}) => (

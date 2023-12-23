@@ -3,11 +3,11 @@ import { Button, Divider, Icon, Text, Layout, Input, Datepicker, Avatar, useThem
 import { ImageBackground, Keyboard, StyleSheet, ToastAndroid, View } from "react-native";
 import DefaultStyle from "../../DefaultStyle";
 import CustomIconButton from "../../basic/CustomIconButton";
-import { getBasicInfo, updateBasicInfo } from '../../../repositories/UserRepository';
+import { getBasicInfo, signOutAndRedirect, updateBasicInfo } from '../../../repositories/UserRepository';
 import { BASE_URI, TOKEN, getPreference } from '../../services/PreferenceServices';
 import APIException from '../../../exceptions/APIException';
 import { isEmail } from '../../../helpers/string_helpers';
-import { ThemeContext } from '../../theme-context';
+import { DefaultContext } from '../../default-context';
 import UserSessionExpiredException from '../../../exceptions/UserSessionExpiredException';
 
 const AppBar = (props) => {
@@ -39,14 +39,16 @@ const AppBar = (props) => {
 const GeneralInfoScreen = (props) => {
 
     const theme = useTheme();
-    const themeContext = React.useContext(ThemeContext);
+    const context = React.useContext(DefaultContext);
 
     const [username, setUsername] = React.useState();
     const [birthDate, setBirthDate] = React.useState();
     const [email, setEmail] = React.useState();
     const [bio, setBio] = React.useState();
 
-    const [isProfileLoaded, setIsProfileLoaded] = React.useState(false);
+    // state 0 = idle, state 1 = loading, state 2 = loaded
+    const [profileLoadingState, setProfileLoadingState] = React.useState(0);
+
     const [isLoading, setIsLoading] = React.useState(true);
 
     /**
@@ -102,7 +104,8 @@ const GeneralInfoScreen = (props) => {
     }
 
     // Fetch token from preferences
-    if (!isProfileLoaded) {
+    if (profileLoadingState == 0) {
+        setProfileLoadingState(1);
         getBasicInfo()
             .then(response => response.json())
             .then(json => {
@@ -111,13 +114,11 @@ const GeneralInfoScreen = (props) => {
                 setEmail(json.email);
                 setBio(json.bio);
                 setIsLoading(false);
-                setIsProfileLoaded(true);
+                setProfileLoadingState(2);
             })
             .catch((e) => {
                 if (e instanceof UserSessionExpiredException) {
-                    themeContext.updateUser(null);
-                    onCloseScreen();
-                    ToastAndroid.show("Session expired. Please sign in again.", ToastAndroid.SHORT);
+                    signOutAndRedirect(context, props.navigation, to="Profile");
                 }
                 else {
                     console.error(e);

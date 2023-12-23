@@ -92,6 +92,10 @@ export function updatePassword(oldPassword, newPassword) {
 /**
  * Signs a user out
  */
-export function signOut() {
-  removePreference(TOKEN, REFRESH_TOKEN, USERNAME, UUID, NAME, EMAIL);
+export function signOutAndRedirect(context, navigation, to) {
+  navigation.replace(to);
+  // We don't remove USERNAME because we use it as a default value in the
+  // sign in screen
+  removePreference(TOKEN, REFRESH_TOKEN, /* USERNAME, */ UUID, NAME, EMAIL);
+  context.updateUser(null);
 }

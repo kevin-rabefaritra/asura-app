@@ -6,6 +6,7 @@ import { PASSWORD_MIN_LENGTH, USERNAME_MIN_LENGTH } from "../screens/SignUpScree
 import { signIn } from "../../repositories/UserRepository";
 import { TOKEN, USERNAME, getPreference, savePreference } from "../services/PreferenceServices";
 import User from "../models/User";
+import APIException from "../../exceptions/APIException";
 
 /**
  * Sign up modal dialog
@@ -25,6 +26,8 @@ const SignInModal = (props) => {
   const [isSigningIn, setIsSigningIn] = React.useState(false)
   const [isFormValid, setIsFormValid] = React.useState(false)
 
+  const [hasLoadedDefaultUsername, setHasLoadedDefaultUsername] = React.useState(false);
+
   const validateForm = () => {
     return username.trim().length >= USERNAME_MIN_LENGTH && password.trim().length >= PASSWORD_MIN_LENGTH;
   }
@@ -34,9 +37,10 @@ const SignInModal = (props) => {
     setIsFormValid(validateForm());
   }, [username, password]);
 
-  // Load default username if set in preferences
+  // Load default username if set in preferences (only do once)
   getPreference(USERNAME).then((username) => {
-    if (username) {
+    if (!hasLoadedDefaultUsername && username) {
+      setHasLoadedDefaultUsername(true);
       setUsername(username);
     }
   });
@@ -55,7 +59,6 @@ const SignInModal = (props) => {
     // Perform request
     try {
       const response = await signIn(username, password);
-      setIsSigningIn(false);
       if (response.status == 200) {
         setSignInError(null);
         let json = await response.json();
@@ -73,15 +76,21 @@ const SignInModal = (props) => {
         );
         context.updateUser(user);
       }
-      if (response.status == 404) {
-        // the user does not exist
-        setSignInError("The username / password does not exist.");
-      }
     }
     catch (e) {
       console.log(e);
+      if (e instanceof APIException) {
+        if (e.statusCode == 404) {
+          // the user does not exist
+          setSignInError("The username / password does not exist.");
+        }
+      }
+      else {
+        setSignInError("An error occured. Please try again.");
+      }
+    }
+    finally {
       setIsSigningIn(false);
-      setSignInError("An error occured. Please try again.")
     }
   }
 
