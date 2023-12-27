@@ -34,13 +34,14 @@ npm run ios
 - [X] Home timeline
 - [X] Conversation list
 - [X] Individual conversation
-- [X] Profile
+- [X] Profile (update info, update password)
 - [X] Login
+- [X] Debug test
 
 ### Features
 - [X] Dark theme
 - [ ] Pagination
-- [ ] Like / comment count 
+- [X] Like / comment count 
 
 ## License
 ```
