@@ -35,7 +35,7 @@ export const callAPI = async (endpoint, method, body=null, passToken=false) => {
     let response = await fetch(`${BASE_URI}/${endpoint}`, {method: method, headers: headers, body: requestBody});
     console.log(`Returned status ${response.status}`);
     if (response.status >= 200 && response.status < 300) {
-        return response; // Returns response as Promise
+        return response;
     }
     else if (response.status === 401) {
         // 401 Non authorized, need to refresh access token

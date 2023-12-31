@@ -1,45 +1,48 @@
-import { Divider, List, BottomNavigationTab, Layout, Text, Button, Icon, IconRegistry } from '@ui-kitten/components';
+import { Divider, List, BottomNavigationTab, Layout, Text, Button, Icon, IconRegistry, Spinner, useTheme } from '@ui-kitten/components';
 import { StyleSheet, View } from 'react-native';
 import PostItem from '../list/PostItem';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import DefaultStyle from '../DefaultStyle';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { DefaultContext } from '../default-context';
 import CustomIconButton from '../basic/CustomIconButton';
+import { getPosts } from '../../repositories/PostRepository';
 
 const data = new Array(30).fill({
-  title: 'Kevin Michel',
-  subtitle: '4 minutes ago',
-  content: "I was a bit bored this weekend so made a short trip to the moon. 😐 #boredinmoon #boredom",
-  thumbnail: "",
-  avatar: ""
+	title: 'Kevin Michel',
+	subtitle: '4 minutes ago',
+	content: "I was a bit bored this weekend so made a short trip to the moon. 😐 #boredinmoon #boredom",
+	thumbnail: "",
+	avatar: ""
 });
 
 const AppBar = (props) => {
-  
-  return (
-    <View style={styles.appBarContainer}>
-      <Text style={[DefaultStyle.heading, {flex: 1, textAlign: 'left'}]}>Explore.</Text>
+	
+	const theme = useTheme();
+	
+	return (
+    <View style={[styles.appBarContainer, { backgroundColor: theme['background-basic-color-1'] }]}>
+		<Text style={[DefaultStyle.heading, {flex: 1, textAlign: 'left'}]}>Explore.</Text>
 
-      <CustomIconButton
-        style={styles.rightButton}
-        appearance='ghost'
-        status='basic'
-        size='small'
-        onPress={props.onOpenSearchScreen}
-        iconName='search'
-      />
+		<CustomIconButton
+			style={styles.rightButton}
+			appearance='ghost'
+			status='basic'
+			size='small'
+			onPress={props.onOpenSearchScreen}
+			iconName='search'
+		/>
 
-      { 
-        props.isSignedIn && 
-        <CustomIconButton
-          style={styles.rightButton}
-          status='primary'
-          size='small'
-          onPress={onOpenWritePostScreen}
-          iconName='plus'
-        />
-      }
+		{ 
+		props.isSignedIn && 
+		<CustomIconButton
+			style={styles.rightButton}
+			status='primary'
+			size='small'
+			onPress={onOpenWritePostScreen}
+			iconName='plus'
+		/>
+		}
     </View>
   );
 };
@@ -50,67 +53,98 @@ const AppBar = (props) => {
  */
 const ExploreScreen = (props) => {
 
-  const context = React.useContext(DefaultContext);
-  const isSignedIn = context.user !== null;
+	const context = React.useContext(DefaultContext);
+	const theme = useTheme();
 
-  const renderItem = ({item, index}) => (
-    <PostItem 
-      avatar={item.src}
-      title={item.title}
-      subtitle={item.subtitle}
-      thumbnail={item.thumbnail}
-      content={item.content}
-    />
-  );
+	const [data, setData] = React.useState(null);
+	const [isLoading, setIsLoading] = React.useState(true);
+	const isSignedIn = context.user !== null;
 
-  // Get the height of the navigation bar
-  const navBarHeight = useBottomTabBarHeight();
+	const renderItem = ({item, index}) => (
+		<PostItem 
+		avatar={item.src}
+		title={item.title}
+		subtitle={item.subtitle}
+		thumbnail={item.thumbnail}
+		content={item.content} />
+  	);
 
-  /**
-   * Opens the search screen
-   */
-  onOpenSearchScreen = () => {
-    props.navigation.navigate('Search');
-  }
+	// Get the height of the navigation bar
+	const navBarHeight = useBottomTabBarHeight();
 
-  // Writes a post
-  onOpenWritePostScreen = () => {
-    props.navigation.navigate('WritePost')
-  }
+	/**
+	 * Opens the search screen
+	 */
+	onOpenSearchScreen = () => {
+		props.navigation.navigate('Search');
+	}
 
-  return (
-    <Layout>
-      <AppBar 
-        onOpenSearchScreen={onOpenSearchScreen} 
-        onOpenWritePostScreen={onOpenWritePostScreen}
-        isSignedIn={isSignedIn}
-      />
-      <Divider />
-      <List
-        data={data}
-        renderItem={renderItem}
-        contentContainerStyle={styles.contentContainer}
-        style={{marginBottom: navBarHeight + 24}}
-      />
-    </Layout>
-  );
+	// Writes a post
+	onOpenWritePostScreen = () => {
+		props.navigation.navigate('WritePost')
+	}
+
+	// Fetch posts
+	onFetchPosts = () => {
+		getPosts(0)
+			.then((response) => response.json())
+			.then((json) => {
+				setData(json.map((item) => ({
+					title: [item['first_name'], item['last_name']].join(' '),
+					subtitle: item['created_at'],
+					content: item['content'],
+					thumbnail: "",
+					avatar: ""
+				})));
+			})
+			.catch((exception) => {
+				console.log(exception);
+			})
+			.finally(() => {
+				setIsLoading(false);
+			});
+	}
+
+	onFetchPosts();
+
+	return (
+		<Layout style={{flex: 1}}>
+			<AppBar 
+				onOpenSearchScreen={onOpenSearchScreen} 
+				onOpenWritePostScreen={onOpenWritePostScreen}
+				isSignedIn={isSignedIn}
+			/>
+			<Divider />
+			{ isLoading ? (
+			<View style={DefaultStyle.full}>
+				<Spinner status='primary' size='medium'/>
+			</View>) : (
+			<List
+				data={data}
+				renderItem={renderItem}
+				contentContainerStyle={styles.contentContainer}
+				style={{marginBottom: navBarHeight + 24}}
+			/> )
+			}
+		</Layout>
+	);
 }
 
-export default ExploreScreen;
+	export default ExploreScreen;
 
-
-const styles = StyleSheet.create({
-  appBarContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: 16,
-  },
-  contentContainer: {
-    paddingTop: 4,
-    paddingBottom: 4
-  },
-  rightButton: {
-    marginLeft: 8
-  },
-});
+	const styles = StyleSheet.create({
+		appBarContainer: {
+			flexDirection: 'row',
+			justifyContent: 'space-between',
+			alignItems: 'center',
+			padding: 16,
+		},
+		contentContainer: {
+			paddingTop: 4,
+			paddingBottom: 4
+		},
+		rightButton: {
+			marginLeft: 8
+		},
+	}
+);

@@ -24,5 +24,10 @@ export default StyleSheet.create({
         position: 'absolute',
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    full: {
+        alignItems: 'center',
+        flex: 1,
+        justifyContent: 'center'
     }
 });

@@ -145,7 +145,7 @@ const SecurityScreen = (props) => {
             }
             {
                 isLoading &&
-                <Layout style={{ alignItems: 'center', flex: 1, justifyContent: 'center' }}>
+                <Layout style={DefaultStyle.full}>
                     <Spinner />
                 </Layout>
             }
