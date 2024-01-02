@@ -7,6 +7,8 @@ import React, { useEffect } from 'react';
 import { DefaultContext } from '../default-context';
 import CustomIconButton from '../basic/CustomIconButton';
 import { getPosts } from '../../repositories/PostRepository';
+import UserSessionExpiredException from '../../exceptions/UserSessionExpiredException';
+import { signOutAndRedirect } from '../../repositories/UserRepository';
 
 const data = new Array(30).fill({
 	title: 'Kevin Michel',
@@ -57,16 +59,18 @@ const ExploreScreen = (props) => {
 	const theme = useTheme();
 
 	const [data, setData] = React.useState(null);
-	const [isLoading, setIsLoading] = React.useState(true);
+	const [isLoading, setIsLoading] = React.useState(false);
+	const [hasLoaded, setHasLoaded] = React.useState(false);
 	const isSignedIn = context.user !== null;
 
 	const renderItem = ({item, index}) => (
 		<PostItem 
-		avatar={item.src}
-		title={item.title}
-		subtitle={item.subtitle}
-		thumbnail={item.thumbnail}
-		content={item.content} />
+			avatar={item.src}
+			title={item.title}
+			subtitle={item.subtitle}
+			thumbnail={item.thumbnail}
+			content={item.content}
+			likesCount={item.likesCount} />
   	);
 
 	// Get the height of the navigation bar
@@ -89,23 +93,31 @@ const ExploreScreen = (props) => {
 		getPosts(0)
 			.then((response) => response.json())
 			.then((json) => {
-				setData(json.map((item) => ({
-					title: [item['first_name'], item['last_name']].join(' '),
-					subtitle: item['created_at'],
-					content: item['content'],
+				setData(json.results.map((item) => ({
+					title: [item.user_firstname, item.user_lastname].join(' '),
+					subtitle: item.created_at,
+					content: item.content,
 					thumbnail: "",
-					avatar: ""
+					avatar: "",
+					likesCount: item.likes_count
 				})));
 			})
 			.catch((exception) => {
 				console.log(exception);
+				if (exception instanceof UserSessionExpiredException) {
+                    signOutAndRedirect(context, props.navigation, to="Profile");
+				}
 			})
 			.finally(() => {
 				setIsLoading(false);
+				setHasLoaded(true);
 			});
 	}
 
-	onFetchPosts();
+	if (!hasLoaded && !isLoading) {
+		setIsLoading(true);
+		onFetchPosts();
+	}
 
 	return (
 		<Layout style={{flex: 1}}>

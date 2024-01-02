@@ -31,7 +31,7 @@ const PostItem = (props) => {
           source={require('../../assets/post.jpeg')}
         />
         <Layout style={styles.actions}>
-          <CustomIconButton appearance='ghost' style={{flex:1}} status='primary' iconName="arrow-up">18</CustomIconButton>
+          <CustomIconButton appearance='ghost' style={{flex:1}} status='primary' iconName="arrow-up">{props.likesCount}</CustomIconButton>
           <CustomIconButton appearance='ghost' style={{flex:1}} status='basic' iconName="message-square">2</CustomIconButton>
           <CustomIconButton appearance='ghost' style={{flex:1}} status='basic' iconName="arrow-right"></CustomIconButton>
         </Layout>

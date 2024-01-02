@@ -5,5 +5,5 @@ import { callAPI } from "../helpers/api_helpers";
  * @param {number} page 
  */
 export function getPosts(page=0) {
-    return callAPI(`posts?page=${page}`, 'GET', null, true);
+    return callAPI(`posts`, 'GET', null, true);
 }

@@ -38,6 +38,7 @@ const SignInModal = (props) => {
   }, [username, password]);
 
   // Load default username if set in preferences (only do once)
+  // Todo: handle onResume
   getPreference(USERNAME).then((username) => {
     if (!hasLoadedDefaultUsername && username) {
       setHasLoadedDefaultUsername(true);
