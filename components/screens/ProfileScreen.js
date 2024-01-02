@@ -73,7 +73,7 @@ const ProfileContainer = (props) => {
               />
               <Layout style={styles.headerInfoContainer}>
                 <Text category='h6'>Guest</Text>
-                <Text category='h6' appearance='hint'>You're not signed in.</Text>
+                <Text category='p1' appearance='hint' style={{ marginTop: 2 }}>You're not signed in.</Text>
               </Layout>
             </Layout>
           )
