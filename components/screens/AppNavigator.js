@@ -2,14 +2,14 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import MainScreen from './MainScreen';
-import ConversationScreen from './ConversationScreen';
 import MainStatusBar from '../basic/MainStatusBar';
 import SignUpScreen from './SignUpScreen';
 import SearchScreen from './SearchScreen';
-import WritePostScreen from './WritePostScreen';
 import GeneralInfoScreen from './profile/GeneralInfoScreen';
 import SecurityScreen from './profile/SecurityScreen';
 import DebugScreen from './debug/DebugScreen';
+import ProfileScreen from './ProfileScreen';
+import SignInScreen from './SignInScreen';
 
 const { Navigator, Screen } = createNativeStackNavigator();
 
@@ -25,10 +25,10 @@ const AppNavigator = () => (
   <NavigationContainer>
     <Navigator screenOptions={{ header: () => (<MainStatusBar />), animation: 'fade' }} >
       <Screen name='Main' component={MainScreen} />
-      <Screen name='Conversation' component={ConversationScreen} />
       <Screen name='SignUp' component={SignUpScreen} />
+      <Screen name='SignIn' component={SignInScreen} />
       <Screen name='Search' component={SearchScreen} />
-      <Screen name='WritePost' component={WritePostScreen} />
+      <Screen name='Profile' component={ProfileScreen} />
       
       <Screen name='GeneralInfo' component={GeneralInfoScreen} />
       <Screen name='Security' component={SecurityScreen} />

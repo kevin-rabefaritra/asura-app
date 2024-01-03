@@ -105,7 +105,7 @@ const ExploreScreen = (props) => {
 			.catch((exception) => {
 				console.log(exception);
 				if (exception instanceof UserSessionExpiredException) {
-                    signOutAndRedirect(context, props.navigation, to="Profile");
+                    signOutAndRedirect(context, props.navigation, to="Profile", redirectInstead=true);
 				}
 			})
 			.finally(() => {

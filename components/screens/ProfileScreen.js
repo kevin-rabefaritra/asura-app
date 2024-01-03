@@ -1,6 +1,6 @@
 import React from 'react';
 import { MenuItem, Layout, Text, Icon, Menu, useTheme, Card, Avatar } from '@ui-kitten/components';
-import { StyleSheet, View, ImageBackground, ToastAndroid } from 'react-native';
+import { StyleSheet, View, ImageBackground, ToastAndroid, TouchableOpacity } from 'react-native';
 import { DefaultContext } from '../default-context';
 import DefaultStyle from '../DefaultStyle';
 
@@ -63,7 +63,7 @@ const ProfileContainer = (props) => {
               </Layout>
             </Layout>
           ) : (
-            <Layout style={styles.headerContainer}>
+            <TouchableOpacity style={styles.headerContainer} onPress={() => {props.navigation.navigate('SignIn')}}>
               <Avatar
                 shape='rounded'
                 size='giant'
@@ -75,7 +75,7 @@ const ProfileContainer = (props) => {
                 <Text category='h6'>Guest</Text>
                 <Text category='p1' appearance='hint' style={{ marginTop: 2 }}>You're not signed in.</Text>
               </Layout>
-            </Layout>
+            </TouchableOpacity>
           )
         }
         <Menu onSelect={index => setSelectedIndex(index)} style={{marginTop: 16, marginHorizontal: -24}} >

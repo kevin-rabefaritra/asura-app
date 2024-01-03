@@ -92,8 +92,13 @@ export function updatePassword(oldPassword, newPassword) {
 /**
  * Signs a user out
  */
-export function signOutAndRedirect(context, navigation, to) {
-  navigation.replace(to);
+export function signOutAndRedirect(context, navigation, to, redirectInstead=false) {
+  if (redirectInstead) {
+    navigation.navigate(to);
+  }
+  else {
+    navigation.replace(to);
+  }
   // We don't remove USERNAME because we use it as a default value in the
   // sign in screen
   removePreference(TOKEN, REFRESH_TOKEN, /* USERNAME, */ UUID, NAME, EMAIL);

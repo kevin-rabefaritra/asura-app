@@ -52,7 +52,7 @@ const UserProfileModal = (props) => {
                     textColor={theme['color-basic-100']}
                     iconName='mail'
                     onPress={props.onOpenConversationView}>
-                        Send a message
+                        View Profile
                 </CustomIconButton>
             </Card>
 
