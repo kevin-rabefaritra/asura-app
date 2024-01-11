@@ -1,9 +1,7 @@
-import SignInModal from '../modals/SignInModal';
 import ExploreScreen from './ExploreScreen';
 import ProfileScreen from './ProfileScreen';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { BottomNavigation, BottomNavigationTab, Icon, Divider } from '@ui-kitten/components';
-import SignInScreen from './SignInScreen';
 
 const { Navigator, Screen } = createBottomTabNavigator();
 

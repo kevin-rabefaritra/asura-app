@@ -40,8 +40,8 @@ npm run ios
 
 ### Features
 - [X] Dark theme
-- [ ] Pagination
 - [X] Like / comment count 
+- [ ] Pagination
 
 ## License
 ```

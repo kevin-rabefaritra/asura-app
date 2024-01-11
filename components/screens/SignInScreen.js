@@ -4,9 +4,10 @@ import DefaultStyle from "../DefaultStyle";
 import React, { useEffect } from "react";
 import { PASSWORD_MIN_LENGTH, USERNAME_MIN_LENGTH } from "../screens/SignUpScreen";
 import { signIn } from "../../repositories/UserRepository";
-import { TOKEN, USERNAME, getPreference, savePreference } from "../services/PreferenceServices";
+import { EMAIL, NAME, REFRESH_TOKEN, TOKEN, USERNAME, UUID, getPreference, savePreference } from "../services/PreferenceServices";
 import User from "../models/User";
 import APIException from "../../exceptions/APIException";
+import { DefaultContext } from "../default-context";
 
 /**
  * Sign up modal dialog
@@ -15,7 +16,7 @@ import APIException from "../../exceptions/APIException";
  */
 
 const SignInScreen = (props) => {
-  const context = props.context;
+  const context = React.useContext(DefaultContext);
   const theme = useTheme();
 
   const [signInError, setSignInError] = React.useState("")
@@ -64,8 +65,6 @@ const SignInScreen = (props) => {
         setSignInError(null);
         let json = await response.json();
         let jsonUser = json.user;
-
-        savePreference(TOKEN, json.token);
         
         // Update the user in Context
         const user = new User(
@@ -75,7 +74,16 @@ const SignInScreen = (props) => {
           jsonUser.last_name,
           jsonUser.email
         );
+
+        await savePreference(TOKEN, json.token);
+        await savePreference(REFRESH_TOKEN, json.refreshToken);
+        await savePreference(UUID, user.uuid);
+        await savePreference(NAME, user.firstName);
+        await savePreference(EMAIL, user.email);
+
         context.updateUser(user);
+
+        props.navigation.goBack();
       }
     }
     catch (e) {

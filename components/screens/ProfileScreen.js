@@ -24,16 +24,16 @@ const ForwardIcon = (props) => (
 /**
  * Events
  */
-const onThemeClicked = (DefaultContext) => {
+const onThemeClicked = (context) => {
   // Apply the new theme
-  let newTheme = DefaultContext.theme === 'light' ? 'dark' : 'light';
-  DefaultContext.applyTheme(newTheme);
+  let newTheme = context.theme === 'light' ? 'dark' : 'light';
+  context.applyTheme(newTheme);
   ToastAndroid.show(`Theme successfully set to ${newTheme} mode!`, ToastAndroid.SHORT);
 }
 
-const onSignOutClicked = (DefaultContext) => {
+const onSignOutClicked = (context) => {
   // set the user to null
-  DefaultContext.updateUser(null);
+  context.updateUser(null);
   ToastAndroid.show(`You have successfully signed out!`, ToastAndroid.SHORT);
 }
 
