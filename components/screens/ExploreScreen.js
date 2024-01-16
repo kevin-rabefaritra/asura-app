@@ -58,20 +58,28 @@ const ExploreScreen = (props) => {
 	const context = React.useContext(DefaultContext);
 	const theme = useTheme();
 
-	const [data, setData] = React.useState(null);
+	const [data, setData] = React.useState([null]);
 	const [isLoading, setIsLoading] = React.useState(false);
 	const [hasLoaded, setHasLoaded] = React.useState(false);
+	const [hasMoar, setHasMoar] = React.useState(false);
 	const isSignedIn = context.user !== null;
 
-	const renderItem = ({item, index}) => (
-		<PostItem 
+	const renderItem = ({item, index}) => {
+		const content = (<PostItem 
 			avatar={item.src}
 			title={item.title}
 			subtitle={item.subtitle}
 			thumbnail={item.thumbnail}
 			content={item.content}
 			likesCount={item.likesCount} />
-  	);
+		);
+
+		return (index === data.length - 1 && hasMoar) ? 
+			<>
+				{content}
+				<Text style={{textAlign: 'center', padding: 16}}>Loading moar...</Text>
+			</> : content;
+	}
 
 	// Get the height of the navigation bar
 	const navBarHeight = useBottomTabBarHeight();
@@ -89,29 +97,33 @@ const ExploreScreen = (props) => {
 	}
 
 	// Fetch posts
-	onFetchPosts = () => {
-		getPosts(0)
-			.then((response) => response.json())
-			.then((json) => {
-				setData(json.results.map((item) => ({
-					title: [item.user_firstname, item.user_lastname].join(' '),
-					subtitle: item.created_at,
-					content: item.content,
-					thumbnail: "",
-					avatar: "",
-					likesCount: item.likes_count
-				})));
-			})
-			.catch((exception) => {
-				console.log(exception);
-				if (exception instanceof UserSessionExpiredException) {
-                    signOutAndRedirect(context, props.navigation, to="Profile", redirectInstead=true);
-				}
-			})
-			.finally(() => {
-				setIsLoading(false);
-				setHasLoaded(true);
-			});
+	onFetchPosts = async () => {
+		try {
+			await new Promise(r => setTimeout(r, 1000));
+			let posts = await getPosts(1);
+			let json = await posts.json();
+			let items = json.results.map((item) => ({
+				title: [item.user_firstname, item.user_lastname].join(' '),
+				subtitle: item.created_at,
+				content: item.content,
+				thumbnail: "",
+				avatar: "",
+				likesCount: item.likes_count
+			}));
+
+			setHasMoar(Boolean(json.next));
+			setData(items);
+		}
+		catch(exception) {
+			console.log(exception);
+			if (exception instanceof UserSessionExpiredException) {
+				signOutAndRedirect(context, props.navigation, to="Profile", redirectInstead=true);
+			}
+		}
+		finally {
+			setIsLoading(false);
+			setHasLoaded(true);
+		}
 	}
 
 	if (!hasLoaded && !isLoading) {
@@ -120,7 +132,7 @@ const ExploreScreen = (props) => {
 	}
 
 	return (
-		<Layout style={{flex: 1}}>
+		<Layout style={{flex: 1, backgroundColor: theme['background-basic-color-3']}}>
 			<AppBar 
 				onOpenSearchScreen={onOpenSearchScreen} 
 				onOpenWritePostScreen={onOpenWritePostScreen}
@@ -135,7 +147,7 @@ const ExploreScreen = (props) => {
 				data={data}
 				renderItem={renderItem}
 				contentContainerStyle={styles.contentContainer}
-				style={{marginBottom: navBarHeight + 24}}
+				style={{marginBottom: navBarHeight + 24, backgroundColor: theme['background-basic-color-3']}}
 			/> )
 			}
 		</Layout>

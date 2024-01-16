@@ -50,7 +50,7 @@ export function sayHello() {
  * @param {String} keyword 
  */
 export function search(keyword) {
-  return callAPI(`users/search/${keyword}`, "GET", null, true);
+  return callAPI(`search/${keyword}`, "GET", null, true);
 }
 
 /**
