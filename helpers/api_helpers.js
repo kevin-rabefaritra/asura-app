@@ -39,6 +39,7 @@ export const callAPI = async (endpoint, method, body=null, passToken=false) => {
     }
     else if (response.status === 401) {
         // 401 Non authorized, need to refresh access token
+        console.log("Refreshing token..");
         response = await fetch(`${BASE_URI}/token/renew`, {
             method: "POST",
             headers: headers,
@@ -49,9 +50,9 @@ export const callAPI = async (endpoint, method, body=null, passToken=false) => {
             console.log("Refreshing session ok.");
             let json = await response.json();
             await savePreference(TOKEN, json.accessToken);
-            return callAPI(url, method, body, passToken);
+            return callAPI(endpoint, method, body, passToken);
         }
-        else if (response.status === 401) {
+        else if ([401, 404].includes(response.status)) {
             console.log("Refreshing session failed.");
             // Refresh token has also expired, request user to sign in again
             throw new UserSessionExpiredException();

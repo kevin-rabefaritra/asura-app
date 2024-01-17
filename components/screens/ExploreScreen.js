@@ -58,10 +58,10 @@ const ExploreScreen = (props) => {
 	const context = React.useContext(DefaultContext);
 	const theme = useTheme();
 
-	const [data, setData] = React.useState([null]);
-	const [isLoading, setIsLoading] = React.useState(false);
-	const [hasLoaded, setHasLoaded] = React.useState(false);
-	const [hasMoar, setHasMoar] = React.useState(false);
+	const [data, setData] = React.useState(null);
+	const [isLoading, setIsLoading] = React.useState(true);
+	const [hasMoar, setHasMoar] = React.useState(true);
+	const [currentPage, setCurrentPage] = React.useState(1);
 	const isSignedIn = context.user !== null;
 
 	const renderItem = ({item, index}) => {
@@ -97,10 +97,11 @@ const ExploreScreen = (props) => {
 	}
 
 	// Fetch posts
-	onFetchPosts = async () => {
+	onFetchPosts = async (reloadAll = false) => {
+		let page = reloadAll ? 1 : currentPage;
 		try {
 			await new Promise(r => setTimeout(r, 1000));
-			let posts = await getPosts(1);
+			let posts = await getPosts(page);
 			let json = await posts.json();
 			let items = json.results.map((item) => ({
 				title: [item.user_firstname, item.user_lastname].join(' '),
@@ -112,7 +113,21 @@ const ExploreScreen = (props) => {
 			}));
 
 			setHasMoar(Boolean(json.next));
-			setData(items);
+			if (page === 1) {
+				// set existing array with fetched items
+				setData(items);
+			}
+			else {
+				// append fetched items to existing array
+				let updatedData = [...data, ...items];
+				setData(updatedData);
+			}
+
+			// increment page no. if there are more items
+			if (json.next) {
+				page += 1;
+			}
+			setCurrentPage(page);
 		}
 		catch(exception) {
 			console.log(exception);
@@ -122,13 +137,7 @@ const ExploreScreen = (props) => {
 		}
 		finally {
 			setIsLoading(false);
-			setHasLoaded(true);
 		}
-	}
-
-	if (!hasLoaded && !isLoading) {
-		setIsLoading(true);
-		onFetchPosts();
 	}
 
 	return (
@@ -139,17 +148,15 @@ const ExploreScreen = (props) => {
 				isSignedIn={isSignedIn}
 			/>
 			<Divider />
-			{ isLoading ? (
-			<View style={DefaultStyle.full}>
-				<Spinner status='primary' size='medium'/>
-			</View>) : (
 			<List
 				data={data}
+				onRefresh={() => onFetchPosts(true)}
+				onEndReached={() => hasMoar && onFetchPosts()}
+				refreshing={isLoading}
 				renderItem={renderItem}
 				contentContainerStyle={styles.contentContainer}
-				style={{marginBottom: navBarHeight + 24, backgroundColor: theme['background-basic-color-3']}}
-			/> )
-			}
+				style={{backgroundColor: theme['background-basic-color-3']}}
+			/>
 		</Layout>
 	);
 }
