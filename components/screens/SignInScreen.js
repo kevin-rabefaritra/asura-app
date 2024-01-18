@@ -83,7 +83,7 @@ const SignInScreen = (props) => {
 
         context.updateUser(user);
 
-        props.navigation.goBack();
+        props.navigation.navigate('Main');
       }
     }
     catch (e) {

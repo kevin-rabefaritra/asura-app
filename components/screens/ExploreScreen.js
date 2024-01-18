@@ -71,7 +71,8 @@ const ExploreScreen = (props) => {
 			subtitle={item.subtitle}
 			thumbnail={item.thumbnail}
 			content={item.content}
-			likesCount={item.likesCount} />
+			likesCount={item.likesCount}
+			postUuid={item.uuid}/>
 		);
 
 		return (index === data.length - 1 && hasMoar) ? 
@@ -104,12 +105,13 @@ const ExploreScreen = (props) => {
 			let posts = await getPosts(page);
 			let json = await posts.json();
 			let items = json.results.map((item) => ({
+				uuid: item.uuid,
 				title: [item.user_firstname, item.user_lastname].join(' '),
 				subtitle: item.created_at,
 				content: item.content,
 				thumbnail: "",
 				avatar: "",
-				likesCount: item.likes_count
+				likesCount: item.likes_count,
 			}));
 
 			setHasMoar(Boolean(json.next));

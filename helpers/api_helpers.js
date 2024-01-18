@@ -17,9 +17,9 @@ import APIException from "../exceptions/APIException";
  * APIException
  */
 export const callAPI = async (endpoint, method, body=null, passToken=false) => {
-    console.log(`Calling ${method} ${BASE_URI}/${endpoint} passToken=${passToken}`);
+    console.log(`[callAPI] Calling ${method} ${BASE_URI}/${endpoint} passToken=${passToken}`);
     if (body) {
-        console.log(JSON.stringify(body));
+        console.log(`[callAPI] body: ${JSON.stringify(body)}`);
     }
     let headers = {'Content-Type': 'application/json'};
 
@@ -33,13 +33,13 @@ export const callAPI = async (endpoint, method, body=null, passToken=false) => {
 
     let requestBody = body ? JSON.stringify(body) : null;
     let response = await fetch(`${BASE_URI}/${endpoint}`, {method: method, headers: headers, body: requestBody});
-    console.log(`Returned status ${response.status}`);
+    console.log(`[callAPI] Returned status ${response.status}`);
     if (response.status >= 200 && response.status < 300) {
         return response;
     }
     else if (response.status === 401) {
         // 401 Non authorized, need to refresh access token
-        console.log("Refreshing token..");
+        console.log("[callAPI] Refreshing token..");
         response = await fetch(`${BASE_URI}/token/renew`, {
             method: "POST",
             headers: headers,
@@ -47,13 +47,13 @@ export const callAPI = async (endpoint, method, body=null, passToken=false) => {
         });
         
         if (response.status === 200) {
-            console.log("Refreshing session ok.");
+            console.log("[callAPI] Refreshing session ok.");
             let json = await response.json();
             await savePreference(TOKEN, json.accessToken);
             return callAPI(endpoint, method, body, passToken);
         }
         else if ([401, 404].includes(response.status)) {
-            console.log("Refreshing session failed.");
+            console.log("[callAPI] Refreshing session failed.");
             // Refresh token has also expired, request user to sign in again
             throw new UserSessionExpiredException();
         }

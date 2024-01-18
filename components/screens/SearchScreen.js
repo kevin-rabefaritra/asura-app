@@ -109,7 +109,7 @@ const SearchScreen = (props) => {
                 backgroundColor={theme['background-basic-color-1']}
             />
 
-            { 
+            {
                 (progress > 0) &&
                 <ProgressBar progress={progress} />
             }
