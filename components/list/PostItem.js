@@ -4,6 +4,7 @@ import CustomIconButton from '../basic/CustomIconButton';
 import DefaultStyle from '../DefaultStyle';
 import { useState } from 'react';
 import { reactToPost } from '../../repositories/PostRepository';
+import UserSessionExpiredException from '../../exceptions/UserSessionExpiredException';
 
 /**
  * Represents a single post item (displayed on the timeline)
@@ -32,6 +33,9 @@ const PostItem = (props) => {
 			})
 			.catch((e) => {
 				// Failed to send reaction
+				if (e instanceof UserSessionExpiredException) {
+					
+				}
 				console.log(e);
 			})
 			.finally(() => {
@@ -70,9 +74,7 @@ const PostItem = (props) => {
 						iconName="arrow-up">
 						{score}
 					</CustomIconButton>
-					
-					<CustomIconButton appearance='ghost' style={{flex:1}} status='basic' iconName="message-square">2</CustomIconButton>
-					<CustomIconButton appearance='ghost' style={{flex:1}} status='basic' iconName="arrow-right"></CustomIconButton>
+					<CustomIconButton appearance='ghost' style={{flex:1}} status='basic' iconName="copy"></CustomIconButton>
 				</Layout>
 			</Layout>
 		</Card>

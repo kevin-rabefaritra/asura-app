@@ -15,10 +15,12 @@ export const EMAIL = 'email';
 
 export const savePreference = async (key, value) => {
     try {
+        console.log(`[savePreference] ${key}=${value}`);
         await AsyncStorage.setItem(key, value);
         return true;
     }
     catch (e) {
+        console.log(e);
         // Unable to save the value
         return false;
     }
@@ -27,12 +29,7 @@ export const savePreference = async (key, value) => {
 export const getPreference = async (key, defaultValue = null) => {
     try {
         const result = await AsyncStorage.getItem(key);
-        if (result !== null) {
-            return result;
-        }
-        else {
-            return defaultValue;
-        }
+        return result || defaultValue;
     }
     catch (e) {
         // Unable to get the value
@@ -48,6 +45,7 @@ export const getPreference = async (key, defaultValue = null) => {
 export const removePreference = async (keys) => {
     const _keys = Array.isArray(keys) ? keys : [keys];
     try {
+        console.log(`[removePreference] ${keys.toString()}`);
         await AsyncStorage.multiRemove(_keys);
         return true;
     }

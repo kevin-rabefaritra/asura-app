@@ -39,19 +39,13 @@ export default function App() {
 
   // Update the user info
   const updateUser = (user) => {
-    if (user !== null) {
+    setUser(user);
+    if (user) {
       PreferenceServices.savePreference(PreferenceServices.UUID, user.uuid);
-      PreferenceServices.savePreference(PreferenceServices.USERNAME, user.username);
-      PreferenceServices.savePreference(PreferenceServices.NAME, `${user.firstName};${user.lastName}`);
-      PreferenceServices.savePreference(PreferenceServices.EMAIL, user.email);
     }
     else {
-      PreferenceServices.removePreference(PreferenceServices.UUID);
-      PreferenceServices.removePreference(PreferenceServices.USERNAME);
-      PreferenceServices.removePreference(PreferenceServices.NAME);
-      PreferenceServices.removePreference(PreferenceServices.EMAIL);
+      PreferenceServices.removePreference([PreferenceServices.UUID]);
     }
-    setUser(user);
   }
 
   // Load the current theme from preferences (default light)

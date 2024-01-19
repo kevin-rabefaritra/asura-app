@@ -31,24 +31,24 @@ const onThemeClicked = (context) => {
   ToastAndroid.show(`Theme successfully set to ${newTheme} mode!`, ToastAndroid.SHORT);
 }
 
-const onSignOutClicked = (context) => {
-  // set the user to null
-  context.updateUser(null);
-  ToastAndroid.show(`You have successfully signed out!`, ToastAndroid.SHORT);
-}
-
 const ProfileContainer = (props) => {
   const context = props.context;
   const theme = useTheme();
   const navigation = props.navigation;
   const [selectedIndex, setSelectedIndex] = React.useState(null);
-  const user = context.user;
+
+
+  const onSignOutClicked = () => {
+    // set the user to null
+    context.updateUser(null);
+    ToastAndroid.show(`You have successfully signed out!`, ToastAndroid.SHORT);
+  }
 
   return (
     <Layout style={[styles.profileContainer, {backgroundColor: theme['background-basic-color-3']}]}>
       <Card style={styles.profileCard} disabled={true}>
         { 
-          user ? (
+          context.user ? (
             <Layout style={styles.headerContainer}>
               <Avatar
                 shape='square'
@@ -58,8 +58,8 @@ const ProfileContainer = (props) => {
                 style={[styles.userAvatar, {borderColor: theme['color-primary-default']}]}
               />
               <Layout style={styles.headerInfoContainer}>
-                <Text>{user.firstName} {user.lastName}</Text>
-                <Text appearance='hint' style={{marginTop: 4}}>@{user.username}</Text>
+                <Text>{context.user.firstName} {context.user.lastName}</Text>
+                <Text appearance='hint' style={{marginTop: 4}}>@{context.user.username}</Text>
               </Layout>
             </Layout>
           ) : (
@@ -79,7 +79,7 @@ const ProfileContainer = (props) => {
           )
         }
         <Menu onSelect={index => setSelectedIndex(index)} style={{marginTop: 16, marginHorizontal: -24}} >
-          { user &&
+          { context.user &&
             <>
               <MenuItem
                 title='General information'
@@ -117,7 +117,7 @@ const ProfileContainer = (props) => {
             accessoryRight={ForwardIcon}
             onLongPress={() => {props.navigation.navigate('Debug')}}
           />
-          { user && 
+          { context.user && 
             <MenuItem
               title='Log out'
               accessoryLeft={<Icon {...props} name='log-out' />}

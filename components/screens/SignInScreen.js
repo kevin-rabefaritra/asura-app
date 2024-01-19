@@ -75,6 +75,7 @@ const SignInScreen = (props) => {
           jsonUser.email
         );
 
+		    await savePreference(USERNAME, user.username);
         await savePreference(TOKEN, json.token);
         await savePreference(REFRESH_TOKEN, json.refreshToken);
         await savePreference(UUID, user.uuid);
