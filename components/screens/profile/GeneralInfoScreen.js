@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Divider, Icon, Text, Layout, Input, Datepicker, Avatar, useTheme, Spinner } from "@ui-kitten/components";
+import { Button, Divider, Icon, Text, Layout, Input, Avatar, useTheme, Spinner } from "@ui-kitten/components";
 import { ImageBackground, Keyboard, StyleSheet, ToastAndroid, View } from "react-native";
 import DefaultStyle from "../../DefaultStyle";
 import CustomIconButton from "../../basic/CustomIconButton";
@@ -9,6 +9,7 @@ import APIException from '../../../exceptions/APIException';
 import { isEmail } from '../../../helpers/string_helpers';
 import { DefaultContext } from '../../default-context';
 import UserSessionExpiredException from '../../../exceptions/UserSessionExpiredException';
+import DefaultDatePicker from '../../basic/DefaultDatePicker';
 
 const AppBar = (props) => {
     return (
@@ -45,6 +46,8 @@ const GeneralInfoScreen = (props) => {
     const [birthDate, setBirthDate] = React.useState();
     const [email, setEmail] = React.useState();
     const [bio, setBio] = React.useState();
+
+    const [open, setOpen] = React.useState(false)
 
     // state 0 = idle, state 1 = loading, state 2 = loaded
     const [profileLoadingState, setProfileLoadingState] = React.useState(0);
@@ -110,7 +113,7 @@ const GeneralInfoScreen = (props) => {
             .then(response => response.json())
             .then(json => {
                 setUsername(`@${json.username}`);
-                setBirthDate(json.birthday);
+                // setBirthDate(json.birthday);
                 setEmail(json.email);
                 setBio(json.bio);
                 setIsLoading(false);
@@ -145,20 +148,21 @@ const GeneralInfoScreen = (props) => {
                         maxLength={50}
                         value={username}
                         disabled={true}
-                        onChangeText={setUsername} />
+                        onChangeText={setUsername}
+                        style={{marginTop: 8}}/>
 
-                    <Input
+                    <DefaultDatePicker
                         label="Birth date"
-                        maxLength={50}
                         value={birthDate}
-                        placeholder="DD-MM-YYYY"
-                        onChangeText={setBirthDate} />
+                        onChange={setBirthDate}
+                        style={{marginTop: 8}}/>
 
                     <Input
                         label="Email address"
                         maxLength={50}
                         value={email}
-                        onChangeText={setEmail} />
+                        onChangeText={setEmail}
+                        style={{marginTop: 8}} />
 
                     <Input 
                         label='Bio'
@@ -166,7 +170,8 @@ const GeneralInfoScreen = (props) => {
                         textStyle={ {minHeight: 128, textAlignVertical: 'top', paddingVertical: 8} }
                         placeholder="Hi! I'm available!"
                         value={bio}
-                        onChangeText={setBio} />
+                        onChangeText={setBio}
+                        style={{marginTop: 8}}/>
                 </Layout>
             }
             {

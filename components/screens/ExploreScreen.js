@@ -34,17 +34,7 @@ const AppBar = (props) => {
 			onPress={props.onOpenSearchScreen}
 			iconName='search'
 		/>
-
-		{ 
-		props.isSignedIn && 
-		<CustomIconButton
-			style={styles.rightButton}
-			status='primary'
-			size='small'
-			onPress={onOpenWritePostScreen}
-			iconName='plus'
-		/>
-		}
+		
     </View>
   );
 };
