@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Divider, Icon, Text, Layout, Input, Avatar, useTheme, Spinner } from "@ui-kitten/components";
+import { Button, Divider, Icon, Text, Layout, Input, Avatar, useTheme, Spinner, Card } from "@ui-kitten/components";
 import { ImageBackground, Keyboard, StyleSheet, ToastAndroid, View } from "react-native";
 import DefaultStyle from "../../DefaultStyle";
 import CustomIconButton from "../../basic/CustomIconButton";
@@ -10,6 +10,7 @@ import { isEmail } from '../../../helpers/string_helpers';
 import { DefaultContext } from '../../default-context';
 import UserSessionExpiredException from '../../../exceptions/UserSessionExpiredException';
 import DefaultDatePicker from '../../basic/DefaultDatePicker';
+import { isDateValid } from '../../../helpers/date_helpers';
 
 const AppBar = (props) => {
     return (
@@ -47,7 +48,7 @@ const GeneralInfoScreen = (props) => {
     const [email, setEmail] = React.useState();
     const [bio, setBio] = React.useState();
 
-    const [open, setOpen] = React.useState(false)
+    const [errors, setErrors] = React.useState([]);
 
     // state 0 = idle, state 1 = loading, state 2 = loaded
     const [profileLoadingState, setProfileLoadingState] = React.useState(0);
@@ -73,21 +74,29 @@ const GeneralInfoScreen = (props) => {
 
         // Validate form
         let hasErrors = false;
+        let _errors = [];
 
         // 1. Check email address
         if (!isEmail(email)) {
             hasErrors = true;
+            _errors.push(`Email address is not valid.`);
         }
 
         // 2. Check birthdate
-        // Todo: implement
+        if (!isDateValid(birthDate)) {
+            hasErrors = true;
+            _errors.push(`Birth date is not valid.`);
+        }
+
+        // Interrupt the request if there are incorrect data
+        setErrors(_errors);
         if (hasErrors) {
+            setIsLoading(false);
             return;
         }
 
         try {
-            const token = await getPreference(TOKEN);
-            const response = await updateBasicInfo(token, birthDate, email, bio);
+            const response = await updateBasicInfo(birthDate, email, bio);
 
             if (response.status == 200) {
                 // User profile updated successfully
@@ -113,9 +122,9 @@ const GeneralInfoScreen = (props) => {
             .then(response => response.json())
             .then(json => {
                 setUsername(`@${json.username}`);
-                // setBirthDate(json.birthday);
                 setEmail(json.email);
                 setBio(json.bio);
+                setBirthDate(json.birthday)
                 setIsLoading(false);
                 setProfileLoadingState(2);
             })
@@ -133,6 +142,18 @@ const GeneralInfoScreen = (props) => {
         <Layout style={styles.container}>
             <AppBar onBackPressed={onCloseScreen} onValidatePressed={onValidatePressed}/>
             <Divider />
+            {
+                errors.length > 0 &&
+                    <Card
+                        style={{margin: 8}}
+                        status='danger'>
+                        <Text style={{lineHeight: 24}}>
+                            Error(s):
+                            { errors.map((item) => `\n\u2022 ${item}`)}
+                        </Text>
+                    </Card>
+            }
+
             {
                 !isLoading &&
                 <Layout style={styles.body}>
@@ -154,7 +175,7 @@ const GeneralInfoScreen = (props) => {
                     <DefaultDatePicker
                         label="Birth date"
                         value={birthDate}
-                        onChange={setBirthDate}
+                        onChangeDate={setBirthDate}
                         style={{marginTop: 8}}/>
 
                     <Input

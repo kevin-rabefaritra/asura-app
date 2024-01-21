@@ -16,7 +16,7 @@ import APIException from "../exceptions/APIException";
  * UserSessionExpiredException
  * APIException
  */
-export const callAPI = async (endpoint, method, body=null, passToken=false) => {
+export async function callAPI(endpoint, method, body=null, passToken=false) {
     console.log(`[callAPI] Calling ${method} ${BASE_URI}/${endpoint} passToken=${passToken}`);
     if (body) {
         console.log(`[callAPI] body: ${JSON.stringify(body)}`);
