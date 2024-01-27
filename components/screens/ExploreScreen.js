@@ -10,14 +10,6 @@ import { getPosts } from '../../repositories/PostRepository';
 import UserSessionExpiredException from '../../exceptions/UserSessionExpiredException';
 import { signOutAndRedirect } from '../../repositories/UserRepository';
 
-const data = new Array(30).fill({
-	title: 'Kevin Michel',
-	subtitle: '4 minutes ago',
-	content: "I was a bit bored this weekend so made a short trip to the moon. 😐 #boredinmoon #boredom",
-	thumbnail: "",
-	avatar: ""
-});
-
 const AppBar = (props) => {
 	
 	const theme = useTheme();
@@ -62,7 +54,8 @@ const ExploreScreen = (props) => {
 			thumbnail={item.thumbnail}
 			content={item.content}
 			likesCount={item.likesCount}
-			postUuid={item.uuid}/>
+			postUuid={item.uuid}
+			userScore={item.userScore}/>
 		);
 
 		return (index === data.length - 1 && hasMoar) ? 
@@ -71,9 +64,6 @@ const ExploreScreen = (props) => {
 				<Text style={{textAlign: 'center', padding: 16}}>Loading moar...</Text>
 			</> : content;
 	}
-
-	// Get the height of the navigation bar
-	const navBarHeight = useBottomTabBarHeight();
 
 	/**
 	 * Opens the search screen
@@ -102,6 +92,7 @@ const ExploreScreen = (props) => {
 				thumbnail: "",
 				avatar: "",
 				likesCount: item.likes_count,
+				userScore: item.user_score
 			}));
 
 			setHasMoar(Boolean(json.next));

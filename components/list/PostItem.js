@@ -11,7 +11,7 @@ import UserSessionExpiredException from '../../exceptions/UserSessionExpiredExce
  */
 const PostItem = (props) => {
 	const [score, setScore] = useState(props.likesCount);
-	const [hasReacted, setHasReacted] = useState(false);
+	const [userScore, setUserScore] = useState(props.userScore);
 	const [isSendingRequest, setIsSendingRequest] = useState(false); 
 	const theme = useTheme();
 
@@ -20,16 +20,17 @@ const PostItem = (props) => {
 			return;
 		}
 
-		let _hasReacted = !hasReacted;
+		let _hasReacted = userScore != 0;
+		let newScore = _hasReacted ? 0 : 1;
 
 		// Send reaction to server
 		setIsSendingRequest(true);
-		reactToPost(props.postUuid, _hasReacted ? 1 : 0)
+		reactToPost(props.postUuid, newScore)
 			.then((response) => {
 				// response should be status 201
 				console.log(`[onClickReact] ${response.status}`);
-				setScore(score + (_hasReacted ? 1 : -1));
-				setHasReacted(_hasReacted);
+				setScore(score + (_hasReacted ? -1 : 1));
+				setUserScore(newScore);
 			})
 			.catch((e) => {
 				// Failed to send reaction
@@ -68,8 +69,8 @@ const PostItem = (props) => {
 					<CustomIconButton 
 						appearance='ghost'
 						style={{flex:1}}
-						status={hasReacted ? 'primary' : 'basic'}
-						textColor={hasReacted ? theme['color-primary-default'] : null}
+						status={userScore ? 'primary' : 'basic'}
+						textColor={userScore ? theme['color-primary-default'] : null}
 						onPress={onClickReact}
 						iconName="arrow-up">
 						{score}
