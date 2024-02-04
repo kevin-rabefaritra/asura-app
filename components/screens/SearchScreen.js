@@ -2,17 +2,9 @@ import { Button, Divider, Icon, Input, Layout, List, Modal, ProgressBar, Text, u
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import { search } from "../../repositories/UserRepository";
-import SearchItem from "../list/SearchItem";
+import UserSearchItem from "../list/UserSearchItem";
 import UserProfileModal from "../modals/UserProfileModal";
 import CustomIconButton from "../basic/CustomIconButton";
-
-const test_data = new Array(5).fill({
-    uuid: '1991911-3939939-939393',
-    first_name: 'Kevin',
-    last_name: 'Michel',
-    username: 'kevin',
-    email: 'kevin@gmail.com'
-});
 
 const AppBar = (props) => {
     return (
@@ -44,9 +36,6 @@ const SearchScreen = (props) => {
     // Used to display the progress bar under the search bar
     const [progress, setProgress] = React.useState(0);
 
-    // Used to display search results information (such as "No result(s)")
-    const [isSearching, setIsSearching] = React.useState(false);
-
     const [showModal, setShowModal] = React.useState(false);
 
     const onCloseScreen = () => {
@@ -61,7 +50,7 @@ const SearchScreen = (props) => {
             setProgress(1);
             if (response.status == 200) {
                 const json = await response.json();
-                setData(json);
+                setData(json.results);
             }
             else {
                 // request error (404)
@@ -74,13 +63,12 @@ const SearchScreen = (props) => {
         }
         finally {
             setProgress(0);
-            setIsSearching(true);
         }
     }
 
     const renderSearchItem = ({item, index}) => {
         return (
-            <SearchItem
+            <UserSearchItem
                 icon={item.uuid}
                 title={`${item.first_name} ${item.last_name}`}
                 subtitle={item.username}
@@ -88,15 +76,6 @@ const SearchScreen = (props) => {
             />
         )
     }
-
-    // Opens a conversation view (used by UserProfileModal)
-    const openConversationView = () => {
-        // dismiss the modal
-        setShowModal(false);
-
-        // open the conversation view
-        props.navigation.navigate('Conversation');
-    };
 
     const theme = useTheme();
 
@@ -122,16 +101,11 @@ const SearchScreen = (props) => {
                     ItemSeparatorComponent={Divider}
                 />
             }
-            {
-                (data.length == 0) && isSearching &&
-                <Text appearance='hint' style={{margin: 16, textAlign: 'center'}}>No result(s) found.</Text>
-            }
 
             <UserProfileModal 
                 visible={showModal}
                 navigation={props.navigation}
-                onBackdropPress={() => setShowModal(false)}
-                onOpenConversationView={openConversationView} />
+                onBackdropPress={() => setShowModal(false)} />
 
         </Layout>
     )

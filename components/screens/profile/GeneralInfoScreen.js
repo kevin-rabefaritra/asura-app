@@ -130,7 +130,7 @@ const GeneralInfoScreen = (props) => {
             })
             .catch((e) => {
                 if (e instanceof UserSessionExpiredException) {
-                    signOutAndRedirect(context, props.navigation, to="Main", redirectInstead=true);
+                    signOutAndRedirect(context, props.navigation, to="Main", redirectInstead=false);
                 }
                 else {
                     console.error(e);

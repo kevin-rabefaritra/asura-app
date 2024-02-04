@@ -15,7 +15,7 @@ const SearchIcon = (props) => {
     );
   }
 
-const SearchItem = (props) => {
+const UserSearchItem = (props) => {
     return (
         <TouchableOpacity onPress={props.onClick}>
             <Layout style={styles.container}>
@@ -31,7 +31,7 @@ const SearchItem = (props) => {
     )
 }
 
-export default SearchItem;
+export default UserSearchItem;
 
 const styles = StyleSheet.create({
     container: {
