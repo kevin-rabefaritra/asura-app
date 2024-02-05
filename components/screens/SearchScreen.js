@@ -5,6 +5,7 @@ import { search } from "../../repositories/UserRepository";
 import UserSearchItem from "../list/UserSearchItem";
 import UserProfileModal from "../modals/UserProfileModal";
 import CustomIconButton from "../basic/CustomIconButton";
+import PostItem from "../list/PostItem";
 
 const AppBar = (props) => {
     return (
@@ -67,14 +68,26 @@ const SearchScreen = (props) => {
     }
 
     const renderSearchItem = ({item, index}) => {
-        return (
-            <UserSearchItem
+        if (item.content) {
+            return (<PostItem 
+                avatar={item.src}
+                title={`${item.user_firstname} ${item.user_lastname}`}
+                subtitle={item.user_username}
+                thumbnail={item.thumbnail}
+                content={item.content}
+                likesCount={item.likes_count}
+                postUuid={item.uuid}
+                userScore={item.user_score} />
+            );
+        }
+        else {
+            return (<UserSearchItem
                 icon={item.uuid}
                 title={`${item.first_name} ${item.last_name}`}
                 subtitle={item.username}
-                onClick={() => setShowModal(true)}
-            />
-        )
+                onClick={() => setShowModal(true)} />
+            );
+        }
     }
 
     const theme = useTheme();
@@ -98,7 +111,6 @@ const SearchScreen = (props) => {
                 <List
                     data={data}
                     renderItem={renderSearchItem}
-                    ItemSeparatorComponent={Divider}
                 />
             }
 
