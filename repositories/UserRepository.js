@@ -49,8 +49,8 @@ export function sayHello() {
  * Search for user based on a keyword
  * @param {String} keyword 
  */
-export function search(keyword) {
-  return callAPI(`search/${keyword}`, "GET", null, true);
+export function search(keyword, page) {
+  return callAPI(`search/${keyword}?page=${page}`, "GET", null, true);
 }
 
 /**
