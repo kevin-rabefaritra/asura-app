@@ -15,13 +15,13 @@ import { callAPI } from "../helpers/api_helpers";
  * @returns Promise
  */
 export function signUp(username, firstname, lastname, email, password) {
-  return callAPI("users/", "POST", {
-      username: username,
-      first_name: firstname,
-      last_name: lastname,
-      email: email,
-      password: password
-    }, false);
+	return callAPI("users/", "POST", {
+		username: username,
+		first_name: firstname,
+		last_name: lastname,
+		email: email,
+		password: password
+	}, false);
 }
 
 /**
@@ -31,10 +31,10 @@ export function signUp(username, firstname, lastname, email, password) {
  * @returns 
  */
 export function signIn(username, password) {
-  return callAPI("users/signin", "POST", {
-    username: username,
-    password: password
-  });
+	return callAPI("users/signin", "POST", {
+		username: username,
+		password: password
+	});
 }
 
 /**
@@ -42,7 +42,7 @@ export function signIn(username, password) {
  * @returns 
  */
 export function sayHello() {
-  return callAPI("hello", "GET");
+  	return callAPI("hello", "GET");
 }
 
 /**
@@ -50,7 +50,7 @@ export function sayHello() {
  * @param {String} keyword 
  */
 export function search(keyword, page) {
-  return callAPI(`search/${keyword}?page=${page}`, "GET", null, true);
+  	return callAPI(`search/${keyword}?page=${page}`, "GET", null, true);
 }
 
 /**
@@ -63,18 +63,18 @@ export function search(keyword, page) {
  * @param {String} bio 
  */
 export function updateBasicInfo(birthDate, email, bio) {
-  return callAPI("users/profile/basic", "POST", {
-      birthday: birthDate,
-      email: email,
-      bio: bio,
-    }, true);
+	return callAPI("users/profile/basic", "POST", {
+		birthday: birthDate,
+		email: email,
+		bio: bio,
+	}, true);
 }
 
 /**
  * Fetches user basic info from the token
  */
 export function getBasicInfo() {
-  return callAPI("users/profile/basic", "GET", null, true);
+  	return callAPI("users/profile/basic", "GET", null, true);
 }
 
 /**
@@ -83,10 +83,10 @@ export function getBasicInfo() {
  * @param {String} newPassword 
  */
 export function updatePassword(oldPassword, newPassword) {
-  return callAPI("users/password/update", "POST", {
-    oldPassword: oldPassword,
-    newPassword: newPassword,
-  }, true);
+	return callAPI("users/password/update", "POST", {
+		oldPassword: oldPassword,
+		newPassword: newPassword,
+	}, true);
 }
 
 /**
@@ -99,16 +99,25 @@ export function updatePassword(oldPassword, newPassword) {
  * pressing BACK would lead to the current screen.
  */
 export function signOutAndRedirect(context, navigation, to, redirectInstead=false) {
-  // We don't remove USERNAME because we use it as a default value in the
-  // sign in screen
-  removePreference(TOKEN, REFRESH_TOKEN, /* USERNAME, */ UUID, NAME, EMAIL);
-  context.updateUser(null);
+	// We don't remove USERNAME because we use it as a default value in the
+	// sign in screen
+	removePreference(TOKEN, REFRESH_TOKEN, /* USERNAME, */ UUID, NAME, EMAIL);
+	context.updateUser(null);
 
-  // Navigate or replace the current screen
-  if (redirectInstead) {
-    navigation.navigate(to);
-  }
-  else {
-    navigation.replace(to);
-  }
+	// Navigate or replace the current screen
+	if (redirectInstead) {
+		navigation.navigate(to);
+	}
+	else {
+		navigation.replace(to);
+	}
+}
+
+/**
+ * Used to fetch the basic info of a user
+ * @param {String} uuid 
+ * @returns 
+ */
+export function fetchProfileInfo(uuid) {
+	return callAPI(`users/profile/basic/${uuid}`, 'GET', null, true);
 }

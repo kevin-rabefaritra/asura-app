@@ -1,7 +1,7 @@
 import { Button, Divider, Icon, Input, Layout, List, Modal, ProgressBar, Text, useTheme } from "@ui-kitten/components";
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import { search } from "../../repositories/UserRepository";
+import { fetchProfileInfo, search } from "../../repositories/UserRepository";
 import UserSearchItem from "../list/UserSearchItem";
 import UserProfileModal from "../modals/UserProfileModal";
 import CustomIconButton from "../basic/CustomIconButton";
@@ -41,12 +41,18 @@ const SearchScreen = (props) => {
 
     const resultsListRef = React.useRef();
 
+    // User profile modal used states
     const [showModal, setShowModal] = React.useState(false);
+    const [modalUser, setModalUser] = React.useState(null);
 
     const onCloseScreen = () => {
         props.navigation.goBack();
     }
 
+    /**
+     * Used to fetch search results
+     * @param {Boolean} fromStart 
+     */
     const fetchSearchResults = async (fromStart = true) => {
         // If fromStart, scroll to the top of the list
         if (fromStart) {
@@ -60,7 +66,7 @@ const SearchScreen = (props) => {
         let page = fromStart ? 1 : currentPage;
         try {
             const response = await search(keyword, page);
-            if (response.status == 200) {
+            if (response.status === 200) {
                 const json = await response.json();
                 const items = page === 1 ? json.results : [...data, ...json.results];
                 setData(items);
@@ -82,6 +88,9 @@ const SearchScreen = (props) => {
         }
     }
 
+    /**
+     * Render search items into the List
+     */
     const renderSearchItem = ({item, index}) => {
         const content = (item.content) ?
             (<PostItem 
@@ -97,13 +106,42 @@ const SearchScreen = (props) => {
                 icon={item.uuid}
                 title={`${item.first_name} ${item.last_name}`}
                 subtitle={item.username}
-                onClick={() => setShowModal(true)} />
+                onPress={() => loadUserProfileInfo(item.uuid)} />
             );
         
         return (index === data.length - 1 && hasMoar) ? (<>
             {content}
             <Text style={{textAlign: 'center', padding: 16}}>Loading moar...</Text>
         </>) : content;
+    }
+
+    /**
+     * Displays a user profile info in a modal
+     * @param {String} uuid 
+     */
+    const loadUserProfileInfo = async (uuid) => {
+        setShowModal(true);
+        try {
+            let response = await fetchProfileInfo(uuid);
+            if (response.status === 200) {
+                let json = await response.json();
+                setModalUser(json);
+            }
+            else {
+                // 
+            }
+        }
+        catch(error) {
+            console.log(error);
+        }
+    };
+
+    /**
+     * Dismisses the user profile modal
+     */
+    const dismissUserProfileModal = () => {
+        setShowModal(false);
+        setModalUser(null);
     }
 
     const theme = useTheme();
@@ -130,7 +168,8 @@ const SearchScreen = (props) => {
             <UserProfileModal 
                 visible={showModal}
                 navigation={props.navigation}
-                onBackdropPress={() => setShowModal(false)} />
+                user={modalUser}
+                onBackdropPress={dismissUserProfileModal} />
 
         </Layout>
     )

@@ -1,6 +1,6 @@
-import { Avatar, Card, Layout, Text, useTheme } from "@ui-kitten/components";
+import { Avatar, Card, Icon, Layout, Text, useTheme } from "@ui-kitten/components";
 
-const { StyleSheet, ImageBackground } = require("react-native")
+const { StyleSheet, ImageBackground, TouchableOpacity } = require("react-native")
 
 const SearchIcon = (props) => {
     const theme = useTheme();
@@ -18,7 +18,7 @@ const SearchIcon = (props) => {
 const UserSearchItem = (props) => {
   const theme = useTheme();
   return (
-    <Layout style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={props.onPress}>
       <Card disabled={true}>
           <Layout style={styles.cardContainer}>
               <SearchIcon
@@ -26,11 +26,11 @@ const UserSearchItem = (props) => {
               />
               <Layout style={styles.contentContainer}>
                   <Text category='p1'>{props.title}</Text>
-                  <Text category='p1' appearance='hint' style={{marginTop: 4}}>@{props.subtitle}</Text>
+                  <Text category='p1' appearance='hint' style={{marginTop: 4}}>{props.subtitle}</Text>
               </Layout>
           </Layout>
       </Card>
-    </Layout>
+    </TouchableOpacity>
   )
 }
 
