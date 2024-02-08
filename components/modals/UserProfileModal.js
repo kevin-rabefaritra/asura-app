@@ -6,9 +6,10 @@ import CustomIconButton from "../basic/CustomIconButton";
 /**
  * Component to show a user profile in a modal view 
  * Props required:
- * - visible (boolean)
- * - user (string || null)
- * - onOpenConversationView: navigate to conversation view
+ * - visible <boolean> display or not the modal
+ * - user <string || null> user object that will be loaded in the modal. setting
+ * the user to null will display a "Loading" message.
+ * - onActionPressed <function> function to call when the primary button is pressed
  */
 
 const UserProfileModal = (props) => {
@@ -33,24 +34,23 @@ const UserProfileModal = (props) => {
                                 style={{borderWidth: 2, borderRadius: 2, borderColor: theme['color-primary-default']}}
                             />
                             <Layout style={styles.headerRight}>
-                                <Text category='p1'>{props.user.first_name}{props.user.last_name}</Text>
-                                <Text category='p1' appearance='hint' style={{marginTop: 2}}>{props.user.username}</Text>
+                                <Text category='p1'>{props.user.first_name} {props.user.last_name}</Text>
+                                <Text category='p1' appearance='hint' style={{marginTop: 4}}>@{props.user.username}</Text>
                             </Layout>
                         </Layout>
                         <Text style={{marginTop: 16}}category='s1'>Bio</Text>
-                        <Text category='p1' appearance='hint'>{props.user.bio || '_'}</Text>
+                        <Text category='p1' appearance='hint' style={{marginTop: 4}}>{props.user.bio || '_'}</Text>
 
                         <Text style={{marginTop: 16}}category='s1'>Joined on</Text>
-                        <Text category='p1' appearance='hint'>{props.user.birthday}</Text>
+                        <Text category='p1' appearance='hint' style={{marginTop: 4}}>{props.user.birthday}</Text>
 
-                        <CustomIconButton style={{marginTop: 16}} status='primary' iconName='plus' textColor={theme['color-basic-100']}>Add to contacts</CustomIconButton>
                         <CustomIconButton 
-                            status='info'
-                            style={{marginTop: 8}}
+                            style={{marginTop: 16}}
+                            status='primary'
+                            iconName='compass'
                             textColor={theme['color-basic-100']}
-                            iconName='mail'
-                            onPress={props.onOpenConversationView}>
-                                View Profile
+                            onPress={props.onActionPressed}>
+                            View posts
                         </CustomIconButton>
                     </>
                 }

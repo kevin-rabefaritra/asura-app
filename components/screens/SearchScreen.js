@@ -19,6 +19,7 @@ const AppBar = (props) => {
                 iconName='arrow-left'
             />
             <Input
+                value={props.text}
                 style={styles.input}
                 placeholder='Search'
                 onChangeText={props.onChangeText}
@@ -144,11 +145,25 @@ const SearchScreen = (props) => {
         setModalUser(null);
     }
 
+    /**
+     * Load all posts of a given user, calling this function does the following
+     * actions:
+     * 1) Dismiss the user profile modal
+     * 2) Set the search input to posts:{modal user username}
+     * 3) Perform a new search
+     */
+    const searchUserPosts = () => {
+        dismissUserProfileModal();
+        setKeyword(`posts:${modalUser.username}`);
+        fetchSearchResults(true);
+    }
+
     const theme = useTheme();
 
     return (
         <Layout style={[styles.container, {backgroundColor: theme['background-basic-color-3']}]}>
             <AppBar 
+                text={keyword}
                 onChangeText={setKeyword}
                 onBackPressed={onCloseScreen}
                 onValidateSearch={fetchSearchResults}
@@ -169,7 +184,8 @@ const SearchScreen = (props) => {
                 visible={showModal}
                 navigation={props.navigation}
                 user={modalUser}
-                onBackdropPress={dismissUserProfileModal} />
+                onBackdropPress={dismissUserProfileModal}
+                onActionPressed={searchUserPosts} />
 
         </Layout>
     )

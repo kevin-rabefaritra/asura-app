@@ -28,7 +28,6 @@ const PostItem = (props) => {
 		reactToPost(props.postUuid, newScore)
 			.then((response) => {
 				// response should be status 201
-				console.log(`[onClickReact] ${response.status}`);
 				setScore(score + (_hasReacted ? -1 : 1));
 				setUserScore(newScore);
 			})
