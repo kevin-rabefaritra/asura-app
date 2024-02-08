@@ -42,7 +42,7 @@ const UserProfileModal = (props) => {
                         <Text category='p1' appearance='hint' style={{marginTop: 4}}>{props.user.bio || '_'}</Text>
 
                         <Text style={{marginTop: 16}}category='s1'>Joined on</Text>
-                        <Text category='p1' appearance='hint' style={{marginTop: 4}}>{props.user.birthday}</Text>
+                        <Text category='p1' appearance='hint' style={{marginTop: 4}}>{props.user.created_at}</Text>
 
                         <CustomIconButton 
                             style={{marginTop: 16}}

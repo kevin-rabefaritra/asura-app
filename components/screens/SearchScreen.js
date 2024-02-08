@@ -54,7 +54,7 @@ const SearchScreen = (props) => {
      * Used to fetch search results
      * @param {Boolean} fromStart 
      */
-    const fetchSearchResults = async (fromStart = true) => {
+    const fetchSearchResults = async (_keyword = keyword, fromStart = true) => {
         // If fromStart, scroll to the top of the list
         if (fromStart) {
             // setting isLoading to true displays the loading animation, we only
@@ -66,7 +66,7 @@ const SearchScreen = (props) => {
 
         let page = fromStart ? 1 : currentPage;
         try {
-            const response = await search(keyword, page);
+            const response = await search(_keyword, page);
             if (response.status === 200) {
                 const json = await response.json();
                 const items = page === 1 ? json.results : [...data, ...json.results];
@@ -153,9 +153,10 @@ const SearchScreen = (props) => {
      * 3) Perform a new search
      */
     const searchUserPosts = () => {
+        let _keyword = `posts:${modalUser.username}`;
         dismissUserProfileModal();
-        setKeyword(`posts:${modalUser.username}`);
-        fetchSearchResults(true);
+        setKeyword(_keyword);
+        fetchSearchResults(_keyword, true);
     }
 
     const theme = useTheme();
@@ -176,7 +177,7 @@ const SearchScreen = (props) => {
                 data={data}
                 renderItem={renderSearchItem}
                 onRefresh={() => {}}
-                onEndReached={() => hasMoar && fetchSearchResults(false)}
+                onEndReached={() => hasMoar && fetchSearchResults(keyword, false)}
                 refreshing={isLoading}
             />
 
