@@ -32,8 +32,8 @@ npm run ios
 ## 📄 What's on the menu?
 ### Pages
 - [X] Home timeline
-- [X] Conversation list
-- [X] Individual conversation
+- [X] Conversation list (Full version only)
+- [X] Individual conversation (Full version only)
 - [X] Profile (update info, update password)
 - [X] Login
 - [X] Debug test
@@ -41,7 +41,7 @@ npm run ios
 ### Features
 - [X] Dark theme
 - [X] Like / comment count 
-- [ ] Pagination
+- [X] Pagination
 
 ## License
 ```
