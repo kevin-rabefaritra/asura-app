@@ -10,86 +10,89 @@ import { DefaultContext } from './components/default-context';
 import * as PreferenceServices  from './components/services/PreferenceServices';
 import * as Font from 'expo-font';
 import User from './components/models/User';
+import { initDatabase } from './components/services/DatabaseServices';
 
 // Fonts
 const loadFonts = async () => {
-  await Font.loadAsync({
-    'RobotoCondensed-Bold': require('./assets/fonts/RobotoCondensed-Bold.ttf'),
-    'PixeloidSans': require('./assets/fonts/PixeloidSans-mLxMm.ttf')
-  });
+	await Font.loadAsync({
+		'RobotoCondensed-Bold': require('./assets/fonts/RobotoCondensed-Bold.ttf'),
+		'PixeloidSans': require('./assets/fonts/PixeloidSans-mLxMm.ttf')
+	});
 };
 
 // Default App
 export default function App() {
 
-  // App theme (light, dark)
-  const [theme, setTheme] = React.useState('light');
+	// App theme (light, dark)
+	const [theme, setTheme] = React.useState('light');
 
-  // Font loading state
-  const [loaded, setLoaded] = React.useState(false);
+	// Font loading state
+	const [loaded, setLoaded] = React.useState(false);
 
-  // Store user info in memory
-  const [user, setUser] = React.useState(null);
+	// Store user info in memory
+	const [user, setUser] = React.useState(null);
 
-  // Set the applyTheme() implementation (will be passed by Provider)
-  const applyTheme = (value) => {
-    setTheme(value);
-    PreferenceServices.savePreference(PreferenceServices.THEME, value);
-  }
+	// Set the applyTheme() implementation (will be passed by Provider)
+	const applyTheme = (value) => {
+		setTheme(value);
+		PreferenceServices.savePreference(PreferenceServices.THEME, value);
+	}
 
-  // Update the user info
-  const updateUser = (user) => {
-    setUser(user);
-    if (user) {
-      PreferenceServices.savePreference(PreferenceServices.UUID, user.uuid);
-    }
-    else {
-      PreferenceServices.removePreference([PreferenceServices.UUID]);
-    }
-  }
+	// Update the user info
+	const updateUser = (user) => {
+		setUser(user);
+		if (user) {
+			PreferenceServices.savePreference(PreferenceServices.UUID, user.uuid);
+		}
+		else {
+			PreferenceServices.removePreference([PreferenceServices.UUID]);
+		}
+	}
 
-  // Load the current theme from preferences (default light)
-  PreferenceServices.getPreference(PreferenceServices.THEME, 'light').then((result) => {
-    applyTheme(result);
-  });
+	const init = async () => {
+		await initDatabase();
+		await loadFonts();
+		setLoaded(true);
+	};
 
-  // Check if there is any user already signed in
-  PreferenceServices.getPreference(PreferenceServices.UUID, null).then((uuid) => {
-    if (user === null && uuid !== null) {
-      Promise.all([
-        PreferenceServices.getPreference(PreferenceServices.USERNAME, null),
-        PreferenceServices.getPreference(PreferenceServices.NAME, null),
-        PreferenceServices.getPreference(PreferenceServices.EMAIL, null)
-      ]).then((response) => {
-        const [firstName, lastName] = response[1].split(";");
-        const user = new User(response[0], uuid, firstName, lastName, response[2]);
-        setUser(user);
-      })
-    }
-  });
+  	// Load the current theme from preferences (default light)
+	PreferenceServices.getPreference(PreferenceServices.THEME, 'light').then((result) => {
+		applyTheme(result);
+	});
 
-  // Load fonts
-  React.useEffect(() => {
-    async function loadApp() {
-      await loadFonts();
-      setLoaded(true);
-    }
-    loadApp();
-  }, []);
+	// Check if there is any user already signed in
+	PreferenceServices.getPreference(PreferenceServices.UUID, null).then((uuid) => {
+		if (user === null && uuid !== null) {
+			Promise.all([
+				PreferenceServices.getPreference(PreferenceServices.USERNAME, null),
+				PreferenceServices.getPreference(PreferenceServices.NAME, null),
+				PreferenceServices.getPreference(PreferenceServices.EMAIL, null)
+			]).then((response) => {
+				const [firstName, lastName] = response[1].split(";");
+				const user = new User(response[0], uuid, firstName, lastName, response[2]);
+				setUser(user);
+			})
+		}
+	});
 
-  // Return null if the fonts haven't loaded yet
-  if (!loaded) {
-    return null;
-  }
+	// Load fonts
+	React.useEffect(() => {
+		init();
+	}, []);
 
-  return (
-    <>
-      <IconRegistry icons={[FeatherIconsPack, EvaIconsPack]} />
-      <DefaultContext.Provider value={{ theme, applyTheme, user, updateUser }}>
-        <ApplicationProvider {...eva} theme={{...eva[theme], ...defaultTheme}} customMapping={mapping}>
-          <AppNavigator {...eva} />
-        </ApplicationProvider>
-      </DefaultContext.Provider>
-    </>
-  );
+	// Return null if the fonts haven't loaded yet
+	if (!loaded) {
+		return null;
+	}
+
+	return (
+		<>
+			<IconRegistry icons={[FeatherIconsPack, EvaIconsPack]} />
+			<DefaultContext.Provider value={{ theme, applyTheme, user, updateUser }}>
+				<ApplicationProvider {...eva} theme={{...eva[theme], ...defaultTheme}} customMapping={mapping}>
+					<AppNavigator {...eva} />
+				</ApplicationProvider>
+			</DefaultContext.Provider>
+		</>
+	);
 };

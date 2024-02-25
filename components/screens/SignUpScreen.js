@@ -141,7 +141,7 @@ const SignUpScreen = (props) => {
   return (
     <Layout style={styles.container}>
       { isProcessing &&
-        <View style={DefaultStyle.loading}>
+        <View style={DefaultStyle.loadingContainer}>
           <Spinner status='primary' size='medium'/>
         </View>
       }

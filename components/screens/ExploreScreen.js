@@ -55,7 +55,8 @@ const ExploreScreen = (props) => {
 			content={item.content}
 			likesCount={item.likesCount}
 			postUuid={item.uuid}
-			userScore={item.userScore}/>
+			userScore={item.userScore}
+			media={item.media}/>
 		);
 
 		return (index === data.length - 1 && hasMoar) ? 
@@ -92,7 +93,8 @@ const ExploreScreen = (props) => {
 				thumbnail: "",
 				avatar: "",
 				likesCount: item.likes_count,
-				userScore: item.user_score
+				userScore: item.user_score,
+				media: item.media.map((item) => item.file)
 			}));
 
 			setHasMoar(Boolean(json.next));

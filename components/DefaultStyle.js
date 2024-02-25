@@ -15,9 +15,8 @@ export default StyleSheet.create({
     pixel: {
         fontFamily: 'PixeloidSans',
     },
-    loading: {
+    loadingContainer: {
         zIndex: 1,
-        backgroundColor: '#FFFFFF',
         opacity: 0.7,
         height: '100%',
         width: '100%',

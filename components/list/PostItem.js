@@ -1,13 +1,21 @@
 import { Text, Avatar, Layout, useTheme, Card, Button, Icon } from '@ui-kitten/components';
 import { View, Image, StyleSheet, ImageBackground } from 'react-native';
 import CustomIconButton from '../basic/CustomIconButton';
-import DefaultStyle from '../DefaultStyle';
 import { useState } from 'react';
 import { reactToPost } from '../../repositories/PostRepository';
 import UserSessionExpiredException from '../../exceptions/UserSessionExpiredException';
+import MediaCarousell from '../basic/MediaCarousell';
 
 /**
  * Represents a single post item (displayed on the timeline)
+ * @param {*} props contains the following attributes:
+ * - postUuid {String} the UUID of the Post
+ * - title {String} the Post title text
+ * - subtitle {String} the Post subtitle text
+ * - content {String} the Post content
+ * - likesCount {Integer} the number of likes of the Post
+ * - userScore {Integer} the score given by the current user (-1, 0, 1)
+ * - media {Array<String>} the Post media URLs (can be empty)
  */
 const PostItem = (props) => {
 	const [score, setScore] = useState(props.likesCount);
@@ -43,6 +51,7 @@ const PostItem = (props) => {
 			});
 	};
 	
+	// Todo: create a caroussel of pictures if there is more than 1 media file
 	return (
 		<Card style={[styles.container, {backgroundColor: theme['background-basic-color-1']}]}>
 			<Layout style={{marginHorizontal: -8}}>
@@ -60,10 +69,12 @@ const PostItem = (props) => {
 					</View>
 				</View>
 				<Text style={styles.body} category='p1'>{props.content}</Text>
-				<Image 
-					style={styles.postImage}
-					source={require('../../assets/post.jpeg')}
-				/>
+				{
+					props.media.length > 0 && 
+					<MediaCarousell
+						media={props.media}
+					/>
+				}
 				<Layout style={styles.actions}>
 					<CustomIconButton 
 						appearance='ghost'
