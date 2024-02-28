@@ -8,6 +8,9 @@ import { fetchRawData } from "../services/CachingServices";
  * Component used to cache and display images
  * @param {*} props, contains the following attributes:
  * - uri {String}
+ * - imageStyle {object} optionnal
+ * - onPress {function}
+ * callback to be called when the user clicks on the image
  */
 const CachedImage = (props) => {
 
@@ -15,26 +18,31 @@ const CachedImage = (props) => {
 
     const theme = useTheme();
 
+    /**
+     * Loads an image into the Image component
+     */
     const loadImage = async () => {
         let rawData = await fetchRawData(props.uri);
         setImageData(rawData);
     };
 
     useEffect(() => {
-        loadImage();
+        if (!imageData) {
+            loadImage();
+        }
     }, []);
 
     return (
-        <TouchableOpacity style={props.style}>
+        <TouchableOpacity style={props.style} onPress={props.onPress} disabled={props.disabled}>
         {
             !imageData && 
-            <View style={[{backgroundColor: theme['background-basic-color-3']}, styles.pagerImage, DefaultStyle.loadingContainer]}>
+            <View style={[{backgroundColor: theme['background-basic-color-3']}, DefaultStyle.loadingContainer]}>
                 <Text>Loading image..</Text>
             </View>
         }
         {
             imageData && 
-            <Image style={[{backgroundColor: theme['background-basic-color-3']}, styles.image]} source={{uri: imageData}} />
+            <Image style={[{backgroundColor: theme['background-basic-color-3']}, props.imageStyle || styles.image]} source={{uri: imageData}} />
         }
         </TouchableOpacity>
     );

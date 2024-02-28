@@ -8,6 +8,8 @@ import CachedImage from './CachedImage';
  * @param {*} props contains:
  * - media {Array<String>}
  * Contains an array of media URLs that will be displayed
+ * - onMediaPressed {function}
+ * callback to be called when a media item is pressed
  */
 const MediaCarousell = (props) => {
 
@@ -18,11 +20,12 @@ const MediaCarousell = (props) => {
             selectedIndex={selectedIndex}
             onSelect={setSelectedIndex}>
             { 
-                props.media.map((item, key) => (
+                props.media.map((uri, key) => (
                     <CachedImage
-                        key={key} // key is used by React internally
-                        uri={item}
+                        key={key} // key is internally used by React
+                        uri={uri}
                         style={styles.pageContainer}
+                        onPress={() => props.onMediaPressed(uri)}
                     />
                 ))
             }

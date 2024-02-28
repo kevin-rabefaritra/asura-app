@@ -10,6 +10,7 @@ import SecurityScreen from './profile/SecurityScreen';
 import DebugScreen from './debug/DebugScreen';
 import ProfileScreen from './ProfileScreen';
 import SignInScreen from './SignInScreen';
+import GalleryScreen from './GalleryScreen';
 
 const { Navigator, Screen } = createNativeStackNavigator();
 
@@ -29,6 +30,7 @@ const AppNavigator = () => (
       <Screen name='SignIn' component={SignInScreen} />
       <Screen name='Search' component={SearchScreen} />
       <Screen name='Profile' component={ProfileScreen} />
+      <Screen name='Gallery' component={GalleryScreen} />
       
       <Screen name='GeneralInfo' component={GeneralInfoScreen} />
       <Screen name='Security' component={SecurityScreen} />

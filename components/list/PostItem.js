@@ -16,6 +16,8 @@ import MediaCarousell from '../basic/MediaCarousell';
  * - likesCount {Integer} the number of likes of the Post
  * - userScore {Integer} the score given by the current user (-1, 0, 1)
  * - media {Array<String>} the Post media URLs (can be empty)
+ * 
+ * - onMediaPressed {callback} callback to be called when a media item is pressed
  */
 const PostItem = (props) => {
 	const [score, setScore] = useState(props.likesCount);
@@ -73,6 +75,7 @@ const PostItem = (props) => {
 					props.media.length > 0 && 
 					<MediaCarousell
 						media={props.media}
+						onMediaPressed={props.onMediaPressed}
 					/>
 				}
 				<Layout style={styles.actions}>

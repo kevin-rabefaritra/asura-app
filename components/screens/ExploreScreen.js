@@ -56,7 +56,8 @@ const ExploreScreen = (props) => {
 			likesCount={item.likesCount}
 			postUuid={item.uuid}
 			userScore={item.userScore}
-			media={item.media}/>
+			media={item.media}
+			onMediaPressed={onMediaPressed} />
 		);
 
 		return (index === data.length - 1 && hasMoar) ? 
@@ -71,12 +72,19 @@ const ExploreScreen = (props) => {
 	 */
 	onOpenSearchScreen = () => {
 		props.navigation.navigate('Search');
-	}
+	};
 
 	// Writes a post
 	onOpenWritePostScreen = () => {
-		props.navigation.navigate('WritePost')
-	}
+		props.navigation.navigate('WritePost');
+	};
+
+	// open a media, we pass the uri to the destination route
+	onMediaPressed = (uri) => {
+		props.navigation.navigate('Gallery', {
+			uri: uri
+		});
+	};
 
 	// Fetch posts
 	onFetchPosts = async (reloadAll = false) => {
@@ -146,21 +154,20 @@ const ExploreScreen = (props) => {
 	);
 }
 
-	export default ExploreScreen;
+export default ExploreScreen;
 
-	const styles = StyleSheet.create({
-		appBarContainer: {
-			flexDirection: 'row',
-			justifyContent: 'space-between',
-			alignItems: 'center',
-			padding: 16,
-		},
-		contentContainer: {
-			paddingTop: 4,
-			paddingBottom: 4
-		},
-		rightButton: {
-			marginLeft: 8
-		},
-	}
-);
+const styles = StyleSheet.create({
+	appBarContainer: {
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		alignItems: 'center',
+		padding: 16,
+	},
+	contentContainer: {
+		paddingTop: 4,
+		paddingBottom: 4
+	},
+	rightButton: {
+		marginLeft: 8
+	},
+});
