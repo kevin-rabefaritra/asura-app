@@ -63,6 +63,13 @@ const GeneralInfoScreen = (props) => {
     }
 
     /**
+     * Called when the profile picture is pressed on
+     */
+    const onPressProfilePicture = () => {
+
+    }
+
+    /**
      * Called when the user saves the changes
      */
     const onValidatePressed = async () => {

@@ -23,21 +23,21 @@ const { Navigator, Screen } = createNativeStackNavigator();
  *  (3) Sign up: used for new users who want to create an account
  */
 const AppNavigator = () => (
-  <NavigationContainer>
-    <Navigator screenOptions={{ header: () => (<MainStatusBar />), animation: 'fade' }} >
-      <Screen name='Main' component={MainScreen} />
-      <Screen name='SignUp' component={SignUpScreen} />
-      <Screen name='SignIn' component={SignInScreen} />
-      <Screen name='Search' component={SearchScreen} />
-      <Screen name='Profile' component={ProfileScreen} />
-      <Screen name='Gallery' component={GalleryScreen} />
-      
-      <Screen name='GeneralInfo' component={GeneralInfoScreen} />
-      <Screen name='Security' component={SecurityScreen} />
+	<NavigationContainer>
+		<Navigator screenOptions={{ header: () => (<MainStatusBar />), animation: 'fade' }} >
+			<Screen name='Main' component={MainScreen} />
+			<Screen name='SignUp' component={SignUpScreen} />
+			<Screen name='SignIn' component={SignInScreen} />
+			<Screen name='Search' component={SearchScreen} />
+			<Screen name='Profile' component={ProfileScreen} />
+			<Screen name='Gallery' component={GalleryScreen} />
+			
+			<Screen name='GeneralInfo' component={GeneralInfoScreen} />
+			<Screen name='Security' component={SecurityScreen} />
 
-      <Screen name='Debug' component={DebugScreen} />
-    </Navigator>
-  </NavigationContainer>
+			<Screen name='Debug' component={DebugScreen} />
+		</Navigator>
+	</NavigationContainer>
 )
 
 export default AppNavigator; 

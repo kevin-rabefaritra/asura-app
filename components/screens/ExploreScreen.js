@@ -74,12 +74,9 @@ const ExploreScreen = (props) => {
 		props.navigation.navigate('Search');
 	};
 
-	// Writes a post
-	onOpenWritePostScreen = () => {
-		props.navigation.navigate('WritePost');
-	};
-
-	// open a media, we pass the uri to the destination route
+	/**
+	 * open a media, we pass the uri to the destination route
+	 */
 	onMediaPressed = (uri) => {
 		props.navigation.navigate('Gallery', {
 			uri: uri
@@ -136,8 +133,7 @@ const ExploreScreen = (props) => {
 	return (
 		<Layout style={{flex: 1, backgroundColor: theme['background-basic-color-3']}}>
 			<AppBar 
-				onOpenSearchScreen={onOpenSearchScreen} 
-				onOpenWritePostScreen={onOpenWritePostScreen}
+				onOpenSearchScreen={onOpenSearchScreen}
 				isSignedIn={isSignedIn}
 			/>
 			<Divider />
