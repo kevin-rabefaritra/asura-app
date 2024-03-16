@@ -48,10 +48,9 @@ const ExploreScreen = (props) => {
 
 	const renderItem = ({item, index}) => {
 		const content = (<PostItem 
-			avatar={item.src}
+			avatar={item.avatar}
 			title={item.title}
 			subtitle={item.subtitle}
-			thumbnail={item.thumbnail}
 			content={item.content}
 			likesCount={item.likesCount}
 			postUuid={item.uuid}
@@ -63,7 +62,7 @@ const ExploreScreen = (props) => {
 		return (index === data.length - 1 && hasMoar) ? 
 			<>
 				{content}
-				<Text style={{textAlign: 'center', padding: 16}}>Loading moar...</Text>
+				<Text style={{textAlign: 'center', padding: 16}}>Loading more posts...</Text>
 			</> : content;
 	}
 
@@ -92,11 +91,11 @@ const ExploreScreen = (props) => {
 			let json = await posts.json();
 			let items = json.results.map((item) => ({
 				uuid: item.uuid,
-				title: [item.user_firstname, item.user_lastname].join(' '),
+				title: [item.user.first_name, item.user.last_name].join(' '),
 				subtitle: item.created_at,
 				content: item.content,
 				thumbnail: "",
-				avatar: "",
+				avatar: item.user.profile_picture,
 				likesCount: item.likes_count,
 				userScore: item.user_score,
 				media: item.media.map((item) => item.file)

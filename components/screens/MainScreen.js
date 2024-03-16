@@ -6,16 +6,16 @@ import { BottomNavigation, BottomNavigationTab, Icon, Divider } from '@ui-kitten
 const { Navigator, Screen } = createBottomTabNavigator();
 
 const BottomTabBar = ({ navigation, state }) => (
-  <>
-  <Divider />
-  <BottomNavigation
-    appearance='noIndicator'
-    selectedIndex={state.index}
-    onSelect={index => navigation.navigate(state.routeNames[index])}>
-    <BottomNavigationTab icon={<Icon name='compass'/>}/>
-    <BottomNavigationTab icon={<Icon name='user'/>}/>
-  </BottomNavigation>
-  </>
+	<>
+	<Divider />
+	<BottomNavigation
+		appearance='noIndicator'
+		selectedIndex={state.index}
+		onSelect={index => navigation.navigate(state.routeNames[index])}>
+		<BottomNavigationTab icon={<Icon name='compass'/>} />
+		<BottomNavigationTab icon={<Icon name='user'/>} />
+	</BottomNavigation>
+	</>
 );
 
 /**

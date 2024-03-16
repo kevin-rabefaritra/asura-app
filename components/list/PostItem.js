@@ -1,10 +1,11 @@
 import { Text, Avatar, Layout, useTheme, Card, Button, Icon } from '@ui-kitten/components';
-import { View, Image, StyleSheet, ImageBackground } from 'react-native';
+import { View, Image, StyleSheet } from 'react-native';
 import CustomIconButton from '../basic/CustomIconButton';
 import { useState } from 'react';
 import { reactToPost } from '../../repositories/PostRepository';
 import UserSessionExpiredException from '../../exceptions/UserSessionExpiredException';
 import MediaCarousell from '../basic/MediaCarousell';
+import CachedAvatar from '../basic/CachedAvatar';
 
 /**
  * Represents a single post item (displayed on the timeline)
@@ -16,6 +17,7 @@ import MediaCarousell from '../basic/MediaCarousell';
  * - likesCount {Integer} the number of likes of the Post
  * - userScore {Integer} the score given by the current user (-1, 0, 1)
  * - media {Array<String>} the Post media URLs (can be empty)
+ * - avatar {String|null} the URL of the avatar (can be null)
  * 
  * - onMediaPressed {callback} callback to be called when a media item is pressed
  */
@@ -58,12 +60,9 @@ const PostItem = (props) => {
 		<Card style={[styles.container, {backgroundColor: theme['background-basic-color-1']}]}>
 			<Layout style={{marginHorizontal: -8}}>
 				<View style={styles.header}>
-					<Avatar
-						shape='square'
-						size='medium'
-						style={[styles.profilePic, {borderColor: theme['color-primary-default']}]}
-						source={require('../../assets/menja.jpg')}
-						ImageComponent={ImageBackground}
+					<CachedAvatar
+						imageStyle={[styles.profilePic, {borderColor: theme['color-primary-default']}]}
+						uri={props.avatar}
 					/>
 					<View style={styles.headerText}>
 						<Text category='s1'>{props.title}</Text>

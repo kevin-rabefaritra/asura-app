@@ -122,28 +122,32 @@ const GeneralInfoScreen = (props) => {
         }
     }
 
-    // Fetch token from preferences
-    if (profileLoadingState == 0) {
-        setProfileLoadingState(1);
-        getBasicInfo()
-            .then(response => response.json())
-            .then(json => {
+    const loadProfile = async () => {
+        // Fetch token from preferences
+        if (profileLoadingState == 0) {
+            setProfileLoadingState(1);
+            try {
+                const response = await getBasicInfo();
+                const json = await response.json();
                 setUsername(`@${json.username}`);
                 setEmail(json.email);
                 setBio(json.bio);
                 setBirthDate(json.birthday)
                 setIsLoading(false);
                 setProfileLoadingState(2);
-            })
-            .catch((e) => {
+            }
+            catch(e) {
                 if (e instanceof UserSessionExpiredException) {
                     signOutAndRedirect(context, props.navigation, to="Main", redirectInstead=false);
                 }
                 else {
                     console.error(e);
                 }
-            });
+            };
+        }
     }
+
+    loadProfile();
 
     return (
         <Layout style={styles.container}>
