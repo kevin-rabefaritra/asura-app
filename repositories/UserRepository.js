@@ -115,9 +115,9 @@ export function signOutAndRedirect(context, navigation, to, redirectInstead=fals
 
 /**
  * Used to fetch the basic info of a user
- * @param {String} uuid 
+ * @param {String} username 
  * @returns 
  */
-export function fetchProfileInfo(uuid) {
-	return callAPI(`users/profile/basic/${uuid}`, 'GET', null, true);
+export function fetchProfileInfo(username) {
+	return callAPI(`users/profile/basic/${username}`, 'GET', null, true);
 }

@@ -107,7 +107,7 @@ const SearchScreen = (props) => {
                     avatar={item.profile_picture}
                     title={`${item.first_name} ${item.last_name}`}
                     subtitle={item.username}
-                    onPress={() => loadUserProfileInfo(item.uuid)} />
+                    onPress={() => loadUserProfileInfo(item.username)} />
             );
         
         return (index === data.length - 1 && hasMoar) ? (<>
@@ -120,10 +120,10 @@ const SearchScreen = (props) => {
      * Displays a user profile info in a modal
      * @param {String} uuid 
      */
-    const loadUserProfileInfo = async (uuid) => {
+    const loadUserProfileInfo = async (username) => {
         setShowModal(true);
         try {
-            let response = await fetchProfileInfo(uuid);
+            let response = await fetchProfileInfo(username);
             if (response.status === 200) {
                 let json = await response.json();
                 setModalUser(json);
