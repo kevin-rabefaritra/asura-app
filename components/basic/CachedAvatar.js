@@ -37,7 +37,7 @@ const CachedAvatar = (props) => {
         <TouchableOpacity onPress={props.onPress} disabled={props.disabled}>
             <Avatar
                 shape='square'
-                size='medium'
+                size={props.size || 'medium'}
                 style={[props.imageStyle, {borderColor: theme['color-primary-default']}]}
                 source={imageData ? {uri: imageData} : require('../../assets/menja.jpg')}
             />

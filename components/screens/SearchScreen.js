@@ -95,8 +95,8 @@ const SearchScreen = (props) => {
     const renderSearchItem = ({item, index}) => {
         const content = (item.content) ?
             (<PostItem 
-                avatar={item.src}
-                title={`${item.user_firstname} ${item.user_lastname}`}
+                avatar={item.user.profile_picture}
+                title={`${item.user.first_name} ${item.user.last_name}`}
                 subtitle={item.created_at}
                 thumbnail={item.thumbnail}
                 content={item.content}
@@ -104,10 +104,10 @@ const SearchScreen = (props) => {
                 postUuid={item.uuid}
                 userScore={item.user_score} />
             ) : (<UserSearchItem
-                icon={item.uuid}
-                title={`${item.first_name} ${item.last_name}`}
-                subtitle={item.username}
-                onPress={() => loadUserProfileInfo(item.uuid)} />
+                    avatar={item.profile_picture}
+                    title={`${item.first_name} ${item.last_name}`}
+                    subtitle={item.username}
+                    onPress={() => loadUserProfileInfo(item.uuid)} />
             );
         
         return (index === data.length - 1 && hasMoar) ? (<>

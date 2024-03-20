@@ -71,7 +71,7 @@ const PostItem = (props) => {
 				</View>
 				<Text style={styles.body} category='p1'>{props.content}</Text>
 				{
-					props.media.length > 0 && 
+					props.media && props.media.length > 0 && 
 					<MediaCarousell
 						media={props.media}
 						onMediaPressed={props.onMediaPressed}

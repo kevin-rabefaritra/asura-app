@@ -2,6 +2,7 @@ import { Avatar, Button, Card, Layout, Modal, Spinner, Text, useTheme } from "@u
 import React, { useEffect } from "react";
 import { ImageBackground, StyleSheet } from "react-native"
 import CustomIconButton from "../basic/CustomIconButton";
+import CachedAvatar from "../basic/CachedAvatar";
 
 /**
  * Component to show a user profile in a modal view 
@@ -26,12 +27,10 @@ const UserProfileModal = (props) => {
                 {
                     props.user && <>
                         <Layout style={styles.header}>
-                            <Avatar
-                                shape='square'
+                            <CachedAvatar
+                                imageStyle={[{borderWidth: 2, borderRadius: 2, borderColor: theme['color-primary-default']}]}
+                                uri={props.user.profile_picture}
                                 size='giant'
-                                source={require('../../assets/pepe.jpg')}
-                                ImageComponent={ImageBackground}
-                                style={{borderWidth: 2, borderRadius: 2, borderColor: theme['color-primary-default']}}
                             />
                             <Layout style={styles.headerRight}>
                                 <Text category='p1'>{props.user.first_name} {props.user.last_name}</Text>
