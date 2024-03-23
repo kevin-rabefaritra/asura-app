@@ -28,5 +28,8 @@ export default StyleSheet.create({
         alignItems: 'center',
         flex: 1,
         justifyContent: 'center'
+    },
+    modalBackdrop: {
+        backgroundColor: 'rgba(0, 0, 0, 0.5)'
     }
 });

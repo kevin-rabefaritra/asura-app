@@ -3,6 +3,7 @@ import { MenuItem, Layout, Text, Icon, Menu, useTheme, Card, Avatar } from '@ui-
 import { StyleSheet, View, ImageBackground, ToastAndroid, TouchableOpacity } from 'react-native';
 import { DefaultContext } from '../default-context';
 import DefaultStyle from '../DefaultStyle';
+import LangSettingsModal from '../modals/LangSettingsModal';
 
 
 const AppBar = () => {
@@ -16,7 +17,6 @@ const AppBar = () => {
 /**
  * Icons
  */
-
 const ForwardIcon = (props) => (
   	<Icon {...props} name='arrow-right' />
 );
@@ -36,6 +36,7 @@ const ProfileContainer = (props) => {
 	const theme = useTheme();
 	const navigation = props.navigation;
 	const [selectedIndex, setSelectedIndex] = React.useState(null);
+	const [displayLangSettingsModal, setDisplayLangSettingsModal] = React.useState(false);
 
 
 	const onSignOutClicked = () => {
@@ -105,17 +106,12 @@ const ProfileContainer = (props) => {
 					title='Language'
 					accessoryLeft={<Icon {...props} name='globe' />}
 					accessoryRight={ForwardIcon}
+					onPress={() => setDisplayLangSettingsModal(true)}
 				/>
 				<MenuItem
 					title='Privacy Policy'
 					accessoryLeft={<Icon {...props} name='lock' />}
 					accessoryRight={ForwardIcon}
-				/>
-				<MenuItem
-					title='About'
-					accessoryLeft={<Icon {...props} name='info' />}
-					accessoryRight={ForwardIcon}
-					onLongPress={() => {props.navigation.navigate('Debug')}}
 				/>
 				{ context.user && 
 					<MenuItem
@@ -127,6 +123,11 @@ const ProfileContainer = (props) => {
 				}
 				</Menu>
 			</Card>
+
+			<LangSettingsModal 
+				visible={displayLangSettingsModal}
+				onBackdropPress={() => setDisplayLangSettingsModal(false)}
+			/>
 		</Layout>
 	);
 };

@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { ImageBackground, StyleSheet } from "react-native"
 import CustomIconButton from "../basic/CustomIconButton";
 import CachedAvatar from "../basic/CachedAvatar";
+import DefaultStyle from "../DefaultStyle";
 
 /**
  * Component to show a user profile in a modal view 
@@ -19,7 +20,7 @@ const UserProfileModal = (props) => {
     return (
         <Modal 
             visible={props.visible}
-            backdropStyle={styles.backdrop}
+            backdropStyle={DefaultStyle.modalBackdrop}
             style={{width: '90%'}}
             onBackdropPress={props.onBackdropPress}>
 
@@ -79,8 +80,5 @@ const styles = StyleSheet.create({
         marginLeft: 8,
         alignSelf: 'center',
         justifyContent: 'space-between',
-    },
-    backdrop: {
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
     }
 })
