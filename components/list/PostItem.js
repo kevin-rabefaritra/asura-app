@@ -20,6 +20,7 @@ import CachedAvatar from '../basic/CachedAvatar';
  * - avatar {String|null} the URL of the avatar (can be null)
  * 
  * - onMediaPressed {callback} callback to be called when a media item is pressed
+ * - onClickShare {callback} callback to be called when the user presses on the Share button
  */
 const PostItem = (props) => {
 	const [score, setScore] = useState(props.likesCount);
@@ -87,7 +88,13 @@ const PostItem = (props) => {
 						iconName="arrow-up">
 						{score}
 					</CustomIconButton>
-					<CustomIconButton appearance='ghost' style={{flex:1}} status='basic' iconName="copy"></CustomIconButton>
+					<CustomIconButton 
+						appearance='ghost'
+						style={{flex:1}}
+						status='basic'
+						onPress={() => props.onClickShare(props.postUuid)}
+						iconName="copy">
+					</CustomIconButton>
 				</Layout>
 			</Layout>
 		</Card>

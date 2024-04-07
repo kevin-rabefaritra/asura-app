@@ -56,7 +56,8 @@ const ExploreScreen = (props) => {
 			postUuid={item.uuid}
 			userScore={item.userScore}
 			media={item.media}
-			onMediaPressed={onMediaPressed} />
+			onMediaPressed={onMediaPressed}
+			onClickShare={onClickShare} />
 		);
 
 		return (index === data.length - 1 && hasMoar) ? 
@@ -81,6 +82,13 @@ const ExploreScreen = (props) => {
 			uri: uri
 		});
 	};
+
+	/**
+	 * Opens a modal showing the Post to share
+	 */
+	onClickShare = (postUuid) => {
+		
+	}
 
 	// Fetch posts
 	onFetchPosts = async (reloadAll = false) => {
