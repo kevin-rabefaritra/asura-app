@@ -6,7 +6,7 @@ import DefaultStyle from '../DefaultStyle';
 import React, { useEffect } from 'react';
 import { DefaultContext } from '../default-context';
 import CustomIconButton from '../basic/CustomIconButton';
-import { getPosts } from '../../repositories/PostRepository';
+import { getPosts, getPostShareUri } from '../../repositories/PostRepository';
 import UserSessionExpiredException from '../../exceptions/UserSessionExpiredException';
 import { signOutAndRedirect } from '../../repositories/UserRepository';
 import PostShareModal from '../modals/PostShareModal';
@@ -47,7 +47,7 @@ const ExploreScreen = (props) => {
 	const [currentPage, setCurrentPage] = React.useState(1);
 
 	const [postShareModalVisible, setPostShareModalVisible] = React.useState(false);
-	const [sharedPostUuid, setSharedPostUuid] = React.useState(null);
+	const [sharedPostUri, setSharedPostUri] = React.useState(null);
 
 	const isSignedIn = context.user !== null;
 
@@ -62,7 +62,8 @@ const ExploreScreen = (props) => {
 			userScore={item.userScore}
 			media={item.media}
 			onMediaPressed={onMediaPressed}
-			onClickShare={onClickShare} />
+			onClickShare={onClickShare} 
+			shareUri={item.shareUri} />
 		);
 
 		return (index === data.length - 1 && hasMoar) ? 
@@ -92,7 +93,8 @@ const ExploreScreen = (props) => {
 	 * Opens a modal showing the Post to share
 	 */
 	onClickShare = (postUuid) => {
-		setSharedPostUuid(postUuid);
+		const postShareUri = getPostShareUri(postUuid);
+		setSharedPostUri(postShareUri);
 		setPostShareModalVisible(true);
 	}
 
@@ -163,7 +165,7 @@ const ExploreScreen = (props) => {
 			<PostShareModal
 				visible={postShareModalVisible}
 				onBackdropPress={() => setPostShareModalVisible(false)}
-				sharedPostUuid={sharedPostUuid}
+				sharedPostUri={sharedPostUri}
 			/>
 		</Layout>
 	);

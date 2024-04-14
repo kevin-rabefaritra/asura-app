@@ -33,7 +33,7 @@ const CachedImage = (props) => {
     }, []);
 
     return (
-        <TouchableOpacity style={props.style} onPress={props.onPress} disabled={props.disabled}>
+        <TouchableOpacity style={props.style} onPress={props.onPress} disabled={props.onPress ? false : true}>
         {
             !imageData && 
             <View style={[{backgroundColor: theme['background-basic-color-3']}, DefaultStyle.loadingContainer]}>
@@ -42,7 +42,9 @@ const CachedImage = (props) => {
         }
         {
             imageData && 
-            <Image style={[{backgroundColor: theme['background-basic-color-3']}, props.imageStyle || styles.image]} source={{uri: imageData}} />
+            <Image 
+                style={[{backgroundColor: theme['background-basic-color-3']}, props.imageStyle || styles.image]}
+                source={{uri: imageData}} />
         }
         </TouchableOpacity>
     );
