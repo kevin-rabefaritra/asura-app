@@ -9,7 +9,6 @@ import CustomIconButton from '../basic/CustomIconButton';
 import { getPosts, getPostShareUri } from '../../repositories/PostRepository';
 import UserSessionExpiredException from '../../exceptions/UserSessionExpiredException';
 import { signOutAndRedirect } from '../../repositories/UserRepository';
-import PostShareModal from '../modals/PostShareModal';
 
 const AppBar = (props) => {
 	
@@ -45,9 +44,6 @@ const ExploreScreen = (props) => {
 	const [isLoading, setIsLoading] = React.useState(true);
 	const [hasMoar, setHasMoar] = React.useState(true);
 	const [currentPage, setCurrentPage] = React.useState(1);
-
-	const [postShareModalVisible, setPostShareModalVisible] = React.useState(false);
-	const [sharedPostUri, setSharedPostUri] = React.useState(null);
 
 	const isSignedIn = context.user !== null;
 
@@ -88,15 +84,6 @@ const ExploreScreen = (props) => {
 			uri: uri
 		});
 	};
-
-	/**
-	 * Opens a modal showing the Post to share
-	 */
-	onClickShare = (postUuid) => {
-		const postShareUri = getPostShareUri(postUuid);
-		setSharedPostUri(postShareUri);
-		setPostShareModalVisible(true);
-	}
 
 	// Fetch posts
 	onFetchPosts = async (reloadAll = false) => {
@@ -161,12 +148,7 @@ const ExploreScreen = (props) => {
 				contentContainerStyle={styles.contentContainer}
 				style={{backgroundColor: theme['background-basic-color-3']}}
 			/>
-
-			<PostShareModal
-				visible={postShareModalVisible}
-				onBackdropPress={() => setPostShareModalVisible(false)}
-				sharedPostUri={sharedPostUri}
-			/>
+	
 		</Layout>
 	);
 }

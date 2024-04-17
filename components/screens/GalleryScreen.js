@@ -40,8 +40,7 @@ const GalleryScreen = (props) => {
 
             <CachedImage
                 uri={uri}
-                onPress={() => {}}
-                disabled={true}
+                onPress={null}
                 imageStyle={{width: maxWidth, height: maxHeight, resizeMode: 'contain'}} />
             
         </Layout>
