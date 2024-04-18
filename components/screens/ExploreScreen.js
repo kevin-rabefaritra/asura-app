@@ -58,7 +58,6 @@ const ExploreScreen = (props) => {
 			userScore={item.userScore}
 			media={item.media}
 			onMediaPressed={onMediaPressed}
-			onClickShare={onClickShare} 
 			shareUri={item.shareUri} />
 		);
 

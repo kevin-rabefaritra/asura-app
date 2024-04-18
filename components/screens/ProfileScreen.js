@@ -45,6 +45,10 @@ const ProfileContainer = (props) => {
 		ToastAndroid.show(`You have successfully signed out!`, ToastAndroid.SHORT);
 	}
 
+	const onLangValidated = (lang) => {
+		console.log(`Selected lang ${lang}`);
+	}
+
 	return (
 		<Layout style={[styles.profileContainer, {backgroundColor: theme['background-basic-color-3']}]}>
 			<Card style={styles.profileCard} disabled={true}>
@@ -127,6 +131,7 @@ const ProfileContainer = (props) => {
 			<LangSettingsModal 
 				visible={displayLangSettingsModal}
 				onBackdropPress={() => setDisplayLangSettingsModal(false)}
+				onLangValidated={onLangValidated}
 			/>
 		</Layout>
 	);

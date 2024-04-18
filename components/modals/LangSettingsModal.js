@@ -11,34 +11,53 @@ const CheckIcon = (props) => (
 const LangSettingsModal = (props) => {
 
 	const langs = {
-		'fr': 'Français',
-		'en': 'English',
+		'fr-FR': 'Français',
+		'en-US': 'English',
 		'mg': 'Malagasy'
 	};
 
-	const [selectedLang, setSelectedLang] = React.useState('en');
+	const [selectedLang, setSelectedLang] = React.useState('en-US');
 
 	const CardHeader = (props) => {
-		return <Layout style={{padding: 16}}>
-			<Text category="s1">Language</Text>
-			<Text category="s2" style={{marginTop: 8}} appearance="hint">Choose your language</Text>
-		</Layout>;
+		return (
+			<Layout style={{padding: 16}}>
+				<Text category="s1">Language</Text>
+				<Text category="s2" style={{marginTop: 8}} appearance="hint">Choose your language</Text>
+			</Layout>
+		);
 	};
 
 	const CardFooter = (props) => {
-		return <Layout style={{flexDirection: 'row-reverse', padding: 16}}>
-			<CustomIconButton
-                status='primary'
-                size='small'
-                iconName='check' />
-			<Button
-                style={ { marginRight: 8, paddingHorizontal: 16} }
-                appearance='ghost'
-                status='basic'
-                size='small'
-                children={() => (<Text>BACK</Text>)}>
-            </Button>
-		</Layout>;
+		return (
+			<Layout style={{flexDirection: 'row-reverse', padding: 16}}>
+				
+				<CustomIconButton
+					status='primary'
+					size='small'
+					iconName='check'
+					onPress={props.onValidate} />
+
+				<Button
+					style={ { marginRight: 8, paddingHorizontal: 16} }
+					appearance='ghost'
+					status='basic'
+					size='small'
+					onPress={props.onBackPress}
+					children={() => (<Text>BACK</Text>)}>
+
+				</Button>
+			</Layout>
+		);
+	};
+
+	/**
+	 * Validates the selection of a lang
+	 */
+	const onLangValidated = () => {
+		if (props.onLangValidated) {
+			props.onLangValidated(selectedLang);
+			props.onBackdropPress();
+		}
 	};
 
 	return (
@@ -48,7 +67,7 @@ const LangSettingsModal = (props) => {
 			onBackdropPress={props.onBackdropPress}
 			backdropStyle={DefaultStyle.modalBackdrop}>
 
-			<Card style={styles.langCard} disabled={true} header={CardHeader} footer={CardFooter}>
+			<Card style={styles.langCard} disabled={true} header={CardHeader} footer={<CardFooter onBackPress={props.onBackdropPress} onValidate={onLangValidated} />}>
 				<Layout style={styles.langCardContainer}>
 					<Menu>
 						{
@@ -57,6 +76,7 @@ const LangSettingsModal = (props) => {
 									key={key}
 									title={value} 
 									accessoryRight={selectedLang === key ? CheckIcon : null} 
+									onPress={() => setSelectedLang(key)}
 									style={{height: 48}} />
 							)
 						}
