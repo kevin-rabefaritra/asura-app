@@ -46,14 +46,6 @@ export function sayHello() {
 }
 
 /**
- * Search for user based on a keyword
- * @param {String} keyword 
- */
-export function search(keyword, page) {
-  	return callAPI(`search/${keyword}?page=${page}`, "GET", null, true);
-}
-
-/**
  * Updates a user's basic info, including:
  * (1) birth date
  * (2) email address
@@ -98,18 +90,20 @@ export function updatePassword(oldPassword, newPassword) {
  * instead of replacing the existing screen. The difference is whether or not
  * pressing BACK would lead to the current screen.
  */
-export function signOutAndRedirect(context, navigation, to, redirectInstead=false) {
+export async function signOutAndRedirect(context, navigation, to, redirectInstead=false) {
 	// We don't remove USERNAME because we use it as a default value in the
 	// sign in screen
-	removePreference(TOKEN, REFRESH_TOKEN, /* USERNAME, */ UUID, NAME, EMAIL);
+	await removePreference(TOKEN, REFRESH_TOKEN, /* USERNAME, */ UUID, NAME, EMAIL);
 	context.updateUser(null);
 
 	// Navigate or replace the current screen
-	if (redirectInstead) {
-		navigation.navigate(to);
-	}
-	else {
-		navigation.replace(to);
+	if (to) {
+		if (redirectInstead) {
+			navigation.navigate(to);
+		}
+		else {
+			navigation.replace(to);
+		}
 	}
 }
 

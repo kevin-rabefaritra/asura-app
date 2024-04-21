@@ -58,7 +58,9 @@ const ExploreScreen = (props) => {
 			userScore={item.userScore}
 			media={item.media}
 			onMediaPressed={onMediaPressed}
-			shareUri={item.shareUri} />
+			shareUri={item.shareUri}
+			context={context}
+			navigation={props.navigation} />
 		);
 
 		return (index === data.length - 1 && hasMoar) ? 
@@ -123,7 +125,7 @@ const ExploreScreen = (props) => {
 		catch(exception) {
 			console.log(exception);
 			if (exception instanceof UserSessionExpiredException) {
-				signOutAndRedirect(context, props.navigation, to="Profile", redirectInstead=true);
+				await signOutAndRedirect(context, props.navigation, to="Profile", redirectInstead=true);
 			}
 		}
 		finally {
@@ -147,7 +149,6 @@ const ExploreScreen = (props) => {
 				contentContainerStyle={styles.contentContainer}
 				style={{backgroundColor: theme['background-basic-color-3']}}
 			/>
-	
 		</Layout>
 	);
 }

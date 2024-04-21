@@ -4,6 +4,7 @@ import { StyleSheet, View, ImageBackground, ToastAndroid, TouchableOpacity } fro
 import { DefaultContext } from '../default-context';
 import DefaultStyle from '../DefaultStyle';
 import LangSettingsModal from '../modals/LangSettingsModal';
+import { signOutAndRedirect } from '../../repositories/UserRepository';
 
 
 const AppBar = () => {
@@ -32,16 +33,18 @@ const onThemeClicked = (context) => {
 }
 
 const ProfileContainer = (props) => {
+	
 	const context = props.context;
 	const theme = useTheme();
 	const navigation = props.navigation;
 	const [selectedIndex, setSelectedIndex] = React.useState(null);
 	const [displayLangSettingsModal, setDisplayLangSettingsModal] = React.useState(false);
 
-
-	const onSignOutClicked = () => {
+	const onSignOutClicked = async () => {
 		// set the user to null
-		context.updateUser(null);
+		// Todo: fix user info still displaying on screen despite updateUser(null)
+		// inside signOutAndRedirect
+		await signOutAndRedirect(context, navigation, null);
 		ToastAndroid.show(`You have successfully signed out!`, ToastAndroid.SHORT);
 	}
 
@@ -52,7 +55,7 @@ const ProfileContainer = (props) => {
 	return (
 		<Layout style={[styles.profileContainer, {backgroundColor: theme['background-basic-color-3']}]}>
 			<Card style={styles.profileCard} disabled={true}>
-				{ 
+				{
 					context.user ? (
 					<Layout style={styles.headerContainer}>
 						<Avatar

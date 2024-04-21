@@ -26,6 +26,9 @@ export default function App() {
 	// App theme (light, dark)
 	const [theme, setTheme] = React.useState('light');
 
+	// App language
+	const [lang, setLang] = React.useState('en-US');
+
 	// Font loading state
 	const [loaded, setLoaded] = React.useState(false);
 

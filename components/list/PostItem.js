@@ -1,11 +1,13 @@
 import { Text, Avatar, Layout, useTheme, Card, Button, Icon } from '@ui-kitten/components';
-import { View, Image, StyleSheet } from 'react-native';
+import { View, Image, StyleSheet, ToastAndroid } from 'react-native';
 import CustomIconButton from '../basic/CustomIconButton';
 import { useState } from 'react';
 import { reactToPost } from '../../repositories/PostRepository';
 import UserSessionExpiredException from '../../exceptions/UserSessionExpiredException';
 import MediaCarousell from '../basic/MediaCarousell';
 import CachedAvatar from '../basic/CachedAvatar';
+import UserNotSignedInException from '../../exceptions/UserNotSignedInException';
+import { signOutAndRedirect } from '../../repositories/UserRepository';
 
 /**
  * Represents a single post item (displayed on the timeline)
@@ -25,7 +27,10 @@ const PostItem = (props) => {
 	const [score, setScore] = useState(props.likesCount);
 	const [userScore, setUserScore] = useState(props.userScore);
 	const [isSendingRequest, setIsSendingRequest] = useState(false); 
+	
 	const theme = useTheme();
+	const context = props.context;
+	const navigation = props.navigation;
 
 	const onClickReact = () => {
 		if (isSendingRequest) {
@@ -46,7 +51,10 @@ const PostItem = (props) => {
 			.catch((e) => {
 				// Failed to send reaction
 				if (e instanceof UserSessionExpiredException) {
-					
+					signOutAndRedirect(context, navigation, 'Profile');
+				}
+				else if (e instanceof UserNotSignedInException) {
+					ToastAndroid.show('Sign in to react to posts!', ToastAndroid.SHORT);
 				}
 				console.log(e);
 			})

@@ -97,7 +97,7 @@ const SecurityScreen = (props) => {
                     }
                 }
                 else if (e instanceof UserSessionExpiredException) {
-                    signOutAndRedirect(context, props.navigation, "Profile");
+                    await signOutAndRedirect(context, props.navigation, "Profile");
                 }
             }
             finally {
@@ -135,12 +135,14 @@ const SecurityScreen = (props) => {
                         label="New password"
                         maxLength={50}
                         secureTextEntry={true}
-                        onChangeText={setNewPassword} />
+                        onChangeText={setNewPassword}
+                        style={{marginTop: 8}} />
                     <Input
                         label="Confirm new password"
                         maxLength={50}
                         secureTextEntry={true}
-                        onChangeText={setNewPasswordConfirm} />
+                        onChangeText={setNewPasswordConfirm}
+                        style={{marginTop: 8}} />
                 </Layout>
             }
             {

@@ -1,11 +1,13 @@
 import { Button, Divider, Icon, Input, Layout, List, Modal, ProgressBar, Text, useTheme } from "@ui-kitten/components";
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import { fetchProfileInfo, search } from "../../repositories/UserRepository";
+import { fetchProfileInfo } from "../../repositories/UserRepository";
+import { search } from "../../repositories/PostRepository";
 import UserSearchItem from "../list/UserSearchItem";
 import UserProfileModal from "../modals/UserProfileModal";
 import CustomIconButton from "../basic/CustomIconButton";
 import PostItem from "../list/PostItem";
+import { DefaultContext } from "../default-context";
 
 const AppBar = (props) => {
     return (
@@ -31,6 +33,8 @@ const AppBar = (props) => {
 };
 
 const SearchScreen = (props) => {
+
+    const context = React.useContext(DefaultContext);
 
     const [keyword, setKeyword] = React.useState(null);
     const [data, setData] = React.useState([]);
@@ -102,7 +106,9 @@ const SearchScreen = (props) => {
                 content={item.content}
                 likesCount={item.likes_count}
                 postUuid={item.uuid}
-                userScore={item.user_score} />
+                userScore={item.user_score} 
+                context={context}
+                navigation={props.navigation} />
             ) : (<UserSearchItem
                     avatar={item.profile_picture}
                     title={`${item.first_name} ${item.last_name}`}

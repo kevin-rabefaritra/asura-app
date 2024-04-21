@@ -6,7 +6,7 @@ import { callAPI } from "../helpers/api_helpers";
  * @param {number} page 
  */
 export function getPosts(page=1) {
-    return callAPI(`posts?page=${page}`, 'GET', null, true);
+    return callAPI(`posts?page=${page}`, 'GET', null, false);
 }
 
 /**
@@ -23,9 +23,9 @@ export function reactToPost(uuid, score) {
 }
 
 /**
- * Returns the share URI given a Post UUID
- * @param {String} postUuid 
+ * Search for user/posts based on a keyword
+ * @param {String} keyword 
  */
-export function getPostShareUri(postUuid) {
-    return `${BASE_URI}/posts/share/${postUuid}`;
+export function search(keyword, page) {
+    return callAPI(`search/${keyword}?page=${page}`, "GET", null, false);
 }

@@ -2,6 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { BASE_URI, REFRESH_TOKEN, TOKEN, savePreference } from "../components/services/PreferenceServices";
 import UserSessionExpiredException from "../exceptions/UserSessionExpiredException";
 import APIException from "../exceptions/APIException";
+import UserNotSignedInException from "../exceptions/UserNotSignedInException";
 
 /**
  * Performs a HTTP request to the server
@@ -28,7 +29,14 @@ export async function callAPI(endpoint, method, body=null, passToken=false) {
 
     // Add access token if required
     if (passToken) {
-        headers['Authorization'] = `Bearer ${stores[0][1]}`;
+        let token = stores[0][1];
+        if (token) {
+            headers['Authorization'] = `Bearer ${token}`;
+        }
+        else {
+            // Token is requested to be passed but is empty
+            throw new UserNotSignedInException();
+        }
     }
 
     let requestBody = body ? JSON.stringify(body) : null;
