@@ -1,59 +1,50 @@
-# Asura: another social app
-Here's another social app. Yay.. **exactly** what we needed.
+# Welcome to your Expo app 👋
 
-Home | Profile
---- | ---
-![That's the home screen](./screenshots/home.png) | ![That's the profile screen](./screenshots/profile.png)
-Thread | Chat
-![That's the thread screen](./screenshots/conversation.png) | ![That's the chat screen](./screenshots/chat.png)
+This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
-## 🍔 Ingredients
-- React Native 0.71.7
-- [UI Kitten 5.3](https://akveo.github.io/react-native-ui-kitten/)
-- Expo CLI
-- Updog
+## Get started
 
-## 🏈 Build the damn project
-### Install the dependencies
-Navigate to the project root folder, then run the following command.
+1. Install dependencies
+
+   ```bash
+   npm install
+   ```
+
+2. Start the app
+
+   ```bash
+    npx expo start
+   ```
+
+In the output, you'll find options to open the app in a
+
+- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
+- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
+- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
+- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+
+You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+
+## Get a fresh project
+
+When you're ready, run:
+
+```bash
+npm run reset-project
 ```
-npm install
-```
 
-### Run the project
-Run the following command depending on your preferred platform.
-```
-npm run android
-```
-```
-npm run ios
-```
+This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
 
-## 📄 What's on the menu?
-### Pages
-- [X] Home timeline
-- [X] Conversation list (Full version only)
-- [X] Individual conversation (Full version only)
-- [X] Profile (update info, update password)
-- [X] Login
-- [X] Debug test
+## Learn more
 
-### Features
-- [X] Dark theme
-- [X] Like / comment count 
-- [X] Pagination
+To learn more about developing your project with Expo, look at the following resources:
 
-## License
-```
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
+- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
+- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
 
-	http://www.apache.org/licenses/LICENSE-2.0
+## Join the community
 
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-```
+Join our community of developers creating universal apps.
+
+- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
+- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
