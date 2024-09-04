@@ -1,47 +1,17 @@
-# Asura: another social app
-Here's another social app. Yay.. **exactly** what we needed.
+# Asura: minimalist social app.
 
-Home | Profile
---- | ---
-![That's the home screen](./screenshots/home.png) | ![That's the profile screen](./screenshots/profile.png)
-Thread | Chat
-![That's the thread screen](./screenshots/conversation.png) | ![That's the chat screen](./screenshots/chat.png)
+## A minimalist news feed app built with Angular.
 
-## 🍔 Ingredients
-- React Native 0.71.7
-- [UI Kitten 5.3](https://akveo.github.io/react-native-ui-kitten/)
-- Expo CLI
-- Updog
+![That's the home screen](./public/assets/images/screenshot-01.png)
 
-## 🏈 Build the damn project
-### Install the dependencies
-Navigate to the project root folder, then run the following command.
-```
-npm install
-```
+## Ingredients
+- Angular 18.0
+- Bootstrap 5.3
+- Bootstrap icons
 
-### Run the project
-Run the following command depending on your preferred platform.
-```
-npm run android
-```
-```
-npm run ios
-```
+## Build the project
 
-## 📄 What's on the menu?
-### Pages
-- [X] Home timeline
-- [X] Conversation list
-- [X] Individual conversation
-- [X] Profile (update info, update password)
-- [X] Login
-- [X] Debug test
-
-### Features
-- [X] Dark theme
-- [ ] Pagination
-- [X] Like / comment count 
+Just the two commands `npm i` and `npm start`.
 
 ## License
 ```
@@ -55,5 +25,5 @@ Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
-limitations under the License.
+limitations under the License blah blah blah.
 ```
