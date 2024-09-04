@@ -1,0 +1,15 @@
+.content {
+  border: 2pt solid #212121;
+  padding: 2pt 4pt 2pt 4pt;
+  margin-right: 6pt;
+  background: linear-gradient(to left, #ffffff 50%, #212121 50%) right;
+  background-size: 200%;
+  transition: .2s ease-out;
+  font-size: 0.85rem;
+}
+
+.content:hover {
+  background-position: left;
+  color: #fbfbfb;
+  padding: 4pt 12pt 4pt 12pt;
+}

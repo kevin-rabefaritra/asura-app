@@ -1,0 +1,12 @@
+.content {
+  margin-top: 20px;
+  overflow-x: auto;
+  white-space: nowrap;
+  padding: 0 2pt 0 8pt;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.content::-webkit-scrollbar {
+  display: none;
+}

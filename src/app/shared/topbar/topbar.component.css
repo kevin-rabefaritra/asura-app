@@ -2,3 +2,19 @@
   border-bottom: 2pt solid #212121;
   background-color: #ffffff;
 }
+
+.form-inline input {
+  border: 0;
+  background-color: #eeeeee;
+  padding: 5px 10px 5px 10px;
+  font-size: 0.85rem;
+}
+
+input:focus {
+  outline: none;
+}
+
+input::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+}

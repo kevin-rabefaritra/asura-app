@@ -2,7 +2,7 @@
 
 ## A minimalist news feed app built with Angular.
 
-![That's the home screen](./public/assets/images/screenshot-01.png)
+![That's the home screen](./public/assets/images/screenshot-02.png)
 
 ## Ingredients
 - Angular 18.0
