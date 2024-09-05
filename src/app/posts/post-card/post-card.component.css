@@ -31,8 +31,6 @@
 }
 
 .post-extra {
-  color: #007bff;
-  font-size: 0.85rem;
   align-self: start;
 }
 
@@ -48,4 +46,8 @@
 
 .post-tags {
   font-size: 0.85rem;
+}
+
+a {
+  color: #1565C0;
 }

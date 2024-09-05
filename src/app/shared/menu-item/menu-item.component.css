@@ -8,7 +8,7 @@
   font-size: 0.85rem;
 }
 
-.content:hover {
+.content:hover, .active .content {
   background-position: left;
   color: #fbfbfb;
   padding: 4pt 12pt 4pt 12pt;
