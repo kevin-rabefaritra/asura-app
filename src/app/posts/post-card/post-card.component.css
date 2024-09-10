@@ -36,11 +36,12 @@
 
 .post-content {
   width: 100%;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
+  line-height: 1.4rem;
 }
 
 .post-media {
-  margin-top: 10px;
+  margin-top: 15px;
   width: 100%;
 }
 

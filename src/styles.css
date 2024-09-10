@@ -11,10 +11,16 @@ a {
   background-color: #ffffff;
   color: #212121;
   padding: 2pt 6pt 2pt 6pt;
-  font-size: 0.85rem;
+  font-size: 1rem;
 }
 
 .default-btn:hover {
   background-color: #212121;
   color: #ffffff;
+}
+
+.form-control:focus {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
 }
