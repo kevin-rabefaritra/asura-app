@@ -4,6 +4,7 @@
 
 a {
   all: unset;
+  cursor: pointer;
 }
 
 .default-btn {
