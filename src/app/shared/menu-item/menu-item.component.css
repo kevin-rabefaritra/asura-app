@@ -6,6 +6,7 @@
   background-size: 200%;
   transition: .2s ease-out;
   font-size: 0.9rem;
+  cursor: pointer;
 }
 
 .content:hover, .active .content {
