@@ -4,8 +4,8 @@
     <div class="post-info w-100">
       <div class="post-header">
         <div>
-          <span class="post-name">John Doe</span>
-          <div class="post-date">10 minutes ago</div>
+          <span class="post-name">{{ post.author }}</span>
+          <div class="post-date">{{ post.publishedOn }}</div>
         </div>
         <span class="post-extra">
           <button class="default-btn mx-2">+ 1</button>
@@ -15,18 +15,19 @@
     </div>
   </div>
   <div class="post-content px-3">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat..
+    {{ post.summary }}
     <a [routerLink]="['/details']">Read more</a>
   </div>
   <div class="post-media">
-    <img class="w-100" src="/assets/images/post_sample.jpeg"/>
+    <app-post-media-grid [mediaFiles]="post.mediaFiles" />
   </div>
   <div class="post-tags px-3 mt-2">
-    <label class="app-post-tag">Tag 1</label>
-    <label class="app-post-tag">something</label>
-    <label class="app-post-tag">fun</label>
-    <label class="app-post-tag">international</label>
-    <label class="app-post-tag">yeah</label>
-    <label class="text-muted">+10 more</label>
+    @for (tag of displayedTags; track tag) {
+      <label class="app-post-tag">{{ tag }}</label>
+    }
+
+    @if (!allTagsDisplayed) {
+      <label class="text-muted" (click)="showAllTags()">+{{ post.tags.length - displayedTags.length }} more</label>
+    }
   </div>
 </div>

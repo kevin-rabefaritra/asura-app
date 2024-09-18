@@ -25,3 +25,7 @@ a {
   outline: none !important;
   box-shadow: none !important;
 }
+
+body {
+  background-color: #fefefe;
+}
