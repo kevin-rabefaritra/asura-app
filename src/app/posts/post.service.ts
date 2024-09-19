@@ -15,8 +15,12 @@ export class PostService {
     private httpClient: HttpClient
   ) {}
 
-  findAll(page: number): Observable<Page<Post>> {
-    return this.httpClient.get<Page<Post>>(`${PostService.GET_URI}?page=${page}`);
+  findAll(page: number, query?: string): Observable<Page<Post>> {
+    let url = `${PostService.GET_URI}?page=${page}`;
+    if (query) {
+      url += `&query=${query}`;
+    }
+    return this.httpClient.get<Page<Post>>(url);
   }
 
   findByReference(reference: string): Observable<Post> {

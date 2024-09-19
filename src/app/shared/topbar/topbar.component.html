@@ -1,8 +1,8 @@
 <nav class="navbar navbar-expand-lg fixed-top">
   <div class="container d-flex justify-content-between align-items-center">
     <a class="navbar-brand" href="#">_a </a>
-    <form class="form-inline flex-grow-1 ml-3">
-      <input type="search" placeholder="search.." aria-label="Search" class="form-control w-100">
+    <form class="form-inline flex-grow-1 ml-3" (submit)="search()">
+      <input id="query" type="search" placeholder="search.." name="query" aria-label="Search" class="form-control w-100" [(ngModel)]="query">
     </form>
   </div>
 </nav>

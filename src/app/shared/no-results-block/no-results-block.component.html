@@ -1,0 +1,10 @@
+<div class="text-center my-4">
+  <img class="img" src="/assets/images/john-tr.gif" />
+  @if (query) {
+    <p class="mt-2">no results found for <q>{{ query }}</q></p>
+  }
+  @else {
+    <p class="mt-2">no results</p>
+  }
+  <a routerLink="/home"><i class="bi bi-caret-left-fill"></i> go back home</a>
+</div>

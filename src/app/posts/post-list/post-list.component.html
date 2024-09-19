@@ -1,6 +1,10 @@
 <div class="container">
-  @for (post of postList; track post) {
+  @for (post of postList(); track post) {
     <app-post-card [post]="post"/>
+  }
+
+  @if (!postList().length && !isLoading) {
+    <app-no-results-block [query]="query" />
   }
 
   @if (!isLastPage && isLoading) {
