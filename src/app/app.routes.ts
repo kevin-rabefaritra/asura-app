@@ -5,5 +5,5 @@ import { PostDetailsComponent } from './posts/post-details/post-details.componen
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: PostListComponent },
-  { path: 'details', component: PostDetailsComponent }
+  { path: 'post/:reference', component: PostDetailsComponent }
 ];

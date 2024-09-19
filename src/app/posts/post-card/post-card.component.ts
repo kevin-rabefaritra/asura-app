@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { PostTagComponent } from "../post-tag/post-tag.component";
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { Post } from '../post.model';
 import { PostService } from '../post.service';
 import { PostMediaGridComponent } from "../post-media-grid/post-media-grid.component";
@@ -17,15 +17,17 @@ export class PostCardComponent implements OnInit {
   static TAGS_LIMIT = 5;
 
   @Input({required: true}) post!: Post;
+  @Input() displayFull: boolean = false;
 
   displayedTags: string[] = [];
 
   constructor(
-    private postService: PostService
+    private postService: PostService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.displayedTags = this.post.tags.slice(0, PostCardComponent.TAGS_LIMIT);
+    this.displayedTags = this.displayFull ? this.post.tags : this.post.tags.slice(0, PostCardComponent.TAGS_LIMIT);
   }
 
   get allTagsDisplayed(): boolean {
@@ -34,5 +36,9 @@ export class PostCardComponent implements OnInit {
 
   showAllTags(): void {
     this.displayedTags = this.post.tags;
+  }
+
+  showPost(): void {
+    this.router.navigate(['/post', this.post.reference]);
   }
 }

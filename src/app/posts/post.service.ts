@@ -19,6 +19,10 @@ export class PostService {
     return this.httpClient.get<Page<Post>>(`${PostService.GET_URI}?page=${page}`);
   }
 
+  findByReference(reference: string): Observable<Post> {
+    return this.httpClient.get<Post>(`${PostService.GET_URI}/${reference}`);
+  }
+
   getMediaUrl(mediaPath: string): string {
     return `http://localhost:8080/api/media/${mediaPath}`;
   }

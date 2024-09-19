@@ -16,10 +16,16 @@
   </div>
   <div class="post-content px-3">
     {{ post.summary }}
-    <a [routerLink]="['/details']">Read more</a>
+
+    @if (displayFull) {
+      <br>{{ post.text }}
+    }
+    @else {
+      <a [routerLink]="['/post', post.reference]">Read more</a>
+    }
   </div>
   <div class="post-media">
-    <app-post-media-grid [mediaFiles]="post.mediaFiles" />
+    <app-post-media-grid [mediaFiles]="post.mediaFiles" [displayAll]="displayFull" (onClickMore)="showPost()"/>
   </div>
   <div class="post-tags px-3 mt-2">
     @for (tag of displayedTags; track tag) {

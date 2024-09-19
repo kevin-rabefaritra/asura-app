@@ -1,5 +1,6 @@
 
 export interface Post {
+  reference: string;
   author: string;
   publishedOn: string;
   summary: string;

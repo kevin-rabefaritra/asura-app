@@ -1,3 +1,8 @@
 <div class="container">
-  
+  @if (post()) {
+    <app-post-card [post]="post()!" [displayFull]="true" />
+  }
+  @else {
+    <app-spinner />
+  }
 </div>

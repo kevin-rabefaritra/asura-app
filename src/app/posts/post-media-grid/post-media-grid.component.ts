@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { PostService } from '../post.service';
 
 @Component({
@@ -11,6 +11,9 @@ import { PostService } from '../post.service';
 export class PostMediaGridComponent {
 
   @Input({required: true}) mediaFiles: {path: string, tags: string[]}[] = [];
+  @Input() displayAll: boolean = false;
+
+  @Output() onClickMore: EventEmitter<any> = new EventEmitter();
 
   constructor(
     private postService: PostService
@@ -18,5 +21,9 @@ export class PostMediaGridComponent {
 
   mediaUrl(mediaPath: string): string {
     return this.postService.getMediaUrl(mediaPath);
+  }
+
+  showMore(): void {
+    this.onClickMore.emit();
   }
 }
