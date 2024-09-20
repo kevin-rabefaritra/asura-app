@@ -1,0 +1,25 @@
+<div class="fullscreen-overlay" (click)="dismiss($event)">
+  <div class="container">
+    <div class="card">
+      <div id="mediaCarousel" class="carousel">
+        <div class="carousel-inner">
+          @for (mediaUrl of _mediaUrls; track mediaUrl) {
+            <div class="carousel-item" [class.active]="$index === selectedIndex">
+              <img [src]="mediaUrl.path" class="d-block w-100" alt="Image 1">
+            </div>
+          }
+        </div>
+  
+        <!-- Controls -->
+        <button class="btn carousel-control-prev" type="button" data-bs-target="#mediaCarousel" data-bs-slide="prev">
+          <i class="bi bi-arrow-left"></i>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="btn carousel-control-next" type="button" data-bs-target="#mediaCarousel" data-bs-slide="next">
+          <i class="bi bi-arrow-right"></i>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

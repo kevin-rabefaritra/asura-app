@@ -6,11 +6,12 @@ import { Post } from '../post.model';
 import { SpinnerComponent } from "../../shared/spinner/spinner.component";
 import { ActivatedRoute } from '@angular/router';
 import { NoResultsBlockComponent } from "../../shared/no-results-block/no-results-block.component";
+import { PostMediaGalleryComponent } from "../post-media-gallery/post-media-gallery.component";
 
 @Component({
   selector: 'app-post-list',
   standalone: true,
-  imports: [PostCardComponent, MenuComponent, SpinnerComponent, NoResultsBlockComponent],
+  imports: [PostCardComponent, MenuComponent, SpinnerComponent, NoResultsBlockComponent, PostMediaGalleryComponent],
   templateUrl: './post-list.component.html',
   styleUrl: './post-list.component.css'
 })
@@ -21,6 +22,10 @@ export class PostListComponent implements OnInit {
   isLastPage: boolean = false;
   isLoading: boolean = false;
   page: number = 0;
+
+  isGalleryDisplayed = signal(false);
+  selectedPost = signal<any>(undefined);
+  selectedPostMediaIndex = signal(0);
 
   // Used by search feature
   query: string = '';
@@ -63,5 +68,15 @@ export class PostListComponent implements OnInit {
       this.page += 1;
       this.loadPosts();
     }
+  }
+
+  dismissGallery(): void {
+    this.isGalleryDisplayed.set(false);
+  }
+
+  displayGallery(event: {post: Post, mediaIndex: number}): void {
+    this.selectedPost.set(event.post);
+    this.selectedPostMediaIndex.set(event.mediaIndex);
+    this.isGalleryDisplayed.set(true);
   }
 }

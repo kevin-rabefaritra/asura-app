@@ -1,6 +1,6 @@
 <div class="container">
   @for (post of postList(); track post) {
-    <app-post-card [post]="post"/>
+    <app-post-card [post]="post" (onPostMediaSelected)="displayGallery($event)" />
   }
 
   @if (!postList().length && !isLoading) {
@@ -11,3 +11,7 @@
     <app-spinner />
   }
 </div>
+
+@if (isGalleryDisplayed() && selectedPost()) {
+  <app-post-media-gallery [mediaUrls]="selectedPost().mediaFiles" [selectedIndex]="selectedPostMediaIndex()" (onDismiss)="dismissGallery()" />
+}

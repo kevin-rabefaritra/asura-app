@@ -25,7 +25,7 @@
     }
   </div>
   <div class="post-media">
-    <app-post-media-grid [mediaFiles]="post.mediaFiles" [displayAll]="displayFull" (onClickMore)="showPost()"/>
+    <app-post-media-grid [mediaFiles]="post.mediaFiles" [displayAll]="displayFull" (onClickMore)="showPost()" (onMediaSelected)="selectMedia($event)"/>
   </div>
   <div class="post-tags px-3 mt-2">
     @for (tag of displayedTags; track tag) {

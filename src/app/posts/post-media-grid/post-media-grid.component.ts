@@ -14,6 +14,7 @@ export class PostMediaGridComponent {
   @Input() displayAll: boolean = false;
 
   @Output() onClickMore: EventEmitter<any> = new EventEmitter();
+  @Output() onMediaSelected: EventEmitter<number> = new EventEmitter();
 
   constructor(
     private postService: PostService
@@ -25,5 +26,9 @@ export class PostMediaGridComponent {
 
   showMore(): void {
     this.onClickMore.emit();
+  }
+
+  selectMedia(index: number): void {
+    this.onMediaSelected.emit(index);
   }
 }

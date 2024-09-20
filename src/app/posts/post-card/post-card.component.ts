@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { PostTagComponent } from "../post-tag/post-tag.component";
 import { Router, RouterModule } from '@angular/router';
 import { Post } from '../post.model';
@@ -18,6 +18,8 @@ export class PostCardComponent implements OnInit {
 
   @Input({required: true}) post!: Post;
   @Input() displayFull: boolean = false;
+
+  @Output() onPostMediaSelected: EventEmitter<{post: Post, mediaIndex: number}> = new EventEmitter();
 
   displayedTags: string[] = [];
 
@@ -40,5 +42,9 @@ export class PostCardComponent implements OnInit {
 
   showPost(): void {
     this.router.navigate(['/post', this.post.reference]);
+  }
+
+  selectMedia(index: number): void {
+    this.onPostMediaSelected.emit({post: this.post, mediaIndex: index});
   }
 }
