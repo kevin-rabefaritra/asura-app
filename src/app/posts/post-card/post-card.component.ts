@@ -4,11 +4,12 @@ import { Router, RouterModule } from '@angular/router';
 import { Post } from '../post.model';
 import { PostService } from '../post.service';
 import { PostMediaGridComponent } from "../post-media-grid/post-media-grid.component";
+import { DateAgoPipe } from '../../pipes/date-ago.pipe';
 
 @Component({
   selector: 'app-post-card',
   standalone: true,
-  imports: [PostTagComponent, RouterModule, PostMediaGridComponent],
+  imports: [PostTagComponent, RouterModule, PostMediaGridComponent, DateAgoPipe],
   templateUrl: './post-card.component.html',
   styleUrl: './post-card.component.css'
 })

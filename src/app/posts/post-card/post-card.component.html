@@ -5,7 +5,7 @@
       <div class="post-header">
         <div>
           <span class="post-name">{{ post.author }}</span>
-          <div class="post-date">{{ post.publishedOn }}</div>
+          <div class="post-date">{{ post.publishedOn | dateAgo }}</div>
         </div>
         <span class="post-extra">
           <button class="default-btn mx-2">+ 1</button>
