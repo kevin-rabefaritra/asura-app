@@ -15,8 +15,11 @@ export class PostService {
     private httpClient: HttpClient
   ) {}
 
-  findAll(page: number, query?: string): Observable<Page<Post>> {
+  findAll(page: number, query?: string, tag?: string): Observable<Page<Post>> {
     let url = `${PostService.GET_URI}?page=${page}`;
+    if (tag) {
+      url += `&tag=${tag}`;
+    }
     if (query) {
       url += `&query=${query}`;
     }

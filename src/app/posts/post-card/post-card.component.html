@@ -27,9 +27,9 @@
   <div class="post-media">
     <app-post-media-grid [mediaFiles]="post.mediaFiles" [displayAll]="displayFull" (onClickMore)="showPost()" (onMediaSelected)="selectMedia($event)"/>
   </div>
-  <div class="post-tags px-3 mt-2">
+  <div class="post-tags px-3 mt-4">
     @for (tag of displayedTags; track tag) {
-      <label class="app-post-tag">{{ tag }}</label>
+      <a [routerLink]="['/search']" [queryParams]="{ tag }" class="app-post-tag">{{ tag }}</a>
     }
 
     @if (!allTagsDisplayed) {

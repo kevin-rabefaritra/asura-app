@@ -29,6 +29,7 @@ export class PostListComponent implements OnInit {
 
   // Used by search feature
   query: string = '';
+  tag: string = '';
 
   constructor(
     private postService: PostService,
@@ -37,9 +38,12 @@ export class PostListComponent implements OnInit {
 
   ngOnInit(): void {
     this.activeRoute.queryParams.subscribe(queryParams => {
-      this.query = queryParams['q'];
-      this.resetList();
-      this.loadPosts();
+      if (queryParams['q'] !== this.query || queryParams['tag'] !== this.tag) {
+        this.query = queryParams['q'];
+        this.tag = queryParams['tag'];
+        this.resetList();
+        this.loadPosts();
+      }
     });
   }
 
@@ -50,7 +54,7 @@ export class PostListComponent implements OnInit {
 
   loadPosts(): void {
     this.isLoading = true;
-    this.postService.findAll(this.page, this.query).subscribe({
+    this.postService.findAll(this.page, this.query, this.tag).subscribe({
       next: (value) => {
         this.isLoading = false;
         this.postList.update((list) => list.concat(value.content));

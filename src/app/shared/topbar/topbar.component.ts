@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { NavigationEnd, Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router, RouterModule } from '@angular/router';
 import { filter } from 'rxjs';
 
 @Component({
@@ -15,7 +15,8 @@ export class TopbarComponent implements OnInit {
   query: string = '';
 
   constructor(
-    private router: Router
+    private router: Router,
+    private activeRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -34,6 +35,21 @@ export class TopbarComponent implements OnInit {
   }
 
   search(): void {
-    this.router.navigate(['/search'], {queryParams: {q: this.query}});
+    if (!this.query) {
+      return;
+    }
+
+    let queryParams = {};
+
+    // Add tag if there was one part of the url
+    let tag = this.activeRoute.snapshot.queryParamMap.get('tag');
+    if (tag) {
+      Object.assign(queryParams, { tag });
+    }
+
+    // Add query
+    Object.assign(queryParams, { q: this.query });
+
+    this.router.navigate(['/search'], { queryParams });
   }
 }
