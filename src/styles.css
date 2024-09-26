@@ -20,6 +20,17 @@ a {
   color: #ffffff;
 }
 
+.btn-blank {
+  background-color: transparent;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.btn-blank:hover {
+  font-weight: 700;
+}
+
 .form-control:focus {
   border: none !important;
   outline: none !important;
@@ -28,4 +39,8 @@ a {
 
 body {
   background-color: #fefefe;
+}
+
+.link {
+  cursor: pointer;
 }

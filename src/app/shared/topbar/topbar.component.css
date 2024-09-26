@@ -1,6 +1,7 @@
 .navbar {
   border-bottom: 2pt solid #212121;
   background-color: #ffffff;
+  z-index: 20;
 }
 
 .form-inline input {
