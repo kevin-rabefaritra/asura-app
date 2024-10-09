@@ -7,7 +7,7 @@ export interface Post {
   text: string;
   tags: string[];
   references: string[];
-  keywords: string[];
   mediaFiles: { path: string, tags: string[] }[];
   score: number;
+  userScore: number;
 }

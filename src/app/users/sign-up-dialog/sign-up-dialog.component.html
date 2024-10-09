@@ -3,16 +3,41 @@
     <div class="card">
       <div class="card-body">
         <h2>new?</h2>
-        <form>
-          <input id="username" type="text" placeholder="username" name="username" class="mt-3">
-          <input id="email" type="email" placeholder="email address" name="email" class="mt-3">
-          <input id="password" type="password" placeholder="password" name="password" class="mt-3">
-          <input id="password-confirm" type="password" placeholder="confirm your password" name="password-confirm" class="mt-3">
-          <button class="sign-in-btn mt-3" type="submit">create account</button>
-          <p class="mt-3 text-center">or <span class="link text-primary" (click)="signInClicked()">sign in</span></p>
-        </form>
+        @if (signupForm) {
+          
+          @if (signupForm.invalid && (signupForm.touched || signupForm.dirty)) {
+            <div class="alert alert-danger mb-0 mt-3">
+              <ul class="mb-0">
+                @if (signupForm.controls['username'].hasError('compliantUsername')) {
+                  <li>Username can only contain alphanumeric characters and underscores, and must be at least 5 characters long.</li>
+                }
+                @if (signupForm.controls['username'].hasError('uniqueUsername')) {
+                  <li>This username is already taken.</li>
+                }
+                @if (signupForm.controls['email'].hasError('email')) {
+                  <li>Email address is not valid.</li>
+                }
+                @if (signupForm.controls['password'].hasError('strongPassword')) {
+                  <li>Password must contain at least an alpha character, a digit, and must be at least 8 characters long.</li>
+                }
+                @if (signupForm.hasError('passwordMatch')) {
+                  <li>Password and password confirmation do not match.</li>
+                }
+              </ul>
+            </div>
+          }
+  
+          <form [formGroup]="signupForm" (ngSubmit)="signup()">
+            <input id="username" type="text" placeholder="username" name="username" class="mt-3" formControlName="username" maxlength="30" required>
+            <input id="email" type="email" placeholder="email address" name="email" class="mt-3" formControlName="email">
+            <input id="password" type="password" placeholder="password" name="password" class="mt-3" formControlName="password">
+            <input id="passwordConfirmation" type="password" placeholder="confirm your password" name="passwordConfirmation" class="mt-3" formControlName="passwordConfirmation">
+            <button class="sign-in-btn mt-3" [disabled]="signupForm.invalid || isLoading()" type="submit">create account</button>
+            <p class="mt-3 text-center">or <span class="link text-primary" (click)="signInClicked()">sign in</span></p>
+          </form>
+        }
         <hr />
-        <button class="sign-in-google-btn" type="submit">sign up with google</button>
+        <button class="sign-in-google-btn">sign up with google</button>
       </div>
     </div>
   </div>

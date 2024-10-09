@@ -38,3 +38,8 @@ input {
   background-color: #000000;
   color: #eeeeee;
 }
+
+.sign-in-btn:disabled {
+  background-color: #888888;
+  color: #eeeeee;
+}
