@@ -44,3 +44,13 @@ body {
 .link {
   cursor: pointer;
 }
+
+.outline-btn {
+  background-color: #000000;
+  color: #eeeeee;
+}
+
+.outline-btn:disabled {
+  background-color: #888888;
+  color: #eeeeee;
+}

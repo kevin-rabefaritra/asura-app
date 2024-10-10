@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { User } from "./user.model";
+import { TokenSet } from "./tokenset.model";
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class UserService {
   static CHECK_USERNAME_URI: string = 'http://localhost:8080/api/users/check/username';
   static CHECK_EMAIL_URI: string = 'http://localhost:8080/api/users/check/email';
   static SIGN_UP_URI: string = 'http://localhost:8080/api/users/signup';
-  static SIGN_IN_URI: string = 'http://localhost:8080/api/users/signin';
+  static SIGN_IN_URI: string = 'http://localhost:8080/api/oauth2/auth';
 
   constructor(
     private httpClient: HttpClient
@@ -31,8 +32,8 @@ export class UserService {
     });
   }
 
-  signin(username: string, password: string): Observable<User> {
-    return this.httpClient.post<User>(UserService.SIGN_IN_URI, {
+  signin(username: string, password: string): Observable<TokenSet> {
+    return this.httpClient.post<TokenSet>(UserService.SIGN_IN_URI, {
       username, password
     });
   }

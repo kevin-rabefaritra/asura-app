@@ -3,12 +3,23 @@
     <div class="card">
       <div class="card-body">
         <h2>sign in?</h2>
-        <form (ngSubmit)="signInWithCredentials()">
-          <input id="username" type="text" placeholder="username" name="username" class="mt-3" [(ngModel)]="username">
-          <input id="password" type="password" placeholder="password" name="password" class="mt-3" [(ngModel)]="password">
-          <button class="sign-in-btn mt-3" type="submit">sign in</button>
-          <p class="mt-3 text-center">or <span class="link text-primary" (click)="createAccountClicked()">create an account</span></p>
-        </form>
+        @if (signinForm) {
+
+          @if (errorMessage()) {
+            <div class="alert alert-danger mb-0 mt-3">
+              <ul class="mb-0">
+                <li>{{ errorMessage() }}</li>
+              </ul>
+            </div>
+          }
+
+          <form [formGroup]="signinForm" (ngSubmit)="signInWithCredentials()">
+            <input id="username" type="text" placeholder="username" name="username" class="mt-3" formControlName="username">
+            <input id="password" type="password" placeholder="password" name="password" class="mt-3" formControlName="password">
+            <button class="outline-btn mt-3" [disabled]="signinForm.invalid || isLoading()" type="submit">sign in</button>
+            <p class="mt-3 text-center">or <span class="link text-primary" (click)="createAccountClicked()">create an account</span></p>
+          </form>
+        }
         <hr />
         <button class="sign-in-google-btn" type="submit">sign in with google</button>
       </div>

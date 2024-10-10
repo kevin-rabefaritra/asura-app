@@ -33,13 +33,3 @@ input {
   background-color: #eeeeee;
   padding: 10px 15px 10px 15px;
 }
-
-.sign-in-btn {
-  background-color: #000000;
-  color: #eeeeee;
-}
-
-.sign-in-btn:disabled {
-  background-color: #888888;
-  color: #eeeeee;
-}

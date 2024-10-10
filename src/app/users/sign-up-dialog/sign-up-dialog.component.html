@@ -32,7 +32,7 @@
             <input id="email" type="email" placeholder="email address" name="email" class="mt-3" formControlName="email">
             <input id="password" type="password" placeholder="password" name="password" class="mt-3" formControlName="password">
             <input id="passwordConfirmation" type="password" placeholder="confirm your password" name="passwordConfirmation" class="mt-3" formControlName="passwordConfirmation">
-            <button class="sign-in-btn mt-3" [disabled]="signupForm.invalid || isLoading()" type="submit">create account</button>
+            <button class="outline-btn mt-3" [disabled]="signupForm.invalid || isLoading()" type="submit">create account</button>
             <p class="mt-3 text-center">or <span class="link text-primary" (click)="signInClicked()">sign in</span></p>
           </form>
         }
