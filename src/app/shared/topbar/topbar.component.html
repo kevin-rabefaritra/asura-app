@@ -4,7 +4,23 @@
     <form class="form-inline flex-grow-1 mx-2" (submit)="search()">
       <input id="query" type="search" placeholder="search.." name="query" aria-label="Search" class="form-control w-100" [(ngModel)]="query">
     </form>
-    <button class="btn-blank" (click)="toggleSignInDialog()">sign in</button>
+    @if (isUserInfoLoading()) {
+      <button class="btn-blank">loading..</button>
+    }
+    @else if (userInfo()) {
+      <div class="dropdown">
+        <button class="btn-default dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+          {{ userInfo()?.username }}
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <li><a class="dropdown-item" href="#">Profile</a></li>
+          <li><a class="dropdown-item" href="#">Sign out</a></li>
+        </ul>
+      </div>
+    }
+    @else {
+      <button class="btn-blank" (click)="toggleSignInDialog()">sign in</button>
+    }
   </div>
 </nav>
 

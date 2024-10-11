@@ -3,13 +3,15 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { Page } from "../shared/pagination/page.model";
 import { Post } from "./post.model";
+import { environment } from "../../environments/environment.development";
 
 @Injectable({
   providedIn: 'root'
 })
 export class PostService {
 
-  static GET_URI: string = 'http://localhost:8080/api/posts';
+  static GET_URI: string = '/posts';
+  static UPVOTE_URI: string = '/upvote';
 
   constructor(
     private httpClient: HttpClient
@@ -31,6 +33,14 @@ export class PostService {
   }
 
   getMediaUrl(mediaPath: string): string {
-    return `http://localhost:8080/api/media/${mediaPath}`;
+    return `${environment.apiUrl}/media/${mediaPath}`;
+  }
+
+  upvote(reference: string): Observable<any> {
+    return this.httpClient.put<any>(`/posts/${reference}/upvote`, null);
+  }
+
+  unvote(reference: string): Observable<any> {
+    return this.httpClient.put<any>(`/posts/${reference}/unvote`, null);
   }
 }

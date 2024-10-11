@@ -15,9 +15,14 @@ a {
   font-size: 1rem;
 }
 
-.default-btn:hover {
+.default-btn:hover, .default-btn.active {
   background-color: #212121;
   color: #ffffff;
+}
+
+.default-btn:disabled {
+  background-color: #dddddd;
+  color: #666666;
 }
 
 .btn-blank {

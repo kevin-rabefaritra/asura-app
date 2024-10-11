@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output, signal, WritableSignal } from 
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserService } from '../user.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-sign-in-dialog',
@@ -21,7 +22,7 @@ export class SignInDialogComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private userService: UserService
+    private authService: AuthService,
   ) {}
 
   ngOnInit(): void {
@@ -31,7 +32,7 @@ export class SignInDialogComponent implements OnInit {
   private initForm(): void {
     this.signinForm = this.formBuilder.group({
       username: ['', [Validators.required]],
-      password: ['', [Validators.required, Validators.minLength(8)]]
+      password: ['', [Validators.required]]
     });
   }
 
@@ -43,15 +44,13 @@ export class SignInDialogComponent implements OnInit {
     this.errorMessage.set('');
     this.isLoading.set(true);
     const signinValues = this.signinForm.getRawValue();
-    this.userService.signin(signinValues.username, signinValues.password).subscribe({
-      next: (value) => {
-
+    this.authService.authenticate(signinValues.username, signinValues.password).subscribe({
+      next: () => {
+        this.onDismiss.emit();
       },
-      error: (err: HttpErrorResponse) => {
+      error: (err) => {
         this.isLoading.set(false);
-        if (err.status === 401) {
-          this.errorMessage.set('Incorrect username or password. Please try again.');
-        }
+        this.errorMessage.set(err.message);
       }
     });
   }

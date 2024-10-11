@@ -8,8 +8,7 @@
           <div class="post-date">{{ post.publishedOn | dateAgo }}</div>
         </div>
         <span class="post-extra">
-          <button class="default-btn mx-2">+ 1</button>
-          <button class="default-btn">- 1</button>
+          <button class="default-btn" [disabled]="isLoading()" [class.active]="post.userScore === 1" (click)="clickVote()"><i class="bi bi-hand-thumbs-up-fill"></i></button>
         </span>
       </div>
     </div>
