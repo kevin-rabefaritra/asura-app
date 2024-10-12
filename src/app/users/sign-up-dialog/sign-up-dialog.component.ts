@@ -71,7 +71,14 @@ export class SignUpDialogComponent implements OnInit {
     this.userService.signup(signupValues.username, signupValues.email, signupValues.password).subscribe({
       next: (value) => {
         this.isLoading.set(false);
-        // Todo: redirect somewhere or something
+        /**
+         * Todo:
+         * (1) Create an event emitter to notify the parent that the account has been created
+         * (2) Show another dialog asking for the account activation code
+         * (3) The dialog will include a send-email-again button
+         * - The activation email will expire after some time. If the user activates too late and try to sign up / sign in,
+         * redirect to the email activation dialog and send another email.
+         */
       },
       error: (error) => {
         this.isLoading.set(false);

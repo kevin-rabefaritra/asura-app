@@ -6,5 +6,8 @@
   @else {
     <p class="mt-2">no results</p>
   }
-  <a routerLink="/home"><i class="bi bi-caret-left-fill"></i> go back home</a>
+
+  @if (!isHome) {
+    <a routerLink="/home"><i class="bi bi-caret-left-fill"></i> go back home</a>
+  }
 </div>

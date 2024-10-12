@@ -10,7 +10,6 @@ import { UserService } from "../users/user.service";
 export function authInterceptor(request: HttpRequest<unknown>, next: HttpHandlerFn) {
   const router = inject(Router);
   const authService = inject(AuthService);
-  const userService = inject(UserService);
 
   request = withBaseUrl(request);
 
@@ -38,7 +37,7 @@ export function authInterceptor(request: HttpRequest<unknown>, next: HttpHandler
           catchError((error) => {
             if (error.status === 401) {
               // Unable to renew access token, sign the user out
-              signout(userService, authService, router);
+              router.navigate(['/logout']);
             }
             return throwError(() => error);
           })
@@ -65,13 +64,4 @@ function withAccessToken(request: HttpRequest<any>, accessToken: string): HttpRe
   return request.clone({
     setHeaders: { Authorization: `Bearer ${accessToken}` }
   });
-}
-
-/**
- * Signs the user out
- */
-function signout(userService: UserService, authService: AuthService, router: Router): void {
-  userService.clearUserInfo();
-  authService.clearTokenSet();
-  router.navigate(['/logout']);
 }

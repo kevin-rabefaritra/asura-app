@@ -9,7 +9,7 @@
             <div class="alert alert-danger mb-0 mt-3">
               <ul class="mb-0">
                 @if (signupForm.controls['username'].hasError('compliantUsername')) {
-                  <li>Username can only contain alphanumeric characters and underscores, and must be at least 5 characters long.</li>
+                  <li>Username can only contain alphanumeric characters and underscores, and at least 5 characters long.</li>
                 }
                 @if (signupForm.controls['username'].hasError('uniqueUsername')) {
                   <li>This username is already taken.</li>
@@ -18,7 +18,7 @@
                   <li>Email address is not valid.</li>
                 }
                 @if (signupForm.controls['password'].hasError('strongPassword')) {
-                  <li>Password must contain at least an alpha character, a digit, and must be at least 8 characters long.</li>
+                  <li>Password must contain an alpha character, a digit, and at least 8 characters long.</li>
                 }
                 @if (signupForm.hasError('passwordMatch')) {
                   <li>Password and password confirmation do not match.</li>

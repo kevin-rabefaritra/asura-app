@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { UserService } from '../user.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from '../../auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-in-dialog',
@@ -21,6 +22,7 @@ export class SignInDialogComponent implements OnInit {
   errorMessage: WritableSignal<String> = signal('');
 
   constructor(
+    private router: Router,
     private formBuilder: FormBuilder,
     private authService: AuthService,
   ) {}
@@ -46,6 +48,8 @@ export class SignInDialogComponent implements OnInit {
     const signinValues = this.signinForm.getRawValue();
     this.authService.authenticate(signinValues.username, signinValues.password).subscribe({
       next: () => {
+        // Reload the current page
+        this.reload();
         this.onDismiss.emit();
       },
       error: (err) => {
@@ -63,5 +67,12 @@ export class SignInDialogComponent implements OnInit {
     if (event.target === event.currentTarget) {
       this.onDismiss.emit();
     }
+  }
+
+  reload(): void {
+    const currentUrl = this.router.url;
+    this.router.navigateByUrl('/auth', { skipLocationChange: true} ).then(() => {
+      this.router.navigate([currentUrl]);
+    });
   }
 }

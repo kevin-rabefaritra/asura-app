@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-no-results-block',
@@ -11,4 +11,12 @@ import { RouterModule } from '@angular/router';
 export class NoResultsBlockComponent {
 
   @Input() query?: string;
+
+  constructor(
+    private router: Router
+  ) {}
+
+  get isHome(): boolean {
+    return this.router.url === '/home';
+  }
 }
