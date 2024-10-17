@@ -63,3 +63,30 @@ body {
 .dropdown-item {
   width: auto;
 }
+
+.danger-btn {
+  color: #F44336;
+}
+
+.danger-btn:hover {
+  background-color: #F44336;
+}
+
+.danger-btn:disabled {
+  color: #212121;
+  background-color: #888888;
+}
+
+.success-btn {
+  color: #4CAF50;
+}
+
+.success-btn:hover {
+  background-color: #4CAF50;
+}
+
+.success-btn:disabled {
+  color: #212121;
+  background-color: #888888;
+}
+

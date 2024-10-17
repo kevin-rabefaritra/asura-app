@@ -5,9 +5,16 @@ export interface Post {
   publishedOn: string;
   summary: string;
   text: string;
+  status: PostStatus;
   tags: string[];
   references: string[];
   mediaFiles: { path: string, tags: string[] }[];
   score: number;
   userScore: number;
-}
+};
+
+export enum PostStatus {
+  PENDING = 'PENDING',
+  APPROVED = 'APPROVED',
+  REJECTED = 'REJECTED'
+};

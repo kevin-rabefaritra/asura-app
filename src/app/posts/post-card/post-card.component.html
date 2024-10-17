@@ -1,4 +1,8 @@
-<div class="post-card mt-3 pb-3">
+<div class="post-card mt-3 pb-3" 
+  [class.opacity-25]="post.status === 'REJECTED'" 
+  [class.opacity-75]="post.status === 'PENDING'"
+  [class.opacity-100]="post.status === 'APPROVED'">
+
   <div class="d-flex p-3">
     <img src="/assets/images/asura.jpg" alt="User Avatar" class="avatar me-3">
     <div class="post-info w-100">
@@ -8,7 +12,17 @@
           <div class="post-date">{{ post.publishedOn | dateAgo }}</div>
         </div>
         <span class="post-extra">
-          <button class="default-btn" [disabled]="isLoading()" [class.active]="post.userScore === 1" (click)="clickVote()"><i class="bi bi-hand-thumbs-up-fill"></i></button>
+          @if (post.status === 'APPROVED') {
+            <button class="default-btn" [disabled]="isLoading()" [class.active]="post.userScore === 1" (click)="clickVote()"><i class="bi bi-hand-thumbs-up-fill"></i></button>
+          }
+          @else if (post.status === 'REJECTED') {
+            <p class="text-uppercase text-danger"><i class="bi bi-x"></i> Rejected</p>
+          }
+          @else if (post.status === 'PENDING') {
+            <button class="default-btn danger-btn text-uppercase" [disabled]="isLoading()" (click)="reject()"><i class="bi bi-x"></i></button>
+            &nbsp;
+            <button class="default-btn success-btn text-uppercase" [disabled]="isLoading()" (click)="approve()"><i class="bi bi-check-lg"></i></button>
+          }
         </span>
       </div>
     </div>

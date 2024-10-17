@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output, signal, WritableSignal } from '@angular/core';
 import { PostTagComponent } from "../post-tag/post-tag.component";
 import { Router, RouterModule } from '@angular/router';
-import { Post } from '../post.model';
+import { Post, PostStatus } from '../post.model';
 import { PostService } from '../post.service';
 import { PostMediaGridComponent } from "../post-media-grid/post-media-grid.component";
 import { DateAgoPipe } from '../../pipes/date-ago.pipe';
@@ -90,6 +90,41 @@ export class PostCardComponent implements OnInit {
       next: () => {
         this.isLoading.set(false);
         this.post.userScore = 0;
+      }
+    });
+  }
+
+  /**
+   * Approve a PENDING Post
+   */
+  approve(): void {
+    if (this.isLoading()) {
+      return;
+    }
+
+    this.isLoading.set(true);
+    this.postService.approve(this.post.reference).subscribe({
+      next: () => {
+        this.isLoading.set(false);
+        this.post.status = PostStatus.APPROVED;
+      }
+    });
+  }
+
+  /**
+   * Rejects a PENDING post
+   * @returns 
+   */
+  reject(): void {
+    if (this.isLoading()) {
+      return;
+    }
+
+    this.isLoading.set(true);
+    this.postService.reject(this.post.reference).subscribe({
+      next: () => {
+        this.isLoading.set(false);
+        this.post.status = PostStatus.REJECTED;
       }
     });
   }

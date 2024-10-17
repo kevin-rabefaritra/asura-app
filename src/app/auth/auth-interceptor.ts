@@ -37,7 +37,7 @@ export function authInterceptor(request: HttpRequest<unknown>, next: HttpHandler
           catchError((error) => {
             if (error.status === 401) {
               // Unable to renew access token, sign the user out
-              router.navigate(['/logout']);
+              router.navigate(['/signout']);
             }
             return throwError(() => error);
           })
