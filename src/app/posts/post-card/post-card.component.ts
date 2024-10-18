@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, signal, WritableSignal } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, signal, WritableSignal } from '@angular/core';
 import { PostTagComponent } from "../post-tag/post-tag.component";
 import { Router, RouterModule } from '@angular/router';
 import { Post, PostStatus } from '../post.model';
@@ -16,7 +16,9 @@ import { AuthService } from '../../auth/auth.service';
 })
 export class PostCardComponent implements OnInit {
 
+  // Maximum number of tags displayed by default
   static TAGS_LIMIT = 5;
+  static HIGHLIGHT_VISIBLE_THRESHOLD = 0.75;
 
   @Input({required: true}) post!: Post;
   @Input() displayFull: boolean = false;
@@ -25,15 +27,38 @@ export class PostCardComponent implements OnInit {
 
   displayedTags: string[] = [];
   isLoading: WritableSignal<boolean> = signal(false);
+  hasUserFocus: WritableSignal<boolean> = signal(false);
+
+  private intersectionObserver?: IntersectionObserver;
 
   constructor(
     private postService: PostService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private elementRef: ElementRef
   ) {}
 
   ngOnInit(): void {
     this.displayedTags = this.displayFull ? this.post.tags : this.post.tags.slice(0, PostCardComponent.TAGS_LIMIT);
+    this.initIntersectionObserver();
+  }
+
+  /**
+   * Initializes the intersection observer
+   * Post is highlighted when 80% visible on screen
+   */
+  initIntersectionObserver(): void {
+    const options = {
+      root: null,
+      threshold: [PostCardComponent.HIGHLIGHT_VISIBLE_THRESHOLD]
+    };
+
+    this.intersectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        this.hasUserFocus.set(entry.intersectionRatio >= PostCardComponent.HIGHLIGHT_VISIBLE_THRESHOLD);
+      });
+    }, options);
+    this.intersectionObserver.observe(this.elementRef.nativeElement);
   }
 
   get allTagsDisplayed(): boolean {

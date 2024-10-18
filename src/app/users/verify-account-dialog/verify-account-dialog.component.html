@@ -1,0 +1,26 @@
+<div class="fullscreen-overlay">
+  <div class="col-md-4">
+    <div class="card dialog-card">
+      <div class="card-body">
+        <h2>verify account</h2>
+        @if (verifyAccountForm && userInfo()) {
+          <p>an email with a verification code has been sent to your email address <b>{{ userInfo()!.email }}</b>. Please enter the code here.</p>
+
+          @if (errorMessage()) {
+            <div class="alert alert-danger mb-3 mt-3">
+              {{ errorMessage() }}
+            </div>
+          }
+
+          <form [formGroup]="verifyAccountForm" (ngSubmit)="verify()">
+            <input id="verificationCode" type="text" maxlength="6" placeholder="enter your verification code here" name="verificationCode" formControlName="verificationCode">
+            <button class="outline-btn mt-3" [disabled]="verifyAccountForm.invalid || isLoading()" type="submit">verify</button>
+            <button class="mt-3" type="button">send a new code</button>
+          </form>
+        }
+        <hr />
+        <button type="button">skip for now</button>
+      </div>
+    </div>
+  </div>
+</div>

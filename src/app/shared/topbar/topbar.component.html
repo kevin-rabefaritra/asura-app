@@ -32,3 +32,6 @@
 @else if (isSignUpDialogDisplayed()) {
   <app-sign-up-dialog (onSignInClicked)="toggleSignInDialog()" (onDismiss)="dismiss()"/>
 }
+@else if (isVerifyAccountDialogDisplayed()) {
+  <app-verify-account-dialog />
+}

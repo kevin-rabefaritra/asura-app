@@ -3,6 +3,10 @@
   background-color: #ffffff;
 }
 
+.post-card-focused {
+  filter: drop-shadow(0 0 0.25rem #aaaaaa);
+}
+
 .avatar {
   border: 2pt solid #212121;
   width: 50px;

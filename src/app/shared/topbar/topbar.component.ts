@@ -8,11 +8,12 @@ import { AuthService } from '../../auth/auth.service';
 import { Observer, Subscription } from 'rxjs';
 import { TokenSet } from '../../users/tokenset.model';
 import { User } from '../../users/user.model';
+import { VerifyAccountDialogComponent } from "../../users/verify-account-dialog/verify-account-dialog.component";
 
 @Component({
   selector: 'app-topbar',
   standalone: true,
-  imports: [FormsModule, RouterModule, SignInDialogComponent, SignUpDialogComponent],
+  imports: [FormsModule, RouterModule, SignInDialogComponent, SignUpDialogComponent, VerifyAccountDialogComponent],
   templateUrl: './topbar.component.html',
   styleUrl: './topbar.component.css'
 })
@@ -21,6 +22,8 @@ export class TopbarComponent implements OnInit, OnDestroy {
   query: string = '';
   isSignInDialogDisplayed: WritableSignal<boolean> = signal<boolean>(false);
   isSignUpDialogDisplayed: WritableSignal<boolean> = signal<boolean>(false);
+  isVerifyAccountDialogDisplayed: WritableSignal<boolean> = signal<boolean>(true);
+
   userInfo: WritableSignal<User | null> = signal<User | null>(null);
 
   tokenChangeSubscription$?: Subscription;
@@ -68,19 +71,12 @@ export class TopbarComponent implements OnInit, OnDestroy {
     }
     
     this.isUserInfoLoading.set(true);
-    if (this.userService.hasUserInfo()) {
-      // we already have the user info in the local storage
-      this.userInfo.set(this.userService.getUserInfo());
-      this.isUserInfoLoading.set(false);
-    }
-    else {
-      this.userService.fetchInfo(true).subscribe({
-        next: (value) => {
-          this.userInfo.set(value);
-          this.isUserInfoLoading.set(false);
-        }
-      });
-    }
+    this.userService.getUserInfo().subscribe({
+      next: (value) => {
+        this.userInfo.set(value);
+        this.isUserInfoLoading.set(false);
+      }
+    });
   }
 
   ngOnDestroy(): void {

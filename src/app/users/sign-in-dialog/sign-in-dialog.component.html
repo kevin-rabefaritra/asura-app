@@ -1,6 +1,6 @@
 <div class="fullscreen-overlay" (click)="dismiss($event)">
   <div class="col-md-4">
-    <div class="card">
+    <div class="card dialog-card">
       <div class="card-body">
         <h2>sign in?</h2>
         @if (signinForm) {
@@ -21,7 +21,7 @@
           </form>
         }
         <hr />
-        <button class="sign-in-google-btn" type="submit">sign in with google</button>
+        <button class="sign-in-google-btn" type="button">sign in with google</button>
       </div>
     </div>
   </div>
