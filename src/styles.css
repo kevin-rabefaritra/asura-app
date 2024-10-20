@@ -132,3 +132,7 @@ body {
   background-color: #eeeeee;
   padding: 10px 15px 10px 15px;
 }
+
+.text-warning {
+  color: #FB8C00 !important;
+}

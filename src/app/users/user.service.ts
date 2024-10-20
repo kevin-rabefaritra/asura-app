@@ -12,12 +12,7 @@ export class UserService {
   static SIGN_UP_URI: string = '/users/signup';
   static INFO_URI: string = '/users/info';
 
-  static VERIFY_URI: string = '/users/verification/check';
-  static REQUEST_VERIFICATION_URI: string = '/users/verification/send';
-
-  static KEY_USERNAME: string = 'username';
-  static KEY_EMAIL: string = 'email';
-  static KEY_ROLE: string = 'role';
+  static KEY_USER_INFO: string = 'user_info';
 
   constructor(
     private httpClient: HttpClient
@@ -53,25 +48,19 @@ export class UserService {
    * @returns 
    */
   hasUserInfo(): boolean {
-    return !!localStorage.getItem(UserService.KEY_USERNAME) &&
-      !!localStorage.getItem(UserService.KEY_EMAIL) &&
-      !!localStorage.getItem(UserService.KEY_ROLE)
+    return !!localStorage.getItem(UserService.KEY_USER_INFO);
   }
 
   /**
    * Gets the user info either from local storage or from remote server
    * @returns 
    */
-  getUserInfo(): Observable<User> {
-    if (!this.hasUserInfo()) {
+  getUserInfo(forceFetch: boolean = false): Observable<User> {
+    if (!this.hasUserInfo() || forceFetch) {
       return this.fetchInfo(true);
     }
 
-    return of({
-      username: localStorage.getItem(UserService.KEY_USERNAME)!,
-      email: localStorage.getItem(UserService.KEY_EMAIL)!,
-      role: localStorage.getItem(UserService.KEY_ROLE)!
-    });
+    return of(JSON.parse(localStorage.getItem(UserService.KEY_USER_INFO)!));
   }
 
   /**
@@ -79,32 +68,13 @@ export class UserService {
    * @param user info to store
    */
   storeUserInfo(user: User): void {
-    localStorage.setItem(UserService.KEY_USERNAME, user.username);
-    localStorage.setItem(UserService.KEY_EMAIL, user.email);
-    localStorage.setItem(UserService.KEY_ROLE, user.role);
+    localStorage.setItem(UserService.KEY_USER_INFO, JSON.stringify(user));
   }
 
   /**
    * Clears user info from local storage
    */
   clearUserInfo(): void {
-    localStorage.removeItem(UserService.KEY_USERNAME);
-    localStorage.removeItem(UserService.KEY_EMAIL);
-    localStorage.removeItem(UserService.KEY_ROLE);
-  }
-
-  /**
-   * Sends a request to receive a verification code by email
-   * @returns 
-   */
-  requestVerificationCode(): Observable<any> {
-    return this.httpClient.put<any>(UserService.REQUEST_VERIFICATION_URI, null);
-  }
-
-  /**
-   * Sends a request to check the verification code
-   */
-  checkVerificationCode(): Observable<any> {
-    return this.httpClient.put<any>(UserService.VERIFY_URI, null);
+    localStorage.removeItem(UserService.KEY_USER_INFO);
   }
 }

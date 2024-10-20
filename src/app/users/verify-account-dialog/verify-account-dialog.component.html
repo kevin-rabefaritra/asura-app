@@ -4,7 +4,7 @@
       <div class="card-body">
         <h2>verify account</h2>
         @if (verifyAccountForm && userInfo()) {
-          <p>an email with a verification code has been sent to your email address <b>{{ userInfo()!.email }}</b>. Please enter the code here.</p>
+          <p>an email with a verification code has been sent to your email address [{{ userInfo()!.email }}]. Please enter the code here.</p>
 
           @if (errorMessage()) {
             <div class="alert alert-danger mb-3 mt-3">
@@ -12,14 +12,16 @@
             </div>
           }
 
-          <form [formGroup]="verifyAccountForm" (ngSubmit)="verify()">
+          <form [formGroup]="verifyAccountForm" (ngSubmit)="verifyCode()">
             <input id="verificationCode" type="text" maxlength="6" placeholder="enter your verification code here" name="verificationCode" formControlName="verificationCode">
             <button class="outline-btn mt-3" [disabled]="verifyAccountForm.invalid || isLoading()" type="submit">verify</button>
-            <button class="mt-3" type="button">send a new code</button>
+            <button class="mt-3" type="button" (click)="requestCode()" [disabled]="isLoading() || codeRequestCooldown() > 0">
+              send a new code {{ codeRequestCooldown() > 0 ? '(' + codeRequestCooldown() + 's)' : '' }}
+            </button>
           </form>
         }
         <hr />
-        <button type="button">skip for now</button>
+        <button type="button" (click)="skip()">skip for now</button>
       </div>
     </div>
   </div>

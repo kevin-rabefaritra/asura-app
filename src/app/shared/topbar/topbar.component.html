@@ -10,9 +10,19 @@
     @else if (userInfo()) {
       <div class="dropdown">
         <button class="btn-blank dropdown-toggle" type="button" id="accountDropdownMenu" data-bs-toggle="dropdown" aria-expanded="false">
-          {{ userInfo()?.username }}
+          {{ userInfo()!.username }}
+          @if (userInfo()!.verified) {
+            <i class="bi bi-patch-check-fill text-success"></i>
+          }
+          @else {
+            <i class="bi bi-patch-exclamation-fill text-warning"></i>
+          }
         </button>
         <ul class="dropdown-menu" aria-labelledby="accountDropdownMenu">
+          @if (!userInfo()!.verified) {
+            <li><a class="dropdown-item text-warning" (click)="toggleAccountVerificationDialog()">Verify my account</a></li>
+            <div class="dropdown-divider"></div>
+          }
           <li><a class="dropdown-item" routerLink="/account">My account</a></li>
           <li><a class="dropdown-item" routerLink="/account">Night mode</a></li>
           <div class="dropdown-divider"></div>
@@ -33,5 +43,5 @@
   <app-sign-up-dialog (onSignInClicked)="toggleSignInDialog()" (onDismiss)="dismiss()"/>
 }
 @else if (isVerifyAccountDialogDisplayed()) {
-  <app-verify-account-dialog />
+  <app-verify-account-dialog (onSkipClicked)="toggleAccountVerificationDialog()" (onVerificationSuccess)="userAccountVerified()" />
 }

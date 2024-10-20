@@ -1,0 +1,12 @@
+.floating-card {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 30;
+  background-color: white;
+}
+
+.card {
+  border-radius: 0;
+  border: 2pt solid #212121;
+}

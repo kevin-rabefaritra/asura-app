@@ -9,6 +9,7 @@ import { Observer, Subscription } from 'rxjs';
 import { TokenSet } from '../../users/tokenset.model';
 import { User } from '../../users/user.model';
 import { VerifyAccountDialogComponent } from "../../users/verify-account-dialog/verify-account-dialog.component";
+import { ToastService } from '../toast/toast.service';
 
 @Component({
   selector: 'app-topbar',
@@ -22,7 +23,7 @@ export class TopbarComponent implements OnInit, OnDestroy {
   query: string = '';
   isSignInDialogDisplayed: WritableSignal<boolean> = signal<boolean>(false);
   isSignUpDialogDisplayed: WritableSignal<boolean> = signal<boolean>(false);
-  isVerifyAccountDialogDisplayed: WritableSignal<boolean> = signal<boolean>(true);
+  isVerifyAccountDialogDisplayed: WritableSignal<boolean> = signal<boolean>(false);
 
   userInfo: WritableSignal<User | null> = signal<User | null>(null);
 
@@ -35,7 +36,8 @@ export class TopbarComponent implements OnInit, OnDestroy {
     private router: Router,
     private activeRoute: ActivatedRoute,
     private authService: AuthService,
-    private userService: UserService
+    private userService: UserService,
+    private toastService: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -65,13 +67,13 @@ export class TopbarComponent implements OnInit, OnDestroy {
     });
   }
 
-  fetchUserInfo(): void {
+  fetchUserInfo(forceFetch: boolean = false): void {
     if (!this.authService.hasTokenSet()) {
       return;
     }
     
     this.isUserInfoLoading.set(true);
-    this.userService.getUserInfo().subscribe({
+    this.userService.getUserInfo(forceFetch).subscribe({
       next: (value) => {
         this.userInfo.set(value);
         this.isUserInfoLoading.set(false);
@@ -113,8 +115,24 @@ export class TopbarComponent implements OnInit, OnDestroy {
     this.isSignUpDialogDisplayed.update((value) => !value);
   }
 
+  toggleAccountVerificationDialog(): void {
+    this.isVerifyAccountDialogDisplayed.update((value) => !value);
+  }
+
   dismiss(): void {
     this.isSignInDialogDisplayed.set(false);
     this.isSignUpDialogDisplayed.set(false);
+    this.isVerifyAccountDialogDisplayed.set(false);
+  }
+
+  /**
+   * Called when the user account has been verified successfully
+   */
+  userAccountVerified(): void {
+    this.dismiss();
+    this.fetchUserInfo(true);
+
+    // Display success message
+    this.toastService.notify('Account verified successfully!');
   }
 }
