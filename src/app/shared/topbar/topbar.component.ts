@@ -10,6 +10,7 @@ import { TokenSet } from '../../users/tokenset.model';
 import { User } from '../../users/user.model';
 import { VerifyAccountDialogComponent } from "../../users/verify-account-dialog/verify-account-dialog.component";
 import { ToastService } from '../toast/toast.service';
+import { SocialAuthService } from '@abacritt/angularx-social-login';
 
 @Component({
   selector: 'app-topbar',
@@ -123,6 +124,14 @@ export class TopbarComponent implements OnInit, OnDestroy {
     this.isSignInDialogDisplayed.set(false);
     this.isSignUpDialogDisplayed.set(false);
     this.isVerifyAccountDialogDisplayed.set(false);
+  }
+
+  /**
+   * Called when a user sign up is successful
+   */
+  signUpSuccess(): void {
+    this.dismiss();
+    this.toggleAccountVerificationDialog();
   }
 
   /**

@@ -2,6 +2,8 @@ import { HttpClient } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
 import { map, Observable, of, tap } from "rxjs";
 import { User } from "./user.model";
+import { TokenSet } from "./tokenset.model";
+import { AuthService } from "../auth/auth.service";
 
 @Injectable({
   providedIn: 'root'
@@ -15,17 +17,20 @@ export class UserService {
   static KEY_USER_INFO: string = 'user_info';
 
   constructor(
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private authService: AuthService
   ) {}
 
   checkUsername(username: string): Observable<boolean> {
     return this.httpClient.get<boolean>(`${UserService.CHECK_USERNAME_URI}?v=${username}`);
   }
 
-  signup(username: string, email: string, password: string): Observable<User> {
-    return this.httpClient.post<User>(UserService.SIGN_UP_URI, {
-      username, email, password
-    });
+  signup(username: string, email: string, password: string): Observable<TokenSet> {
+    return this.httpClient.post<TokenSet>(UserService.SIGN_UP_URI, { username, email, password }).pipe(
+      tap((tokenSet) => {
+        this.authService.storeTokenSet(tokenSet);
+      })
+    );
   }
 
   /**

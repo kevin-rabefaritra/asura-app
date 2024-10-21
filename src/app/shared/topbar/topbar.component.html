@@ -40,7 +40,7 @@
   <app-sign-in-dialog (onCreateAccountClicked)="toggleSignUpDialog()" (onDismiss)="dismiss()" />
 }
 @else if (isSignUpDialogDisplayed()) {
-  <app-sign-up-dialog (onSignInClicked)="toggleSignInDialog()" (onDismiss)="dismiss()"/>
+  <app-sign-up-dialog (onSignInClicked)="toggleSignInDialog()" (onDismiss)="dismiss()" (onSignUpSuccess)="signUpSuccess()" />
 }
 @else if (isVerifyAccountDialogDisplayed()) {
   <app-verify-account-dialog (onSkipClicked)="toggleAccountVerificationDialog()" (onVerificationSuccess)="userAccountVerified()" />

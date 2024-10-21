@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, 
 import { UserService } from '../user.service';
 import { passwordMatchValidator, strongPasswordValidator } from '../../shared/validators/password.directive';
 import { compliantUsernameValidator, UniqueUsernameValidator } from '../../shared/validators/username.directive';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-sign-up-dialog',
@@ -15,6 +16,7 @@ export class SignUpDialogComponent implements OnInit {
 
   @Output() onSignInClicked: EventEmitter<any> = new EventEmitter();
   @Output() onDismiss: EventEmitter<any> = new EventEmitter();
+  @Output() onSignUpSuccess: EventEmitter<any> = new EventEmitter();
 
   signupForm?: FormGroup;
   isLoading: WritableSignal<boolean> = signal(false);
@@ -69,16 +71,10 @@ export class SignUpDialogComponent implements OnInit {
     this.isLoading.set(true);
     const signupValues = this.signupForm.getRawValue();
     this.userService.signup(signupValues.username, signupValues.email, signupValues.password).subscribe({
-      next: (value) => {
+      next: () => {
+        // TokenSet has been stored in local storage
         this.isLoading.set(false);
-        /**
-         * Todo:
-         * (1) Create an event emitter to notify the parent that the account has been created
-         * (2) Show another dialog asking for the account activation code
-         * (3) The dialog will include a send-email-again button
-         * - The activation email will expire after some time. If the user activates too late and try to sign up / sign in,
-         * redirect to the email activation dialog and send another email.
-         */
+        this.onSignUpSuccess.emit();
       },
       error: (error) => {
         this.isLoading.set(false);

@@ -12,7 +12,8 @@ export class AuthService {
   static KEY_REFRESH_TOKEN: string = 'REFRESH_TOKEN';
 
   static AUTH_URI: string = '/oauth2/auth';
-  static RENEW_TOKEN_URI: string = '/oauth2/auth';
+  static GOOGLE_AUTH_URI: string = '/oauth2/google-auth';
+  static RENEW_TOKEN_URI: string = '/oauth2/renew';
 
   tokenUpdateSubject: Subject<TokenSet | null> = new Subject<TokenSet | null>();
 
@@ -29,6 +30,17 @@ export class AuthService {
         if (error.status === 401) {
           return throwError(() => new Error('Incorrect username or password. Please try again.'));
         }
+        return throwError(() => new Error(`Unable to authenticate. Please try again later. Code ${error.status}`));
+      })
+    );
+  }
+
+  authenticateWithGoogle(email: string, idToken: string): Observable<TokenSet> {
+    return this.httpClient.post<TokenSet>(AuthService.GOOGLE_AUTH_URI, { email, idToken }).pipe(
+      tap((tokenSet: TokenSet) => {
+        this.storeTokenSet(tokenSet);
+      }),
+      catchError((error) => {
         return throwError(() => new Error(`Unable to authenticate. Please try again later. Code ${error.status}`));
       })
     );
