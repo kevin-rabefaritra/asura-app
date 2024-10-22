@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg fixed-top">
   <div class="container d-flex justify-content-between align-items-center">
-    <a class="navbar-brand" [routerLink]="['/home']">_a </a>
+    <a class="navbar-brand" [routerLink]="['/home']">.org</a>
     <form class="form-inline flex-grow-1 mx-2" (submit)="search()">
       <input id="query" type="search" placeholder="search.." name="query" aria-label="Search" class="form-control w-100" [(ngModel)]="query">
     </form>
@@ -10,22 +10,25 @@
     @else if (userInfo()) {
       <div class="dropdown">
         <button class="btn-blank dropdown-toggle" type="button" id="accountDropdownMenu" data-bs-toggle="dropdown" aria-expanded="false">
-          {{ userInfo()!.username }}
-          @if (userInfo()!.verified) {
-            <i class="bi bi-patch-check-fill text-success"></i>
-          }
-          @else {
-            <i class="bi bi-patch-exclamation-fill text-warning"></i>
-          }
+          <i class="bi bi-person-fill"></i>
         </button>
-        <ul class="dropdown-menu" aria-labelledby="accountDropdownMenu">
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="accountDropdownMenu">
           @if (!userInfo()!.verified) {
             <li><a class="dropdown-item text-warning" (click)="toggleAccountVerificationDialog()">Verify my account</a></li>
             <div class="dropdown-divider"></div>
           }
-          <li><a class="dropdown-item" routerLink="/account">My account</a></li>
-          <li><a class="dropdown-item" routerLink="/account">Night mode</a></li>
+          <li><a class="dropdown-item" (click)="toggleAccountProfileDialog()">
+            My account
+            @if (userInfo()!.verified) {
+              <i class="bi bi-patch-check-fill text-success"></i>
+            }
+            @else {
+              <i class="bi bi-patch-exclamation-fill text-warning"></i>
+            }
+          </a>
+          </li>
           <div class="dropdown-divider"></div>
+          <li><a class="dropdown-item">Report an issue</a></li>
           <li><a class="dropdown-item" routerLink="/signout">Sign out</a></li>
         </ul>
       </div>
@@ -44,4 +47,7 @@
 }
 @else if (isVerifyAccountDialogDisplayed()) {
   <app-verify-account-dialog (onSkipClicked)="toggleAccountVerificationDialog()" (onVerificationSuccess)="userAccountVerified()" />
+}
+@else if (isAccountProfileDialogDisplayed()) {
+  <app-profile-dialog (onDismiss)="dismiss()" />
 }

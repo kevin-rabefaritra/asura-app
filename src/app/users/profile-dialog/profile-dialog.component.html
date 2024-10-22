@@ -1,0 +1,20 @@
+<div class="fullscreen-overlay" (click)="dismiss($event)">
+  <div class="col-md-4">
+    <div class="card dialog-card">
+      <div class="card-body">
+        <h2>my account</h2>
+        @if (userInfo()) {
+          <label>username</label>
+          <input id="username" type="text" placeholder="username" class="mt-2" [value]="userInfo()!.username" disabled>
+
+          <label class="mt-3">email address</label>
+          <input id="username" type="text" placeholder="username" class="mt-2" [value]="userInfo()!.email" disabled>
+
+          <label class="mt-3">you're a</label>
+          <input id="username" type="text" placeholder="username" class="mt-2" [value]="userInfo()!.role" disabled>
+        }
+        <button class="outline-btn mt-3" type="button" (click)="dismiss($event)">close</button>
+      </div>
+    </div>
+  </div>
+</div>

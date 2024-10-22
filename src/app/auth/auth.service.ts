@@ -11,9 +11,9 @@ export class AuthService {
   static KEY_ACCESS_TOKEN: string = 'ACCESS_TOKEN';
   static KEY_REFRESH_TOKEN: string = 'REFRESH_TOKEN';
 
-  static AUTH_URI: string = '/oauth2/auth';
-  static GOOGLE_AUTH_URI: string = '/oauth2/google-auth';
-  static RENEW_TOKEN_URI: string = '/oauth2/renew';
+  static AUTH_URI: string = '/auth';
+  static GOOGLE_AUTH_URI: string = '/auth/google';
+  static RENEW_TOKEN_URI: string = '/auth/renew';
 
   tokenUpdateSubject: Subject<TokenSet | null> = new Subject<TokenSet | null>();
 
@@ -86,6 +86,6 @@ export class AuthService {
    * @param url 
    */
   isAuthenticationEndpoint(url: string): boolean {
-    return /api\/oauth2\/\w+$/.test(url);
+    return /api\/auth\/\w+$/.test(url);
   }
 }

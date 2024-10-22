@@ -11,11 +11,12 @@ import { User } from '../../users/user.model';
 import { VerifyAccountDialogComponent } from "../../users/verify-account-dialog/verify-account-dialog.component";
 import { ToastService } from '../toast/toast.service';
 import { SocialAuthService } from '@abacritt/angularx-social-login';
+import { ProfileDialogComponent } from "../../users/profile-dialog/profile-dialog.component";
 
 @Component({
   selector: 'app-topbar',
   standalone: true,
-  imports: [FormsModule, RouterModule, SignInDialogComponent, SignUpDialogComponent, VerifyAccountDialogComponent],
+  imports: [FormsModule, RouterModule, SignInDialogComponent, SignUpDialogComponent, VerifyAccountDialogComponent, ProfileDialogComponent],
   templateUrl: './topbar.component.html',
   styleUrl: './topbar.component.css'
 })
@@ -25,6 +26,7 @@ export class TopbarComponent implements OnInit, OnDestroy {
   isSignInDialogDisplayed: WritableSignal<boolean> = signal<boolean>(false);
   isSignUpDialogDisplayed: WritableSignal<boolean> = signal<boolean>(false);
   isVerifyAccountDialogDisplayed: WritableSignal<boolean> = signal<boolean>(false);
+  isAccountProfileDialogDisplayed: WritableSignal<boolean> = signal<boolean>(false);
 
   userInfo: WritableSignal<User | null> = signal<User | null>(null);
 
@@ -120,10 +122,15 @@ export class TopbarComponent implements OnInit, OnDestroy {
     this.isVerifyAccountDialogDisplayed.update((value) => !value);
   }
 
+  toggleAccountProfileDialog(): void {
+    this.isAccountProfileDialogDisplayed.update((value) => !value);
+  }
+
   dismiss(): void {
     this.isSignInDialogDisplayed.set(false);
     this.isSignUpDialogDisplayed.set(false);
     this.isVerifyAccountDialogDisplayed.set(false);
+    this.isAccountProfileDialogDisplayed.set(false);
   }
 
   /**
