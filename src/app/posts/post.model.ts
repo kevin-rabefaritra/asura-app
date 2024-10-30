@@ -1,14 +1,15 @@
 
 export interface Post {
   reference: string;
-  author: string;
+  authorName: string;
+  authorProfilePicture: String,
   publishedOn: string;
   summary: string;
   text: string;
   status: PostStatus;
   tags: string[];
   references: string[];
-  mediaFiles: { path: string, tags: string[] }[];
+  mediaFiles: { url: string, tags: string[] }[];
   score: number;
   userScore: number;
 };

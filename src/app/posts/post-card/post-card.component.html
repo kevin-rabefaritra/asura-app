@@ -5,11 +5,11 @@
   [class.post-card-focused]="hasUserFocus()">
 
   <div class="d-flex p-3">
-    <img src="/assets/images/asura.jpg" alt="User Avatar" class="avatar me-3">
+    <img [src]="post.authorProfilePicture || '/assets/images/asura.jpg'" alt="User Avatar" class="avatar me-3">
     <div class="post-info w-100">
       <div class="post-header">
         <div>
-          <span class="post-name">{{ post.author }}</span>
+          <span class="post-name">{{ post.authorName }}</span>
           <div class="post-date">{{ post.publishedOn | dateAgo }}</div>
         </div>
         <span class="post-extra">
@@ -29,10 +29,10 @@
     </div>
   </div>
   <div class="post-content px-3">
-    {{ post.summary }}
+    <div class="angular-text" [innerHTML]="post.summary"></div>
 
     @if (displayFull) {
-      <br>{{ post.text }}
+      <br><div class="angular-text" [innerHTML]="post.text"></div>
     }
     @else {
       <a [routerLink]="['/post', post.reference]">Read more</a>

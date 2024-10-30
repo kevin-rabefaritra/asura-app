@@ -136,3 +136,8 @@ body {
 .text-warning {
   color: #FB8C00 !important;
 }
+
+/** CSS for displaying backspace characters in templates **/
+.angular-text {
+  white-space: pre-line;
+}

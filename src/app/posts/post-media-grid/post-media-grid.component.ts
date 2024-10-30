@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { PostService } from '../post.service';
 
 @Component({
@@ -8,9 +8,9 @@ import { PostService } from '../post.service';
   templateUrl: './post-media-grid.component.html',
   styleUrl: './post-media-grid.component.css'
 })
-export class PostMediaGridComponent {
+export class PostMediaGridComponent implements OnInit {
 
-  @Input({required: true}) mediaFiles: {path: string, tags: string[]}[] = [];
+  @Input({required: true}) mediaFiles: {url: string, tags: string[]}[] = [];
   @Input() displayAll: boolean = false;
 
   @Output() onClickMore: EventEmitter<any> = new EventEmitter();
@@ -20,8 +20,8 @@ export class PostMediaGridComponent {
     private postService: PostService
   ) {}
 
-  mediaUrl(mediaPath: string): string {
-    return this.postService.getMediaUrl(mediaPath);
+  ngOnInit(): void {
+    
   }
 
   showMore(): void {

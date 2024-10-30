@@ -10,12 +10,12 @@ import { PostService } from '../post.service';
 })
 export class PostMediaGalleryComponent implements OnInit {
 
-  @Input({required: false}) mediaUrls!: { path: string, tags: string[] }[];
+  @Input({required: false}) mediaUrls!: { url: string, tags: string[] }[];
   @Input() selectedIndex: number = 0;
 
   @Output() onDismiss: EventEmitter<any> = new EventEmitter();
 
-  _mediaUrls: { path: string, tags: string[] }[] = [];
+  _mediaUrls: { url: string, tags: string[] }[] = [];
 
   constructor(
     private postService: PostService
@@ -28,7 +28,7 @@ export class PostMediaGalleryComponent implements OnInit {
   loadMedia(): void {
     this._mediaUrls = this.mediaUrls.map(item => {
       return {
-        path: this.postService.getMediaUrl(item.path),
+        url: item.url,
         tags: item.tags
       }
     });

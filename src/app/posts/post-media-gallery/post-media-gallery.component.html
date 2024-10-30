@@ -5,7 +5,7 @@
         <div class="carousel-inner">
           @for (mediaUrl of _mediaUrls; track mediaUrl) {
             <div class="carousel-item" [class.active]="$index === selectedIndex">
-              <img [src]="mediaUrl.path" class="d-block w-100" alt="Image 1">
+              <img [src]="mediaUrl.url" class="d-block w-100" alt="Image 1">
             </div>
           }
         </div>
