@@ -2,7 +2,11 @@
   <div class="col-md-4">
     <div class="card dialog-card">
       <div class="card-body">
-        <h2>new?</h2>
+        <div class="d-flex justify-content-between">
+          <h2>new?</h2>
+          <i (click)="dismiss($event)" class="bi bi-x-lg me-1"></i>
+        </div>
+        
         @if (signupForm) {
           
           @if (signupForm.invalid && (signupForm.touched || signupForm.dirty)) {

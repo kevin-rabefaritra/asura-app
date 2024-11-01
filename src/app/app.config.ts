@@ -1,11 +1,12 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter, withComponentInputBinding } from '@angular/router';
+import { provideRouter, TitleStrategy, withComponentInputBinding } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { authInterceptor } from './auth/auth-interceptor';
 import { GoogleLoginProvider, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
 import { environment } from '../environments/environment.development';
+import { TitleService } from './shared/title/title.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -13,9 +14,10 @@ export const appConfig: ApplicationConfig = {
       withFetch(),
       withInterceptors([authInterceptor])
     ),
-    provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(routes, withComponentInputBinding()),
-    {
+    provideZoneChangeDetection(
+      { eventCoalescing: true }
+    ),
+    provideRouter(routes, withComponentInputBinding()), {
       provide: 'SocialAuthServiceConfig',
       useValue: {
         autoLogin: false,
@@ -28,6 +30,7 @@ export const appConfig: ApplicationConfig = {
           console.error(err);
         }
       } as SocialAuthServiceConfig,
-    }
+    },
+    { provide: TitleStrategy, useClass: TitleService },
   ]
 };

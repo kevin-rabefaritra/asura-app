@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-12 overlay" (click)="selectMedia(0)">
       <div class="cover"></div>
-      <img class="img-1" [src]="mediaFiles[0].url"/>
+      <img class="img-1 shimmer" [src]="mediaFiles[0].url" />
     </div>
   </div>
 }
@@ -12,7 +12,7 @@
     @for (mediaFile of mediaFiles; track mediaFile) {
       <div class="col-6 overlay" (click)="selectMedia($index)">
         <div class="cover"></div>
-        <img class="img-2" [src]="mediaFile.url"/>
+        <img class="img-2 shimmer" [src]="mediaFile.url"/>
       </div>
     }
   </div>
@@ -22,24 +22,24 @@
   <div class="row">
     <div class="col-6 overlay" (click)="selectMedia(0)">
       <div class="cover"></div>
-      <img class="img-1" [src]="mediaFiles[0].url"/>
+      <img class="img-1 shimmer" [src]="mediaFiles[0].url"/>
     </div>
     <div class="col-6 overlay" (click)="selectMedia(1)">
       <div class="overlay">
         <div class="cover"></div>
-        <img class="img-3" [src]="mediaFiles[1].url"/>
+        <img class="img-3 shimmer" [src]="mediaFiles[1].url"/>
       </div>
 
       @if (mediaFiles.length === 3) {
         <div class="overlay" (click)="selectMedia(2)">
           <div class="cover"></div>
-          <img class="img-3" [src]="mediaFiles[2].url"/>
+          <img class="img-3 shimmer" [src]="mediaFiles[2].url"/>
         </div>
       }
       @else {
         <div class="w-100 overlay" (click)="showMore()">
           <div class="cover-text">+{{ mediaFiles.length - 2 }}</div>
-          <img class="img-3" [src]="mediaFiles[2].url"/>
+          <img class="img-3 shimmer" [src]="mediaFiles[2].url"/>
         </div>
       }
     </div>

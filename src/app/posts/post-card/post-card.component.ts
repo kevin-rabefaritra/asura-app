@@ -6,11 +6,12 @@ import { PostService } from '../post.service';
 import { PostMediaGridComponent } from "../post-media-grid/post-media-grid.component";
 import { DateAgoPipe } from '../../pipes/date-ago.pipe';
 import { AuthService } from '../../auth/auth.service';
+import { NgOptimizedImage } from '@angular/common'
 
 @Component({
   selector: 'app-post-card',
   standalone: true,
-  imports: [PostTagComponent, RouterModule, PostMediaGridComponent, DateAgoPipe],
+  imports: [PostTagComponent, RouterModule, PostMediaGridComponent, DateAgoPipe, NgOptimizedImage],
   templateUrl: './post-card.component.html',
   styleUrl: './post-card.component.css'
 })

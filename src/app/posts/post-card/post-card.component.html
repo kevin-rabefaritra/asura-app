@@ -5,11 +5,12 @@
   [class.post-card-focused]="hasUserFocus()">
 
   <div class="d-flex p-3">
-    <img [src]="post.authorProfilePicture || '/assets/images/asura.jpg'" alt="User Avatar" class="avatar me-3">
+    <img [ngSrc]="post.authorProfilePicture || '/assets/images/asura.jpg'" alt="User Avatar" class="avatar me-3 shimmer" width="50" height="50">
+
     <div class="post-info w-100">
       <div class="post-header">
         <div>
-          <span class="post-name">{{ post.authorName }}</span>
+          <span class="post-name"><a [routerLink]="['/search']" [queryParams]="{ q: post.authorName }">{{ post.authorName }}</a></span>
           <div class="post-date">{{ post.publishedOn | dateAgo }}</div>
         </div>
         <span class="post-extra">
@@ -33,6 +34,13 @@
 
     @if (displayFull) {
       <br><div class="angular-text" [innerHTML]="post.text"></div>
+
+      @if (post.references) {
+        <br/>
+        @for (reference of post.references; track $index) {
+          <a class="reference-link" [href]="reference"><i class="bi bi-link-45deg"></i> Source {{ $index + 1 }}</a>
+        }
+      }
     }
     @else {
       <a [routerLink]="['/post', post.reference]">Read more</a>

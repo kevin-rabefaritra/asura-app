@@ -1,8 +1,8 @@
 <nav class="navbar navbar-expand-lg fixed-top">
   <div class="container d-flex justify-content-between align-items-center">
-    <a class="navbar-brand" [routerLink]="['/home']">.org</a>
+    <a class="navbar-brand" [routerLink]="['/home']">.1</a>
     <form class="form-inline flex-grow-1 mx-2" (submit)="search()">
-      <input id="query" type="search" placeholder="search.." name="query" aria-label="Search" class="form-control w-100" [(ngModel)]="query">
+      <input id="query" type="search" placeholder="search.." name="query" aria-label="Search" class="form-control w-100" [ngModel]="query()" (ngModelChange)="query.set($event);">
     </form>
     @if (isUserInfoLoading()) {
       <button class="btn-blank">loading..</button>

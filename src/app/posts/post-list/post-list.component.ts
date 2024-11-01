@@ -7,6 +7,7 @@ import { SpinnerComponent } from "../../shared/spinner/spinner.component";
 import { ActivatedRoute } from '@angular/router';
 import { NoResultsBlockComponent } from "../../shared/no-results-block/no-results-block.component";
 import { PostMediaGalleryComponent } from "../post-media-gallery/post-media-gallery.component";
+import { TitleService } from '../../shared/title/title.service';
 
 @Component({
   selector: 'app-post-list',
@@ -33,7 +34,8 @@ export class PostListComponent implements OnInit {
 
   constructor(
     private postService: PostService,
-    private activeRoute: ActivatedRoute
+    private activeRoute: ActivatedRoute,
+    private titleService: TitleService
   ) {}
 
   ngOnInit(): void {
@@ -53,6 +55,7 @@ export class PostListComponent implements OnInit {
   }
 
   loadPosts(): void {
+    this.updateTitle();
     this.isLoading = true;
     this.postService.findAll(this.page, this.query, this.tag).subscribe({
       next: (value) => {
@@ -82,5 +85,20 @@ export class PostListComponent implements OnInit {
     this.selectedPost.set(event.post);
     this.selectedPostMediaIndex.set(event.mediaIndex);
     this.isGalleryDisplayed.set(true);
+  }
+
+  /**
+   * Update the title based on the parameters
+   */
+  updateTitle(): void {
+    if (this.query) {
+      this.titleService.setTitle(`${this.query} - search results`);
+    }
+    else if (this.tag) {
+      this.titleService.setTitle(this.tag);
+    }
+    else {
+      this.titleService.setTitle('home');
+    }
   }
 }

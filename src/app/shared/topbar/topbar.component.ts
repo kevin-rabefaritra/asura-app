@@ -5,12 +5,10 @@ import { SignInDialogComponent } from "../../users/sign-in-dialog/sign-in-dialog
 import { SignUpDialogComponent } from '../../users/sign-up-dialog/sign-up-dialog.component';
 import { UserService } from '../../users/user.service';
 import { AuthService } from '../../auth/auth.service';
-import { Observer, Subscription } from 'rxjs';
-import { TokenSet } from '../../users/tokenset.model';
+import { Subscription } from 'rxjs';
 import { User } from '../../users/user.model';
 import { VerifyAccountDialogComponent } from "../../users/verify-account-dialog/verify-account-dialog.component";
 import { ToastService } from '../toast/toast.service';
-import { SocialAuthService } from '@abacritt/angularx-social-login';
 import { ProfileDialogComponent } from "../../users/profile-dialog/profile-dialog.component";
 
 @Component({
@@ -22,7 +20,8 @@ import { ProfileDialogComponent } from "../../users/profile-dialog/profile-dialo
 })
 export class TopbarComponent implements OnInit, OnDestroy {
 
-  query: string = '';
+  query: WritableSignal<string> = signal('');
+
   isSignInDialogDisplayed: WritableSignal<boolean> = signal<boolean>(false);
   isSignUpDialogDisplayed: WritableSignal<boolean> = signal<boolean>(false);
   isVerifyAccountDialogDisplayed: WritableSignal<boolean> = signal<boolean>(false);
@@ -32,6 +31,7 @@ export class TopbarComponent implements OnInit, OnDestroy {
 
   tokenChangeSubscription$?: Subscription;
   routeSubscription$?: Subscription;
+  queryParamsSubscription$?: Subscription
 
   isUserInfoLoading: WritableSignal<boolean> = signal(false);
 
@@ -64,8 +64,15 @@ export class TopbarComponent implements OnInit, OnDestroy {
       if (event instanceof NavigationEnd) {
         let route = this.router.url.toString();
         if (!route.startsWith('/search')) {
-          this.query = '';
+          // Clean search when user navigates out of the search page
+          this.query.set('');
         }
+      }
+    });
+
+    this.queryParamsSubscription$ = this.activeRoute.queryParams.subscribe( queryParams => {
+      if (queryParams['q'] !== this.query) {
+        this.query.set(queryParams['q']);
       }
     });
   }
@@ -87,10 +94,11 @@ export class TopbarComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.tokenChangeSubscription$?.unsubscribe();
     this.routeSubscription$?.unsubscribe();
+    this.queryParamsSubscription$?.unsubscribe();
   }
 
   search(): void {
-    if (!this.query) {
+    if (!this.query()) {
       return;
     }
 
@@ -103,7 +111,7 @@ export class TopbarComponent implements OnInit, OnDestroy {
     }
 
     // Add query
-    Object.assign(queryParams, { q: this.query });
+    Object.assign(queryParams, { q: this.query() });
 
     this.router.navigate(['/search'], { queryParams });
   }

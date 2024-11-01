@@ -4,6 +4,7 @@ import { PostService } from '../post.service';
 import { Post } from '../post.model';
 import { SpinnerComponent } from '../../shared/spinner/spinner.component';
 import { PostMediaGalleryComponent } from "../post-media-gallery/post-media-gallery.component";
+import { TitleService } from '../../shared/title/title.service';
 
 @Component({
   selector: 'app-post-details',
@@ -22,7 +23,8 @@ export class PostDetailsComponent implements OnInit {
   selectedMediaIndex = signal<number>(0);
 
   constructor(
-    private postService: PostService
+    private postService: PostService,
+    private titleService: TitleService
   ) {}
 
   ngOnInit(): void {
@@ -33,6 +35,7 @@ export class PostDetailsComponent implements OnInit {
     this.postService.findByReference(this.reference).subscribe({
       next: (value) => {
         this.post.set(value);
+        this.titleService.setTitle(`${this.post()?.authorName} - ${this.post()?.summary}`);
       }
     });
   }

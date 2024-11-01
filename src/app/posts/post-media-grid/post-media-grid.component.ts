@@ -1,10 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { PostService } from '../post.service';
+import { NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'app-post-media-grid',
   standalone: true,
-  imports: [],
+  imports: [NgOptimizedImage],
   templateUrl: './post-media-grid.component.html',
   styleUrl: './post-media-grid.component.css'
 })
