@@ -4,7 +4,7 @@ import { provideRouter, TitleStrategy, withComponentInputBinding } from '@angula
 import { routes } from './app.routes';
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { authInterceptor } from './auth/auth-interceptor';
-import { GoogleLoginProvider, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
+import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
 import { environment } from '../environments/environment.development';
 import { TitleService } from './shared/title/title.service';
 
@@ -25,6 +25,9 @@ export const appConfig: ApplicationConfig = {
         providers: [{
           id: GoogleLoginProvider.PROVIDER_ID,
           provider: new GoogleLoginProvider(environment.googleClientId)
+        }, {
+          id: FacebookLoginProvider.PROVIDER_ID,
+          provider: new FacebookLoginProvider(environment.facebookClientId)
         }],
         onError: (err) => {
           console.error(err);

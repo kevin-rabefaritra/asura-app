@@ -1,3 +1,17 @@
 .google-btn {
   background-color: black;
 }
+
+.facebook-btn {
+  background: #4267b2;
+  border-radius: 5px;
+  color: white;
+  height: 40px;
+  text-align: center;
+  width: 100%;
+}
+
+.facebook-btn:hover {
+  filter: brightness(95%);
+  -webkit-filter: brightness(95%);
+}

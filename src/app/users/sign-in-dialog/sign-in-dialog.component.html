@@ -6,26 +6,20 @@
           <h2>sign in?</h2>
           <i (click)="dismiss($event)" class="bi bi-x-lg me-1"></i>
         </div>
-        @if (signinForm) {
 
-          @if (errorMessage()) {
-            <div class="alert alert-danger mb-0 mt-3">
-              <ul class="mb-0">
-                <li>{{ errorMessage() }}</li>
-              </ul>
-            </div>
-          }
-
-          <form [formGroup]="signinForm" (ngSubmit)="signInWithCredentials()">
-            <input id="username" type="text" placeholder="username" name="username" class="mt-3" formControlName="username">
-            <input id="password" type="password" placeholder="password" name="password" class="mt-3" formControlName="password">
-            <button class="outline-btn mt-3" [disabled]="signinForm.invalid || isLoading()" type="submit">sign in</button>
-            <p class="mt-3 text-center">or <span class="link text-primary" (click)="createAccountClicked()">create an account</span></p>
-          </form>
+        @if (errorMessage()) {
+          <div class="alert alert-danger mb-0 mt-3">
+            <ul class="mb-0">
+              <li>{{ errorMessage() }}</li>
+            </ul>
+          </div>
         }
+        <p>An account will be created for you if you don't have one yet.</p>
         <hr />
-        <div class="d-flex justify-content-center">
-          <asl-google-signin-button type='standard' size='medium'></asl-google-signin-button>
+        <div class="">
+          <asl-google-signin-button #googleAuthButton type='standard' size='large'></asl-google-signin-button>
+          
+          <button #facebookAuthButton class="facebook-btn mt-2" (click)="signInWithFacebookClicked()">f Continue with Facebook</button>
         </div>
       </div>
     </div>

@@ -1,8 +1,8 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output, signal, WritableSignal } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output, signal, ViewChild, WritableSignal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../auth/auth.service';
 import { Router } from '@angular/router';
-import { GoogleSigninButtonModule, SocialAuthService, SocialLoginModule, SocialUser } from '@abacritt/angularx-social-login';
+import { FacebookLoginProvider, GoogleSigninButtonDirective, GoogleSigninButtonModule, SocialAuthService, SocialLoginModule, SocialUser } from '@abacritt/angularx-social-login';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -12,10 +12,13 @@ import { Subscription } from 'rxjs';
   templateUrl: './sign-in-dialog.component.html',
   styleUrl: './sign-in-dialog.component.css'
 })
-export class SignInDialogComponent implements OnInit, OnDestroy {
+export class SignInDialogComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @Output() onCreateAccountClicked: EventEmitter<any> = new EventEmitter();
   @Output() onDismiss: EventEmitter<any> = new EventEmitter();
+
+  @ViewChild(GoogleSigninButtonDirective) googleAuthButton!: GoogleSigninButtonDirective;
+  @ViewChild('facebookAuthButton') facebookAuthButton!: ElementRef;
 
   signinForm?: FormGroup;
   isLoading: WritableSignal<Boolean> = signal(false);
@@ -35,6 +38,11 @@ export class SignInDialogComponent implements OnInit, OnDestroy {
     this.initSocialAuth();
   }
 
+  ngAfterViewInit(): void {
+    // Set the Google button width to be the same as the Facebook button (which is 100%)
+    this.googleAuthButton.width = this.facebookAuthButton.nativeElement.offsetWidth;
+  }
+
   ngOnDestroy(): void {
     this.socialAuthStateSubscription$?.unsubscribe();
   }
@@ -49,39 +57,18 @@ export class SignInDialogComponent implements OnInit, OnDestroy {
   private initSocialAuth(): void {
     this.socialAuthStateSubscription$ = this.socialAuthService.authState.subscribe((user) => {
       if (!this.authService.hasTokenSet() && user) {
-        this.signInWithGoogle(user);
+        this.signInWithSocial(user);
       }
     });
   }
 
-  signInWithCredentials(): void {
-    if (!this.signinForm || this.signinForm.invalid || this.isLoading()) {
-      return;
-    }
-
-    this.errorMessage.set('');
-    this.isLoading.set(true);
-    const signinValues = this.signinForm.getRawValue();
-    this.authService.authenticate(signinValues.username, signinValues.password).subscribe({
-      next: () => {
-        // Reload the current page
-        this.reload();
-        this.onDismiss.emit();
-      },
-      error: (err) => {
-        this.isLoading.set(false);
-        this.errorMessage.set(err.message);
-      }
-    });
-  }
-
-  signInWithGoogle(user: SocialUser): void {
+  signInWithSocial(user: SocialUser): void {
     if (this.isLoading()) {
       return;
     }
 
     this.isLoading.set(true);
-    this.authService.authenticateWithGoogle(user.email, user.idToken).subscribe({
+    this.authService.authenticate(user.email, user.idToken, user.authToken, user.provider).subscribe({
       next: () => {
         // Reload the current page
         this.reload();
@@ -92,6 +79,10 @@ export class SignInDialogComponent implements OnInit, OnDestroy {
         this.errorMessage.set(err.message);
       }
     })
+  }
+
+  signInWithFacebookClicked(): void {
+    this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
   }
 
   createAccountClicked(): void {

@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { catchError, Observable, Subject, tap, throwError } from "rxjs";
+import { catchError, Observable, of, Subject, tap, throwError } from "rxjs";
 import { TokenSet } from "../users/tokenset.model";
 
 @Injectable({
@@ -12,7 +12,7 @@ export class AuthService {
   static KEY_REFRESH_TOKEN: string = 'REFRESH_TOKEN';
 
   static AUTH_URI: string = '/auth';
-  static GOOGLE_AUTH_URI: string = '/auth/google';
+  static SOCIAL_AUTH_URI: string = '/auth/social';
   static RENEW_TOKEN_URI: string = '/auth/renew';
 
   tokenUpdateSubject: Subject<TokenSet | null> = new Subject<TokenSet | null>();
@@ -21,22 +21,8 @@ export class AuthService {
     private httpClient: HttpClient
   ) {}
 
-  authenticate(username: string, password: string): Observable<TokenSet> {
-    return this.httpClient.post<TokenSet>(AuthService.AUTH_URI, { username, password }).pipe(
-      tap((tokenSet: TokenSet) => {
-        this.storeTokenSet(tokenSet);
-      }),
-      catchError((error) => {
-        if (error.status === 401) {
-          return throwError(() => new Error('Incorrect username or password. Please try again.'));
-        }
-        return throwError(() => new Error(`Unable to authenticate. Please try again later. Code ${error.status}`));
-      })
-    );
-  }
-
-  authenticateWithGoogle(email: string, idToken: string): Observable<TokenSet> {
-    return this.httpClient.post<TokenSet>(AuthService.GOOGLE_AUTH_URI, { email, idToken }).pipe(
+  authenticate(email: string, idToken: string, authToken: string, provider: string): Observable<TokenSet> {
+    return this.httpClient.post<TokenSet>(AuthService.SOCIAL_AUTH_URI, { email, idToken, authToken, provider }).pipe(
       tap((tokenSet: TokenSet) => {
         this.storeTokenSet(tokenSet);
       }),

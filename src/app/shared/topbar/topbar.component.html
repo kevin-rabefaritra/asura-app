@@ -13,10 +13,6 @@
           <i class="bi bi-person-fill"></i>
         </button>
         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="accountDropdownMenu">
-          @if (!userInfo()!.verified) {
-            <li><a class="dropdown-item text-warning" (click)="toggleAccountVerificationDialog()">Verify my account</a></li>
-            <div class="dropdown-divider"></div>
-          }
           <li><a class="dropdown-item" (click)="toggleAccountProfileDialog()">
             My account
             @if (userInfo()!.verified) {
@@ -40,13 +36,7 @@
 </nav>
 
 @if (isSignInDialogDisplayed()) {
-  <app-sign-in-dialog (onCreateAccountClicked)="toggleSignUpDialog()" (onDismiss)="dismiss()" />
-}
-@else if (isSignUpDialogDisplayed()) {
-  <app-sign-up-dialog (onSignInClicked)="toggleSignInDialog()" (onDismiss)="dismiss()" (onSignUpSuccess)="signUpSuccess()" />
-}
-@else if (isVerifyAccountDialogDisplayed()) {
-  <app-verify-account-dialog (onSkipClicked)="toggleAccountVerificationDialog()" (onVerificationSuccess)="userAccountVerified()" />
+  <app-sign-in-dialog (onDismiss)="dismiss()" />
 }
 @else if (isAccountProfileDialogDisplayed()) {
   <app-profile-dialog (onDismiss)="dismiss()" />
