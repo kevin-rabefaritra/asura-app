@@ -1,5 +1,5 @@
 <div class="fullscreen-overlay" (click)="dismiss($event)">
-  <div class="col-md-4">
+  <div class="col-md-3">
     <div class="card dialog-card">
       <div class="card-body">
         <div class="d-flex justify-content-between">
@@ -16,10 +16,9 @@
         }
         <p>An account will be created for you if you don't have one yet.</p>
         <hr />
-        <div class="">
-          <asl-google-signin-button #googleAuthButton type='standard' size='large'></asl-google-signin-button>
-          
-          <button #facebookAuthButton class="facebook-btn mt-2" (click)="signInWithFacebookClicked()">f Continue with Facebook</button>
+        <div class="container">
+          <asl-google-signin-button #googleAuthButton type='standard' size='large' class="d-block mx-auto"></asl-google-signin-button>
+          <button #facebookAuthButton class="facebook-btn d-block mx-auto mt-2" (click)="signInWithFacebookClicked()">f Continue with Facebook</button>
         </div>
       </div>
     </div>

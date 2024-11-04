@@ -8,6 +8,7 @@ import { Subscription } from 'rxjs';
 import { User } from '../../users/user.model';
 import { ToastService } from '../toast/toast.service';
 import { ProfileDialogComponent } from "../../users/profile-dialog/profile-dialog.component";
+import { environment } from '../../../environments/environment.development';
 
 @Component({
   selector: 'app-topbar',
@@ -130,5 +131,9 @@ export class TopbarComponent implements OnInit, OnDestroy {
    */
   signUpSuccess(): void {
     this.dismiss();
+  }
+
+  get feedbackUrl(): string {
+    return environment.feedbackUrl
   }
 }

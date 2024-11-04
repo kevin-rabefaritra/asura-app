@@ -40,7 +40,7 @@ export class SignInDialogComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngAfterViewInit(): void {
     // Set the Google button width to be the same as the Facebook button (which is 100%)
-    this.googleAuthButton.width = this.facebookAuthButton.nativeElement.offsetWidth;
+    this.googleAuthButton.width = Math.min(400, this.facebookAuthButton.nativeElement.offsetWidth);
   }
 
   ngOnDestroy(): void {
