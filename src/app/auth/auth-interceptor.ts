@@ -1,10 +1,9 @@
-import { HttpErrorResponse, HttpEvent, HttpHandler, HttpHandlerFn, HttpInterceptor, HttpRequest } from "@angular/common/http";
-import { inject, Injectable } from "@angular/core";
-import { Route, Router } from "@angular/router";
-import { catchError, Observable, switchMap, tap, throwError } from "rxjs";
+import { HttpHandlerFn, HttpRequest } from "@angular/common/http";
+import { inject } from "@angular/core";
+import { Router } from "@angular/router";
+import { catchError, switchMap, throwError } from "rxjs";
 import { AuthService } from "./auth.service";
-import { environment } from "../../environments/environment.development";
-import { UserService } from "../users/user.service";
+import { environment } from "../../environments/environment";
 
   
 export function authInterceptor(request: HttpRequest<unknown>, next: HttpHandlerFn) {

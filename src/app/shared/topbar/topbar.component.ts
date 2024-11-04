@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs';
 import { User } from '../../users/user.model';
 import { ToastService } from '../toast/toast.service';
 import { ProfileDialogComponent } from "../../users/profile-dialog/profile-dialog.component";
-import { environment } from '../../../environments/environment.development';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-topbar',
