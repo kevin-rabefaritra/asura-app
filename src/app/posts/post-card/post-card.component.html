@@ -46,9 +46,13 @@
       <a [routerLink]="['/post', post.reference]">Read more</a>
     }
   </div>
-  <div class="post-media">
-    <app-post-media-grid [mediaFiles]="post.mediaFiles" [displayAll]="displayFull" (onClickMore)="showPost()" (onMediaSelected)="selectMedia($event)"/>
-  </div>
+
+  @if (post.mediaUris) {
+    <div class="post-media">
+      <app-post-media-grid [mediaUris]="post.mediaUris" [displayAll]="displayFull" (onClickMore)="showPost()" (onMediaSelected)="selectMedia($event)"/>
+    </div>
+  }
+
   <div class="post-tags px-3 mt-4">
     @for (tag of displayedTags; track tag) {
       <a [routerLink]="['/search']" [queryParams]="{ tag }" class="app-post-tag">{{ tag }}</a>

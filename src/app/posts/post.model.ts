@@ -9,7 +9,7 @@ export interface Post {
   status: PostStatus;
   tags: string[];
   references: string[];
-  mediaFiles: { url: string, tags: string[] }[];
+  mediaUris: string[];
   score: number;
   userScore: number;
 };

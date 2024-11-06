@@ -1,45 +1,45 @@
-@if (mediaFiles.length === 1) {
+@if (mediaUris.length === 1) {
   <div class="row">
     <div class="col-12 overlay" (click)="selectMedia(0)">
       <div class="cover"></div>
-      <img class="img-1 shimmer" [src]="mediaFiles[0].url" />
+      <img class="img-1 shimmer" [src]="mediaUris[0]" />
     </div>
   </div>
 }
 
-@else if (mediaFiles.length === 2 || displayAll) {
+@else if (mediaUris.length === 2 || displayAll) {
   <div class="row">
-    @for (mediaFile of mediaFiles; track mediaFile) {
+    @for (mediaFile of mediaUris; track mediaFile) {
       <div class="col-6 overlay" (click)="selectMedia($index)">
         <div class="cover"></div>
-        <img class="img-2 shimmer" [src]="mediaFile.url"/>
+        <img class="img-2 shimmer" [src]="mediaFile"/>
       </div>
     }
   </div>
 }
 
-@else if (mediaFiles.length > 2) {
+@else if (mediaUris.length > 2) {
   <div class="row">
     <div class="col-6 overlay" (click)="selectMedia(0)">
       <div class="cover"></div>
-      <img class="img-1 shimmer" [src]="mediaFiles[0].url"/>
+      <img class="img-1 shimmer" [src]="mediaUris[0]"/>
     </div>
     <div class="col-6 overlay" (click)="selectMedia(1)">
       <div class="overlay">
         <div class="cover"></div>
-        <img class="img-3 shimmer" [src]="mediaFiles[1].url"/>
+        <img class="img-3 shimmer" [src]="mediaUris[1]"/>
       </div>
 
-      @if (mediaFiles.length === 3) {
+      @if (mediaUris.length === 3) {
         <div class="overlay" (click)="selectMedia(2)">
           <div class="cover"></div>
-          <img class="img-3 shimmer" [src]="mediaFiles[2].url"/>
+          <img class="img-3 shimmer" [src]="mediaUris[2]"/>
         </div>
       }
       @else {
         <div class="w-100 overlay" (click)="showMore()">
-          <div class="cover-text">+{{ mediaFiles.length - 2 }}</div>
-          <img class="img-3 shimmer" [src]="mediaFiles[2].url"/>
+          <div class="cover-text">+{{ mediaUris.length - 2 }}</div>
+          <img class="img-3 shimmer" [src]="mediaUris[2]"/>
         </div>
       }
     </div>

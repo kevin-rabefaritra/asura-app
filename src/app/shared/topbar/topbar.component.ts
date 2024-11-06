@@ -134,6 +134,6 @@ export class TopbarComponent implements OnInit, OnDestroy {
   }
 
   get feedbackUrl(): string {
-    return environment.feedbackUrl
+    return environment.feedbackUrl;
   }
 }

@@ -10,28 +10,19 @@ import { PostService } from '../post.service';
 })
 export class PostMediaGalleryComponent implements OnInit {
 
-  @Input({required: false}) mediaUrls!: { url: string, tags: string[] }[];
+  @Input({required: false}) mediaUris!: string[];
   @Input() selectedIndex: number = 0;
 
   @Output() onDismiss: EventEmitter<any> = new EventEmitter();
 
-  _mediaUrls: { url: string, tags: string[] }[] = [];
+  _mediaUris: string[] = [];
 
   constructor(
     private postService: PostService
   ) {}
 
   ngOnInit(): void {
-    this.loadMedia();
-  }
-
-  loadMedia(): void {
-    this._mediaUrls = this.mediaUrls.map(item => {
-      return {
-        url: item.url,
-        tags: item.tags
-      }
-    });
+    
   }
 
   dismiss(event: MouseEvent): void {

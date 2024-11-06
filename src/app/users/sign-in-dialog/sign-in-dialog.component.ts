@@ -98,7 +98,7 @@ export class SignInDialogComponent implements OnInit, OnDestroy, AfterViewInit {
   reload(): void {
     const currentUrl = this.router.url;
     this.router.navigateByUrl('/auth', { skipLocationChange: true} ).then(() => {
-      this.router.navigate([currentUrl]);
+      this.router.navigateByUrl(currentUrl);
     });
   }
 }

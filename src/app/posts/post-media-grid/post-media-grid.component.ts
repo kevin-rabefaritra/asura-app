@@ -11,7 +11,7 @@ import { NgOptimizedImage } from '@angular/common';
 })
 export class PostMediaGridComponent implements OnInit {
 
-  @Input({required: true}) mediaFiles: {url: string, tags: string[]}[] = [];
+  @Input({required: true}) mediaUris: string[] = [];
   @Input() displayAll: boolean = false;
 
   @Output() onClickMore: EventEmitter<any> = new EventEmitter();

@@ -3,7 +3,7 @@
     <app-post-card [post]="post()!" [displayFull]="true" (onPostMediaSelected)="displayGallery($event.mediaIndex)" />
 
     @if (isGalleryDisplayed()) {
-      <app-post-media-gallery [mediaUrls]="post()!.mediaFiles" [selectedIndex]="selectedMediaIndex()" (onDismiss)="dismissGallery()" />
+      <app-post-media-gallery [mediaUris]="post()!.mediaUris" [selectedIndex]="selectedMediaIndex()" (onDismiss)="dismissGallery()" />
     }
   }
   @else {

@@ -13,5 +13,5 @@
 </div>
 
 @if (isGalleryDisplayed() && selectedPost()) {
-  <app-post-media-gallery [mediaUrls]="selectedPost().mediaFiles" [selectedIndex]="selectedPostMediaIndex()" (onDismiss)="dismissGallery()" />
+  <app-post-media-gallery [mediaUris]="selectedPost().mediaUris" [selectedIndex]="selectedPostMediaIndex()" (onDismiss)="dismissGallery()" />
 }
