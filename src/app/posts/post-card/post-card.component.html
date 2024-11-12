@@ -53,7 +53,7 @@
     </div>
   }
 
-  <div class="post-tags px-3 mt-4">
+  <div class="post-tags px-3 mt-2">
     @for (tag of displayedTags; track tag) {
       <a [routerLink]="['/search']" [queryParams]="{ tag }" class="app-post-tag">{{ tag }}</a>
     }

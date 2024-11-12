@@ -8,7 +8,7 @@
   background-size: 200%;
   transition: .2s ease-out;
   margin-top: 10px;
-  display: inline;
+  display: inline-block;
 }
 
 .content:hover {
