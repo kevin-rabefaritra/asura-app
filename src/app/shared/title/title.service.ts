@@ -20,6 +20,6 @@ export class TitleService extends TitleStrategy {
   }
 
   setTitle(title: string): void {
-    this.title.setTitle(`.1 | ${title}`);
+    this.title.setTitle(`niuz | ${title}`);
   }
 }

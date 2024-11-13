@@ -4,11 +4,13 @@ import { PostDetailsComponent } from './posts/post-details/post-details.componen
 import { SignOutComponent } from './users/sign-out/sign-out.component';
 import { AuthComponent } from './auth/auth.component';
 import { PrivacyComponent } from './shared/privacy/privacy.component';
+import { TermsComponent } from './shared/terms/terms.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: PostListComponent },
-  { path: 'privacy', component: PrivacyComponent, title: 'privacy policy' },
+  { path: 'legal/privacy', component: PrivacyComponent, title: 'privacy policy' },
+  { path: 'legal/terms', component: TermsComponent, title: 'terms of service' },
   { path: 'signout', component: SignOutComponent },
   { path: 'search', component: PostListComponent },
   { path: 'auth', component: AuthComponent },
