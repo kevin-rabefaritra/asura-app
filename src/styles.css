@@ -9,6 +9,10 @@ a {
   cursor: pointer;
 }
 
+.btn {
+  border-radius: 0;
+}
+
 .alert {
   border-radius: 0;
 }
@@ -140,4 +144,17 @@ body {
 /** CSS for displaying backspace characters in templates **/
 .angular-text {
   white-space: pre-line;
+}
+
+.dashed-line {
+  border: none;
+  height: 2px; /* Thickness of the dashes */
+  background: repeating-linear-gradient(
+    to right,
+    black,
+    black 2px, /* Dash length */
+    white 15px, /* Start of the gap */
+    white 10px /* Length of the gap */
+  );
+  width: 100%;
 }

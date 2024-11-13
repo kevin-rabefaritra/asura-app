@@ -31,9 +31,9 @@
   </div>
   <div class="post-content px-3">
     <div class="angular-text" [innerHTML]="post.summary"></div>
-
     @if (displayFull) {
-      <br><div class="angular-text" [innerHTML]="post.text"></div>
+      <hr class="dashed-line" />
+      <div class="angular-text" [innerHTML]="post.text"></div>
 
       @if (post.references) {
         <br/>

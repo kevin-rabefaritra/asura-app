@@ -7,6 +7,7 @@ import { PostMediaGridComponent } from "../post-media-grid/post-media-grid.compo
 import { DateAgoPipe } from '../../pipes/date-ago.pipe';
 import { AuthService } from '../../auth/auth.service';
 import { NgOptimizedImage } from '@angular/common'
+import { ToastService } from '../../shared/toast/toast.service';
 
 @Component({
   selector: 'app-post-card',
@@ -36,11 +37,13 @@ export class PostCardComponent implements OnInit {
     private postService: PostService,
     private authService: AuthService,
     private router: Router,
-    private elementRef: ElementRef
+    private elementRef: ElementRef,
+    private toastService: ToastService
   ) {}
 
   ngOnInit(): void {
-    this.displayedTags = this.displayFull ? this.post.tags : this.post.tags.slice(0, PostCardComponent.TAGS_LIMIT);
+    let postTags = this.post.tags || [];
+    this.displayedTags = this.displayFull ? postTags : postTags.slice(0, PostCardComponent.TAGS_LIMIT);
     this.initIntersectionObserver();
   }
 
@@ -81,6 +84,7 @@ export class PostCardComponent implements OnInit {
   clickVote(): void {
     if (!this.authService.hasTokenSet()) {
       // user is not authenticated, request the user to sign in
+      this.toastService.notify('Sign in to upvote posts!');
     }
     else {
       if (this.post.userScore === 0) {

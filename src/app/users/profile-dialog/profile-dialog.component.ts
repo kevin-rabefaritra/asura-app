@@ -2,6 +2,8 @@ import { Component, EventEmitter, OnDestroy, OnInit, Output, signal, WritableSig
 import { UserService } from '../user.service';
 import { User } from '../user.model';
 import { Subscription } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ToastService } from '../../shared/toast/toast.service';
 
 @Component({
   selector: 'app-profile-dialog',
@@ -16,10 +18,16 @@ export class ProfileDialogComponent implements OnInit, OnDestroy {
 
   userInfo: WritableSignal<User | null> = signal(null);
 
+  deleteAccountStepNumber: WritableSignal<number> = signal(0);
+  deleteAccountText: WritableSignal<string> = signal('Delete my account');
+  deleteAccountLoading: WritableSignal<boolean> = signal(false);
+
   userInfoSubscription$?: Subscription;
 
   constructor(
-    private userService: UserService
+    private userService: UserService,
+    private router: Router,
+    private toastService: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -37,6 +45,36 @@ export class ProfileDialogComponent implements OnInit, OnDestroy {
   dismiss(event: MouseEvent): void {
     if (event.target === event.currentTarget) {
       this.onDismiss.emit();
+    }
+  }
+
+  /**
+   * Delete the current user's account
+   * @returns 
+   */
+  deleteAccount(): void {
+    if (this.deleteAccountLoading()) {
+      return;
+    }
+
+    this.deleteAccountLoading.set(true);
+    this.userService.deleteCurrentUser().subscribe({
+      next: () => {
+        this.router.navigate(['/signout']);
+        this.onDismiss.emit();
+        this.toastService.notify('Your account has been deleted.');
+      }
+    });
+  }
+
+  deleteAccountClicked(): void {
+    let textList = ['Delete my account', 'Are you sure? All your data will be deleted.', 'Sure sure sure?'];
+    this.deleteAccountStepNumber.update(v => v + 1);
+    if (this.deleteAccountStepNumber() < textList.length) {
+      this.deleteAccountText.set(textList[this.deleteAccountStepNumber()]);
+    }
+    else {
+      this.deleteAccount();
     }
   }
 }

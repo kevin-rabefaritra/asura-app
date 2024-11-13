@@ -12,6 +12,8 @@
 
           <label class="mt-3">you're a</label>
           <input id="username" type="text" placeholder="username" class="mt-2" [value]="userInfo()!.role" disabled>
+
+          <button class="btn btn-outline-danger mt-3" type="button" (click)="deleteAccountClicked()" [disabled]="deleteAccountLoading()">{{ deleteAccountText() }}</button> 
         }
         <button class="outline-btn mt-3" type="button" (click)="dismiss($event)">close</button>
       </div>

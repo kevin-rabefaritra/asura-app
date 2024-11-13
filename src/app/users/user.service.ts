@@ -13,6 +13,7 @@ export class UserService {
   static CHECK_USERNAME_URI: string = '/users/username/check';
   static SIGN_UP_URI: string = '/users/signup';
   static INFO_URI: string = '/users/info';
+  static DELETE_USER_URI: string = '/users/delete';
 
   static KEY_USER_INFO: string = 'user_info';
 
@@ -81,5 +82,12 @@ export class UserService {
    */
   clearUserInfo(): void {
     localStorage.removeItem(UserService.KEY_USER_INFO);
+  }
+
+  /**
+   * Delete the current user
+   */
+  deleteCurrentUser(): Observable<any> {
+    return this.httpClient.delete(UserService.DELETE_USER_URI);
   }
 }
