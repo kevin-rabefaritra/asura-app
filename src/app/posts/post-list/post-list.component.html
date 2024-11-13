@@ -3,12 +3,13 @@
     <app-post-card [post]="post" (onPostMediaSelected)="displayGallery($event)" />
   }
 
-  @if (!postList().length && !isLoading) {
+  @if (!postList().length && !isLoading()) {
     <app-no-results-block [query]="query" />
   }
 
-  @if (!isLastPage && isLoading) {
+  @if (!isLastPage()) {
     <app-spinner />
+    <div #postLoadingSpinner></div>
   }
 </div>
 
