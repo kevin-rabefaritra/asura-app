@@ -66,11 +66,11 @@ export class PostCardComponent implements OnInit {
   }
 
   get allTagsDisplayed(): boolean {
-    return this.displayedTags.length === this.post.tags.length;
+    return !this.post.tags || this.displayedTags.length === this.post.tags.length;
   }
 
   showAllTags(): void {
-    this.displayedTags = this.post.tags;
+    this.displayedTags = this.post.tags || [];
   }
 
   showPost(): void {

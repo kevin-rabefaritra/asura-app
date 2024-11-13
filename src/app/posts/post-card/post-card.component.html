@@ -58,7 +58,7 @@
       <a [routerLink]="['/search']" [queryParams]="{ tag }" class="app-post-tag">{{ tag }}</a>
     }
 
-    @if (!allTagsDisplayed) {
+    @if (!allTagsDisplayed && post.tags) {
       <label class="text-muted mt-2" (click)="showAllTags()">+{{ post.tags.length - displayedTags.length }} more</label>
     }
   </div>

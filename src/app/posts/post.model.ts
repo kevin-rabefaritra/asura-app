@@ -7,7 +7,7 @@ export interface Post {
   summary: string;
   text: string;
   status: PostStatus;
-  tags: string[];
+  tags: string[] | undefined;
   references: string[];
   mediaUris: string[];
   score: number;
