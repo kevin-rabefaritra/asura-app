@@ -68,8 +68,9 @@ export class PostListComponent implements OnInit {
 
   @HostListener('window:scroll', ['$event'])
   onWindowsScroll(): void {
+    let margin = 30; // Quick fix: Added margin to help detect page last element
     let position = window.innerHeight + window.scrollY;
-    let limit = document.body.offsetHeight;
+    let limit = document.body.offsetHeight - margin;
 
     if (position >= limit && !this.isLoading && !this.isLastPage) {
       this.page += 1;
