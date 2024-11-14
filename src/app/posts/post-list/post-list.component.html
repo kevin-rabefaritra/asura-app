@@ -7,9 +7,8 @@
     <app-no-results-block [query]="query" />
   }
 
-  @if (!isLastPage()) {
+  @if (!isLastPage() && isLoading()) {
     <app-spinner />
-    <div #postLoadingSpinner></div>
   }
 </div>
 

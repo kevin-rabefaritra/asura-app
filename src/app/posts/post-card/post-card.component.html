@@ -30,10 +30,10 @@
     </div>
   </div>
   <div class="post-content px-3">
-    <div class="angular-text" [innerHTML]="post.summary"></div>
+    <div class="angular-text" [innerHTML]="post.summary | summaryFormat"></div>
     @if (displayFull) {
       <hr class="dashed-line" />
-      <div class="angular-text" [innerHTML]="post.text"></div>
+      <div class="angular-text justified-text" [innerHTML]="post.text"></div>
 
       @if (post.references) {
         <br/>

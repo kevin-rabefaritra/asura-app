@@ -8,11 +8,12 @@ import { DateAgoPipe } from '../../pipes/date-ago.pipe';
 import { AuthService } from '../../auth/auth.service';
 import { NgOptimizedImage } from '@angular/common'
 import { ToastService } from '../../shared/toast/toast.service';
+import { SummaryFormatPipe } from "../../pipes/summary-format.pipe";
 
 @Component({
   selector: 'app-post-card',
   standalone: true,
-  imports: [PostTagComponent, RouterModule, PostMediaGridComponent, DateAgoPipe, NgOptimizedImage],
+  imports: [PostTagComponent, RouterModule, PostMediaGridComponent, DateAgoPipe, NgOptimizedImage, SummaryFormatPipe],
   templateUrl: './post-card.component.html',
   styleUrl: './post-card.component.css'
 })

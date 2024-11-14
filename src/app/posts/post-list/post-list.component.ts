@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, signal, ViewChild, WritableSignal } from '@angular/core';
+import { Component, HostListener, OnInit, signal, ViewChild, WritableSignal } from '@angular/core';
 import { PostCardComponent } from "../post-card/post-card.component";
 import { PostService } from '../post.service';
 import { Post } from '../post.model';
@@ -7,7 +7,6 @@ import { ActivatedRoute } from '@angular/router';
 import { NoResultsBlockComponent } from "../../shared/no-results-block/no-results-block.component";
 import { PostMediaGalleryComponent } from "../post-media-gallery/post-media-gallery.component";
 import { TitleService } from '../../shared/title/title.service';
-import { Observer } from 'rxjs';
 
 @Component({
   selector: 'app-post-list',
@@ -16,9 +15,9 @@ import { Observer } from 'rxjs';
   templateUrl: './post-list.component.html',
   styleUrl: './post-list.component.css'
 })
-export class PostListComponent implements OnInit, AfterViewInit, OnDestroy {
+export class PostListComponent implements OnInit {
 
-  @ViewChild('postLoadingSpinner') postLoadingSpinner!: ElementRef;
+  @ViewChild(SpinnerComponent) postLoadingSpinner!: SpinnerComponent;
 
   postList = signal<Post[]>([]);
 
@@ -33,9 +32,6 @@ export class PostListComponent implements OnInit, AfterViewInit, OnDestroy {
   // Used by search feature
   query: string = '';
   tag: string = '';
-
-  // Observers
-  intersectionObserver$?: IntersectionObserver
 
   constructor(
     private postService: PostService,
@@ -52,14 +48,6 @@ export class PostListComponent implements OnInit, AfterViewInit, OnDestroy {
         this.loadPosts();
       }
     });
-  }
-
-  ngAfterViewInit(): void {
-    this.initEndOfPageObserver();
-  }
-
-  ngOnDestroy(): void {
-    this.intersectionObserver$?.unobserve(this.postLoadingSpinner.nativeElement);
   }
 
   resetList(): void {
@@ -79,21 +67,16 @@ export class PostListComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  initEndOfPageObserver(): void {
-    this.intersectionObserver$ = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          // End of page reached
-          this.page += 1;
-          this.loadPosts();
-        }
-      }, {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.9 // trigger when 90% of the target is visible
-      }
-    );
-    this.intersectionObserver$.observe(this.postLoadingSpinner.nativeElement);
+  @HostListener('window:scroll', ['$event'])
+  onWindowsScroll(): void {
+    let margin = 0.9; // Added margin to help detect page last element
+    let position = window.innerHeight + window.scrollY;
+    let limit = document.body.offsetHeight * margin;
+
+    if (position >= limit && !this.isLoading() && !this.isLastPage()) {
+      this.page += 1;
+      this.loadPosts();
+    }
   }
 
   dismissGallery(): void {

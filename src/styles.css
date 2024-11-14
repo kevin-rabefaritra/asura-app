@@ -146,6 +146,15 @@ body {
   white-space: pre-line;
 }
 
+.justified-text {
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+.angular-text span {
+  color: #F44336;
+}
+
 .dashed-line {
   border: none;
   height: 2px; /* Thickness of the dashes */
