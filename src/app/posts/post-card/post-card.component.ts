@@ -85,7 +85,7 @@ export class PostCardComponent implements OnInit {
   clickVote(): void {
     if (!this.authService.hasTokenSet()) {
       // user is not authenticated, request the user to sign in
-      this.toastService.notify('Sign in to upvote posts!');
+      this.toastService.notify($localize`Sign in to upvote posts!`);
     }
     else {
       if (this.post.userScore === 0) {

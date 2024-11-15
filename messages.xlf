@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en-US" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="4182245446752046008" datatype="html">
+        <source><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i class=&quot;bi bi-x&quot;&gt;"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/> Rejected</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/posts/post-card/post-card.component.html</context>
+          <context context-type="linenumber">21,23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2827984212740060090" datatype="html">
+        <source>Read more</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/posts/post-card/post-card.component.html</context>
+          <context context-type="linenumber">46,48</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6025275430560167531" datatype="html">
+        <source>+<x id="INTERPOLATION" equiv-text="{{ post.tags.length - displayedTags.length }}"/> more</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/posts/post-card/post-card.component.html</context>
+          <context context-type="linenumber">62,64</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1629698080313145765" datatype="html">
+        <source>Sign in to upvote posts!</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/posts/post-card/post-card.component.ts</context>
+          <context context-type="linenumber">88</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3220315716077998438" datatype="html">
+        <source>search results</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/posts/post-list/post-list.component.ts</context>
+          <context context-type="linenumber">97</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4976935068632868195" datatype="html">
+        <source>home</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/posts/post-list/post-list.component.ts</context>
+          <context context-type="linenumber">103</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2053571328132911376" datatype="html">
+        <source>no results found for <x id="START_QUOTATION" ctype="x-q" equiv-text="&lt;q&gt;"/><x id="INTERPOLATION" equiv-text="{{ query }}"/><x id="CLOSE_QUOTATION" ctype="x-q" equiv-text="&lt;/q&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/no-results-block/no-results-block.component.html</context>
+          <context context-type="linenumber">4,7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2091635543771235998" datatype="html">
+        <source>no results</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/no-results-block/no-results-block.component.html</context>
+          <context context-type="linenumber">7,10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7789780866231117748" datatype="html">
+        <source><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i class=&quot;bi bi-caret-left-fill&quot;&gt;"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/> go back home</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/no-results-block/no-results-block.component.html</context>
+          <context context-type="linenumber">11,13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8951128623878467862" datatype="html">
+        <source>Preferences</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/preferences-dialog/preferences-dialog.component.html</context>
+          <context context-type="linenumber">5,6</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/topbar/topbar.component.html</context>
+          <context context-type="linenumber">25,26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2347724151568473592" datatype="html">
+        <source>language</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/preferences-dialog/preferences-dialog.component.html</context>
+          <context context-type="linenumber">8,9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9088937454320275395" datatype="html">
+        <source>apply changes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/preferences-dialog/preferences-dialog.component.html</context>
+          <context context-type="linenumber">15,16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="202442244688100878" datatype="html">
+        <source>close</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/preferences-dialog/preferences-dialog.component.html</context>
+          <context context-type="linenumber">17,18</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/users/profile-dialog/profile-dialog.component.html</context>
+          <context context-type="linenumber">18,19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8439955599488894226" datatype="html">
+        <source>Privacy Policy</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/privacy/privacy.component.html</context>
+          <context context-type="linenumber">2,3</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/terms/terms.component.html</context>
+          <context context-type="linenumber">12,14</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/topbar/topbar.component.html</context>
+          <context context-type="linenumber">28,29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4818852650817502025" datatype="html">
+        <source>My Account</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/privacy/privacy.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2520605306994744004" datatype="html">
+        <source>Delete my account</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/privacy/privacy.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/users/profile-dialog/profile-dialog.component.ts</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/users/profile-dialog/profile-dialog.component.ts</context>
+          <context context-type="linenumber">72</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5874132207276667802" datatype="html">
+        <source>loading content..</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/spinner/spinner.component.html</context>
+          <context context-type="linenumber">3,4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2029980907058777630" datatype="html">
+        <source>Terms of Service</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/terms/terms.component.html</context>
+          <context context-type="linenumber">2,3</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/topbar/topbar.component.html</context>
+          <context context-type="linenumber">29,30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5577182908514426696" datatype="html">
+        <source>search..</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/topbar/topbar.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="765974048716015903" datatype="html">
+        <source>loading..</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/topbar/topbar.component.html</context>
+          <context context-type="linenumber">8,9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7109120269196875373" datatype="html">
+        <source>guest</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/topbar/topbar.component.html</context>
+          <context context-type="linenumber">14,15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8893390761160292681" datatype="html">
+        <source>My account</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/topbar/topbar.component.html</context>
+          <context context-type="linenumber">17,18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4915431133669985304" datatype="html">
+        <source>Profile</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/topbar/topbar.component.html</context>
+          <context context-type="linenumber">19,20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2949848596707725099" datatype="html">
+        <source>Sign out</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/topbar/topbar.component.html</context>
+          <context context-type="linenumber">20,21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5207635742003539443" datatype="html">
+        <source>Sign in</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/topbar/topbar.component.html</context>
+          <context context-type="linenumber">23,24</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/users/sign-in-dialog/sign-in-dialog.component.html</context>
+          <context context-type="linenumber">6,7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8429316238784832901" datatype="html">
+        <source>Feedback</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/topbar/topbar.component.html</context>
+          <context context-type="linenumber">27,28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="193324215946023286" datatype="html">
+        <source>username</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/users/profile-dialog/profile-dialog.component.html</context>
+          <context context-type="linenumber">7,8</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/users/profile-dialog/profile-dialog.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2595516945390544574" datatype="html">
+        <source>email address</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/users/profile-dialog/profile-dialog.component.html</context>
+          <context context-type="linenumber">10,11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7315714079098881460" datatype="html">
+        <source>email</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/users/profile-dialog/profile-dialog.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1364176538774870385" datatype="html">
+        <source>you&apos;re a</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/users/profile-dialog/profile-dialog.component.html</context>
+          <context context-type="linenumber">13,14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="122114774689391224" datatype="html">
+        <source>role</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/users/profile-dialog/profile-dialog.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5046289386020266294" datatype="html">
+        <source>Your account has been deleted.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/users/profile-dialog/profile-dialog.component.ts</context>
+          <context context-type="linenumber">65</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4566884309462691808" datatype="html">
+        <source>Are you sure? All your data will be deleted.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/users/profile-dialog/profile-dialog.component.ts</context>
+          <context context-type="linenumber">73</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8615726576103207822" datatype="html">
+        <source>Sure sure sure?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/users/profile-dialog/profile-dialog.component.ts</context>
+          <context context-type="linenumber">74</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6260598364584970590" datatype="html">
+        <source>An account will be created for you if you don&apos;t have one yet.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/users/sign-in-dialog/sign-in-dialog.component.html</context>
+          <context context-type="linenumber">17,18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7129642204583823956" datatype="html">
+        <source>f Continue with Facebook</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/users/sign-in-dialog/sign-in-dialog.component.html</context>
+          <context context-type="linenumber">21,22</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

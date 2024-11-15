@@ -1,0 +1,21 @@
+<div class="fullscreen-overlay" (click)="dismiss($event)">
+  <div class="col-md-3">
+    <div class="card dialog-card">
+      <div class="card-body">
+        <h2 i18n>Preferences</h2>
+        <form (ngSubmit)="applyChanges()">
+        <div class="form-group">
+          <label for="lang" class="mt-2 text-capitalize" i18n>language</label>
+          <select id="lang" name="lang" class="form-control mt-2" [(ngModel)]="selectedLang">
+            <option ngValue="en">🇬🇧 English</option>
+            <option ngValue="fr">🇫🇷 Français</option>
+          </select>
+        </div>
+        <hr />
+        <button class="btn btn-primary" type="submit" [disabled]="selectedLang() === this.currentLang" i18n>apply changes</button> 
+        </form>
+        <button class="outline-btn mt-2" type="button" (click)="dismiss($event)" i18n>close</button>
+      </div>
+    </div>
+  </div>
+</div>

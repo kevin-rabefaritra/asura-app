@@ -94,13 +94,13 @@ export class PostListComponent implements OnInit {
    */
   updateTitle(): void {
     if (this.query) {
-      this.titleService.setTitle(`${this.query} - search results`);
+      this.titleService.setTitle(`${this.query} - ${$localize`search results`}`);
     }
     else if (this.tag) {
       this.titleService.setTitle(this.tag);
     }
     else {
-      this.titleService.setTitle('home');
+      this.titleService.setTitle($localize`home`);
     }
   }
 }
