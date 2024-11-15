@@ -41,6 +41,6 @@ export class PreferencesDialogComponent implements OnInit {
     }
 
     this.preferencesService.setLang(this.selectedLang());
-    this.initForm();
+    location.reload();
   }
 }
