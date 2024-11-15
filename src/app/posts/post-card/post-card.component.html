@@ -18,7 +18,7 @@
             <button class="default-btn" [disabled]="isLoading()" [class.active]="post.userScore === 1" (click)="clickVote()"><i class="bi bi-hand-thumbs-up-fill"></i></button>
           }
           @else if (post.status === 'REJECTED') {
-            <p class="text-uppercase text-danger"><i class="bi bi-x"></i> Rejected</p>
+            <p class="text-uppercase text-danger" i18n><i class="bi bi-x"></i> Rejected</p>
           }
           @else if (post.status === 'PENDING') {
             <button class="default-btn danger-btn text-uppercase" [disabled]="isLoading()" (click)="reject()"><i class="bi bi-x"></i></button>
@@ -43,7 +43,7 @@
       }
     }
     @else {
-      <a [routerLink]="['/post', post.reference]">Read more</a>
+      <a [routerLink]="['/post', post.reference]" i18n>Read more</a>
     }
   </div>
 
@@ -59,7 +59,7 @@
     }
 
     @if (!allTagsDisplayed && post.tags) {
-      <label class="text-muted mt-2" (click)="showAllTags()">+{{ post.tags.length - displayedTags.length }} more</label>
+      <label class="text-muted mt-2" (click)="showAllTags()" i18n>+{{ post.tags.length - displayedTags.length }} more</label>
     }
   </div>
 </div>

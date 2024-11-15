@@ -9,11 +9,13 @@ import { User } from '../../users/user.model';
 import { ToastService } from '../toast/toast.service';
 import { ProfileDialogComponent } from "../../users/profile-dialog/profile-dialog.component";
 import { environment } from '../../../environments/environment';
+import { PreferencesDialogComponent } from "../preferences-dialog/preferences-dialog.component";
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-topbar',
   standalone: true,
-  imports: [FormsModule, RouterModule, SignInDialogComponent, ProfileDialogComponent],
+  imports: [CommonModule, FormsModule, RouterModule, SignInDialogComponent, ProfileDialogComponent, PreferencesDialogComponent],
   templateUrl: './topbar.component.html',
   styleUrl: './topbar.component.css'
 })
@@ -23,6 +25,7 @@ export class TopbarComponent implements OnInit, OnDestroy {
 
   isSignInDialogDisplayed: WritableSignal<boolean> = signal<boolean>(false);
   isAccountProfileDialogDisplayed: WritableSignal<boolean> = signal<boolean>(false);
+  isPreferencesDialogDisplayed: WritableSignal<boolean> = signal<boolean>(false);
 
   userInfo: WritableSignal<User | null> = signal<User | null>(null);
 
@@ -121,9 +124,14 @@ export class TopbarComponent implements OnInit, OnDestroy {
     this.isAccountProfileDialogDisplayed.update((value) => !value);
   }
 
+  togglePreferencesDialog(): void {
+    this.isPreferencesDialogDisplayed.update((value) => !value);
+  }
+
   dismiss(): void {
     this.isSignInDialogDisplayed.set(false);
     this.isAccountProfileDialogDisplayed.set(false);
+    this.isPreferencesDialogDisplayed.set(false);
   }
 
   /**

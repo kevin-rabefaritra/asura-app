@@ -1,13 +1,13 @@
 <div class="text-center my-4">
   <img class="img" src="/assets/images/john-tr.gif" />
   @if (query) {
-    <p class="mt-2">no results found for <q>{{ query }}</q></p>
+    <p class="mt-2" i18n>no results found for <q>{{ query }}</q></p>
   }
   @else {
-    <p class="mt-2">no results</p>
+    <p class="mt-2" i18n>no results</p>
   }
 
   @if (!isHome) {
-    <a routerLink="/home"><i class="bi bi-caret-left-fill"></i> go back home</a>
+    <a routerLink="/home" i18n><i class="bi bi-caret-left-fill"></i> go back home</a>
   }
 </div>

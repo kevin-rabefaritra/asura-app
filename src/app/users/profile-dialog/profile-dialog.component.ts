@@ -19,7 +19,7 @@ export class ProfileDialogComponent implements OnInit, OnDestroy {
   userInfo: WritableSignal<User | null> = signal(null);
 
   deleteAccountStepNumber: WritableSignal<number> = signal(0);
-  deleteAccountText: WritableSignal<string> = signal('Delete my account');
+  deleteAccountText: WritableSignal<string> = signal($localize`Delete my account`);
   deleteAccountLoading: WritableSignal<boolean> = signal(false);
 
   userInfoSubscription$?: Subscription;
@@ -62,13 +62,17 @@ export class ProfileDialogComponent implements OnInit, OnDestroy {
       next: () => {
         this.router.navigate(['/signout']);
         this.onDismiss.emit();
-        this.toastService.notify('Your account has been deleted.');
+        this.toastService.notify($localize`Your account has been deleted.`);
       }
     });
   }
 
   deleteAccountClicked(): void {
-    let textList = ['Delete my account', 'Are you sure? All your data will be deleted.', 'Sure sure sure?'];
+    let textList = [
+      $localize`Delete my account`,
+      $localize`Are you sure? All your data will be deleted.`,
+      $localize`Sure sure sure?`
+    ];
     this.deleteAccountStepNumber.update(v => v + 1);
     if (this.deleteAccountStepNumber() < textList.length) {
       this.deleteAccountText.set(textList[this.deleteAccountStepNumber()]);

@@ -13,9 +13,10 @@ export class UniqueEmailValidator implements AsyncValidator {
   ) {}
 
   validate(control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> {
-    return this.userService.checkEmail(control.value).pipe(
+    /* return this.userService.checkEmail(control.value).pipe(
       map((exists) => exists ? {uniqueEmail: true} : null),
       catchError(() => of(null))
-    );
+    ); */
+    return of(null);
   }
 }
