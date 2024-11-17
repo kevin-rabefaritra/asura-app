@@ -4,17 +4,7 @@
 }
 
 .post-card-focused {
-  animation: shift 0.5s ease-in-out forwards;
   filter: drop-shadow(4pt 4pt #000000);
-}
-
-@keyframes shift {
-  from {
-    transform: translate(0, 0);
-  }
-  to {
-    transform: translate(-4px, -4px);
-  }
 }
 
 .avatar {

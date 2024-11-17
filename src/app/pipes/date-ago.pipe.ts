@@ -15,9 +15,12 @@ export class DateAgoPipe implements PipeTransform {
   transform(value: any, args?: any): any {
     if (value) {
       let datetime = DateTime.isDateTime(value) ? value : DateTime.fromISO(value);
+
+      // Will consider binding the locale to the user profile in the future (for signed users)
       let selectedLang = this.preferencesService.selectedLang();
+      
       let options = {
-        locale: selectedLang
+        locale: $localize.locale
       };
 
       if (datetime.diffNow(['hours']).hours < 48) {

@@ -7,6 +7,11 @@
     }
   }
   @else {
-    <app-spinner />
+    @if (isLoading()) {
+      <app-spinner />
+    }
+    @else {
+      <app-no-results-block />
+    }
   }
 </div>

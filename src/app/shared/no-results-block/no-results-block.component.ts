@@ -10,7 +10,7 @@ import { Router, RouterModule } from '@angular/router';
 })
 export class NoResultsBlockComponent {
 
-  @Input() query?: string;
+  @Input({ required: false }) query?: string;
 
   constructor(
     private router: Router
