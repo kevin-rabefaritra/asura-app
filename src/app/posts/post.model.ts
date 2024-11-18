@@ -5,11 +5,11 @@ export interface Post {
   authorProfilePicture: String,
   publishedOn: string;
   summary: string;
-  text: string;
+  text?: string;
   status: PostStatus;
-  tags: string[] | undefined;
-  references: string[];
-  mediaUris: string[];
+  tags?: string[];
+  references?: string[];
+  mediaUris?: string[];
   score: number;
   userScore: number;
 };

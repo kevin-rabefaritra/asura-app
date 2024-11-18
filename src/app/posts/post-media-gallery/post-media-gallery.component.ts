@@ -10,7 +10,7 @@ import { PostService } from '../post.service';
 })
 export class PostMediaGalleryComponent implements OnInit {
 
-  @Input({required: false}) mediaUris!: string[];
+  @Input({required: false}) mediaUris?: string[];
   @Input() selectedIndex: number = 0;
 
   @Output() onDismiss: EventEmitter<any> = new EventEmitter();

@@ -10,7 +10,7 @@
       "sourceRoot": "src",
       "prefix": "app",
       "i18n": {
-        "sourceLocale": "en-US",
+        "sourceLocale": "en",
         "locales": {
           "fr": {
             "translation": "src/locale/messages.fr.xlf",
@@ -47,7 +47,7 @@
               "node_modules/@popperjs/core/dist/umd/popper.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.min.js"
             ],
-            "localize": ["fr"]
+            "localize": ["en"]
           },
           "configurations": {
             "production": {

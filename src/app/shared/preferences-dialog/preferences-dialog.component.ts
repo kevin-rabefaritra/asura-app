@@ -47,12 +47,6 @@ export class PreferencesDialogComponent implements OnInit {
     
     // redirect the user to the relevant subdirectory
     let currentUrl = this.router.url;
-    if (selectedLang !== 'en') {
-      document.location = `/${selectedLang}${currentUrl}`;
-    }
-    else {
-      let routes = currentUrl.split('/');
-      document.location = routes.slice(1, routes.length).join('/');
-    }
+    document.location = `/${selectedLang}${currentUrl}`;
   }
 }

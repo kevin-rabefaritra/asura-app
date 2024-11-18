@@ -9,8 +9,13 @@ import { environment } from "../../environments/environment";
 export function authInterceptor(request: HttpRequest<unknown>, next: HttpHandlerFn) {
   const router = inject(Router);
   const authService = inject(AuthService);
+  const locale = $localize.locale || 'en';
 
+  // Add API base URL
   request = withBaseUrl(request);
+
+  // Add locale to HTTP header
+  request = withLocale(request, locale);
 
   const isAuthEndpoint = authService.isAuthenticationEndpoint(request.url);
 
@@ -62,5 +67,11 @@ function withBaseUrl(request: HttpRequest<any>): HttpRequest<any> {
 function withAccessToken(request: HttpRequest<any>, accessToken: string): HttpRequest<any> {
   return request.clone({
     setHeaders: { Authorization: `Bearer ${accessToken}` }
+  });
+}
+
+function withLocale(request: HttpRequest<any>, locale: string): HttpRequest<any> {
+  return request.clone({
+    setHeaders: { 'Accept-Language': locale }
   });
 }
