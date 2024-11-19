@@ -14,5 +14,6 @@ export const routes: Routes = [
   { path: 'signout', component: SignOutComponent },
   { path: 'search', component: PostListComponent },
   { path: 'auth', component: AuthComponent },
-  { path: 'post/:reference', component: PostDetailsComponent }
+  { path: 'post/:reference', component: PostDetailsComponent },
+  { path: '**', redirectTo: '/home'}
 ];

@@ -1,5 +1,4 @@
 import { Component, EventEmitter, OnInit, Output, signal, WritableSignal } from '@angular/core';
-import { PreferencesService } from '../../users/preferences.service';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -18,8 +17,7 @@ export class PreferencesDialogComponent implements OnInit {
   currentLang?: string;
 
   constructor(
-    private router: Router,
-    private preferencesService: PreferencesService
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -27,7 +25,7 @@ export class PreferencesDialogComponent implements OnInit {
   }
 
   initForm(): void {
-    this.currentLang = this.preferencesService.selectedLang();
+    this.currentLang = $localize.locale || 'en';
     this.selectedLang.set(this.currentLang);
   }
 
@@ -42,8 +40,6 @@ export class PreferencesDialogComponent implements OnInit {
     if (selectedLang === this.currentLang) {
       return;
     }
-
-    this.preferencesService.setLang(selectedLang);
     
     // redirect the user to the relevant subdirectory
     let currentUrl = this.router.url;
