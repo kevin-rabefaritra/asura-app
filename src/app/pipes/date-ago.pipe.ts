@@ -15,8 +15,12 @@ export class DateAgoPipe implements PipeTransform {
         locale: $localize.locale
       };
 
-      if (datetime.diffNow(['hours']).hours < 48) {
-        // Within 48 hours, we return the relative date / time
+      // Within 48 hours, we return the relative date / time
+      let diffNow = datetime.diffNow(['hours']).hours;
+      if (diffNow > -4) {
+        return datetime.toRelative(options);
+      }
+      else if (diffNow > -48) {
         return `${datetime.toRelativeCalendar(options)}, ${datetime.toLocaleString(DateTime.TIME_SIMPLE, options)}`;
       }
       else {

@@ -9,8 +9,8 @@ import { TermsComponent } from './shared/terms/terms.component';
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: PostListComponent },
-  { path: 'legal/privacy', component: PrivacyComponent, title: 'privacy policy' },
-  { path: 'legal/terms', component: TermsComponent, title: 'terms of service' },
+  { path: 'legal/privacy', component: PrivacyComponent, title: $localize`privacy policy` },
+  { path: 'legal/terms', component: TermsComponent, title: $localize`terms of service` },
   { path: 'signout', component: SignOutComponent },
   { path: 'search', component: PostListComponent },
   { path: 'auth', component: AuthComponent },
