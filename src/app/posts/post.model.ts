@@ -2,7 +2,7 @@
 export interface Post {
   reference: string;
   authorName: string;
-  authorProfilePicture: String,
+  authorProfilePicture?: String,
   publishedOn: string;
   summary: string;
   text?: string;

@@ -10,7 +10,7 @@
     @else {
       <div class="dropdown">
         <button class="btn-blank dropdown-toggle" type="button" id="accountDropdownMenu" data-bs-toggle="dropdown" aria-expanded="false">
-          <span *ngIf="userInfo()">{{ userInfo()!!.username }}</span>
+          <span *ngIf="userInfo()"><i class="bi bi-person-fill"></i></span>
           <span *ngIf="!userInfo()" i18n>guest</span>
         </button>
         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="accountDropdownMenu">

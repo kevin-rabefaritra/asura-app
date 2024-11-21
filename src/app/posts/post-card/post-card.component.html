@@ -33,7 +33,7 @@
     <div class="angular-text" [innerHTML]="post.summary | summaryFormat"></div>
     @if (displayFull) {
       <hr class="dashed-line" />
-      <div class="angular-text justified-text" [innerHTML]="post.text"></div>
+      <div class="angular-text justified-text" [innerHTML]="post.text | summaryFormat"></div>
 
       @if (post.references) {
         <br/>

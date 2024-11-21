@@ -17,7 +17,7 @@ export class DateAgoPipe implements PipeTransform {
 
       // Within 48 hours, we return the relative date / time
       let diffNow = datetime.diffNow(['hours']).hours;
-      if (diffNow > -4) {
+      if (diffNow > -10) {
         return datetime.toRelative(options);
       }
       else if (diffNow > -48) {
