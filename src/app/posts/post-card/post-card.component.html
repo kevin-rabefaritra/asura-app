@@ -1,34 +1,4 @@
-<div class="post-card mt-3 pb-3" 
-  [class.opacity-25]="post.status === 'REJECTED'" 
-  [class.opacity-75]="post.status === 'PENDING'"
-  [class.opacity-100]="post.status === 'APPROVED'"
-  [class.post-card-focused]="hasUserFocus()">
-
-  <div class="d-flex p-3">
-    <img [ngSrc]="post.authorProfilePicture || 'assets/images/asura.jpg'" alt="User Avatar" class="avatar me-3 shimmer" width="50" height="50">
-
-    <div class="post-info w-100">
-      <div class="post-header">
-        <div>
-          <span class="post-name"><a [routerLink]="['/search']" [queryParams]="{ q: post.authorName }">{{ post.authorName }}</a></span>
-          <div class="post-date">{{ post.publishedOn | dateAgo }}</div>
-        </div>
-        <span class="post-extra">
-          @if (post.status === 'APPROVED') {
-            <button class="default-btn" [disabled]="isLoading()" [class.active]="post.userScore === 1" (click)="clickVote()"><i class="bi bi-hand-thumbs-up-fill"></i></button>
-          }
-          @else if (post.status === 'REJECTED') {
-            <p class="text-uppercase text-danger" i18n><i class="bi bi-x"></i> Rejected</p>
-          }
-          @else if (post.status === 'PENDING') {
-            <button class="default-btn danger-btn text-uppercase" [disabled]="isLoading()" (click)="reject()"><i class="bi bi-x"></i></button>
-            &nbsp;
-            <button class="default-btn success-btn text-uppercase" [disabled]="isLoading()" (click)="approve()"><i class="bi bi-check-lg"></i></button>
-          }
-        </span>
-      </div>
-    </div>
-  </div>
+<app-item-card [item]="post" [displayFull]="displayFull">
   <div class="post-content px-3">
     <div class="angular-text" [innerHTML]="post.summary | summaryFormat"></div>
     @if (displayFull) {
@@ -43,23 +13,13 @@
       }
     }
     @else {
-      <a [routerLink]="['/post', post.reference]" i18n>Read more</a>
+      <a [routerLink]="['/posts', post.reference]" i18n>Read more</a>
     }
   </div>
 
   @if (post.mediaUris) {
     <div class="post-media">
-      <app-post-media-grid [mediaUris]="post.mediaUris" [displayAll]="displayFull" (onClickMore)="showPost()" (onMediaSelected)="selectMedia($event)"/>
+      <app-media-grid [mediaUris]="post.mediaUris" [displayAll]="displayFull" (onClickMore)="showPost()" (onMediaSelected)="selectMedia($event)"/>
     </div>
   }
-
-  <div class="post-tags px-3 mt-2">
-    @for (tag of displayedTags; track tag) {
-      <a [routerLink]="['/search']" [queryParams]="{ tag }" class="app-post-tag">{{ tag }}</a>
-    }
-
-    @if (!allTagsDisplayed && post.tags) {
-      <label class="text-muted mt-2" (click)="showAllTags()" i18n>+{{ post.tags.length - displayedTags.length }} more</label>
-    }
-  </div>
-</div>
+</app-item-card>

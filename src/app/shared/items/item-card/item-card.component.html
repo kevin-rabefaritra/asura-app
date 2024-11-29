@@ -1,0 +1,44 @@
+<div class="item-card mt-3 pb-3"
+  [class.opacity-25]="item.status === 'REJECTED'" 
+  [class.opacity-75]="item.status === 'PENDING'"
+  [class.opacity-100]="item.status === 'APPROVED'"
+  [class.item-card-focused]="hasUserFocus() || displayFull">
+
+  <div class="d-flex p-3">
+    <img [ngSrc]="item.authorProfilePicture || 'assets/images/asura.jpg'" alt="User Avatar" class="avatar me-3 shimmer" width="50" height="50">
+
+    <div class="item-card-info w-100">
+      <div class="item-card-header">
+        <div>
+          <span class="item-card-name"><a [routerLink]="['/search']" [queryParams]="{ q: item.authorName }">{{ item.authorName }}</a></span>
+          <div class="item-card-date">{{ item.publishedOn | dateAgo }}</div>
+        </div>
+        <span class="item-card-extra">
+          @if (item.status === 'APPROVED') {
+            <button class="default-btn" [disabled]="isLoading()" [class.active]="item.userScore === 1" (click)="clickVote()"><i class="bi bi-hand-thumbs-up-fill"></i></button>
+          }
+          @else if (item.status === 'REJECTED') {
+            <p class="text-uppercase text-danger" i18n><i class="bi bi-x"></i> Rejected</p>
+          }
+          @else if (item.status === 'PENDING') {
+            <button class="default-btn danger-btn text-uppercase" [disabled]="isLoading()" (click)="reject()"><i class="bi bi-x"></i></button>
+            &nbsp;
+            <button class="default-btn success-btn text-uppercase" [disabled]="isLoading()" (click)="approve()"><i class="bi bi-check-lg"></i></button>
+          }
+        </span>
+      </div>
+    </div>
+  </div>
+  
+  <ng-content></ng-content>
+
+  <div class="item-card-tags px-3 mt-2">
+    @for (tag of displayedTags; track tag) {
+      <a [routerLink]="['/search']" [queryParams]="{ tag }" class="app-item-tag">{{ tag }}</a>
+    }
+
+    @if (!allTagsDisplayed && item.tags) {
+      <label class="text-muted mt-2" (click)="showAllTags()" i18n>+{{ item.tags.length - displayedTags.length }} more</label>
+    }
+  </div>
+</div>

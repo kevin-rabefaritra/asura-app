@@ -1,44 +1,19 @@
-<div class="event-card mt-3 pb-3"> 
-  
-  <div class="d-flex p-3">
-    <img [ngSrc]="event.authorProfilePicture || 'assets/images/asura.jpg'" alt="User Avatar" class="avatar me-3 shimmer" width="50" height="50">
-
-    <div class="event-info w-100">
-      <div class="event-header">
-        <div>
-          <span class="event-name"><a [routerLink]="['/search']" [queryParams]="{ q: event.authorName}">{{ event.authorName }}</a></span>
-          <div class="event-date">{{ event.publishedOn | dateAgo }}</div>
-        </div>
-        <span class="event-extra">
-          @if ('APPROVED' === 'APPROVED') {
-            <button class="default-btn" [disabled]="false" [class.active]="false" (click)="clickVote()"><i class="bi bi-star-fill"></i></button>
-          }
-          @else if ('REJECTED' === 'REJECTED') {
-            <p class="text-uppercase text-danger" i18n><i class="bi bi-x"></i> Rejected</p>
-          }
-          @else if ('PENDING' === 'PENDING') {
-            <button class="default-btn danger-btn text-uppercase" [disabled]="isLoading()" (click)="reject()"><i class="bi bi-x"></i></button>
-            &nbsp;
-            <button class="default-btn success-btn text-uppercase" [disabled]="isLoading()" (click)="approve()"><i class="bi bi-check-lg"></i></button>
-          }
-        </span>
-      </div>
-    </div>
-  </div>
+<app-item-card [item]="event" [displayFull]="displayFull">
 
   @if (event.mediaUris) {
     <div class="event-media">
-      <app-post-media-grid [mediaUris]="event.mediaUris" [displayAll]="displayFull" (onClickMore)="showEvent()" (onMediaSelected)="selectMedia($event)"/>
+      <app-media-grid [mediaUris]="event.mediaUris" [displayAll]="displayFull" (onClickMore)="showEvent()" (onMediaSelected)="selectMedia($event)"/>
     </div>
   }
 
   <!-- Event dates / info -->
    <div class="container d-inline">
     <div class="event-dates-block mx-1 p-3">
-      <div class="event-date-block text-center"><p>{{ event.startDatetime | date: 'dd' }}</p><span>{{ event.startDatetime | date: 'MMM' }}</span></div>
-      @if (event.endDatetime) {
+      <div class="event-date-block text-center"><p>{{ event.startsOn | date: 'dd' }}</p><span>{{ event.startsOn | date: 'MMM' }}</span></div>
+      
+      @if (event.endsOn) {
         <i class="bi bi-arrow-right m-auto px-2"></i>
-        <div class="event-date-block text-center"><p>{{ event.endDatetime | date: 'dd' }}</p><span>{{ event.endDatetime | date: 'MMM' }}</span></div>
+        <div class="event-date-block text-center"><p>{{ event.endsOn | date: 'dd' }}</p><span>{{ event.endsOn | date: 'MMM' }}</span></div>
       }
     </div>
     <div class="d-inline-flex px-2 align-bottom">
@@ -56,8 +31,8 @@
     <div class="angular-text" [innerHTML]="event.summary | summaryFormat"></div>
     @if (displayFull) {
       <hr class="dashed-line" />
-      <p><i class="bi bi-calendar-event"></i> {{ event.startDatetime | date: 'medium' }}</p>
-      <div class="angular-text justified-text" [innerHTML]="event.text | summaryFormat"></div>
+      <p><i class="bi bi-calendar-event"></i> {{ event.startsOn | date: 'medium' }}</p>
+      <div class="angular-text justified-text" [innerHTML]="event.content | summaryFormat"></div>
 
       @if (event.references) {
         <br/>
@@ -67,18 +42,9 @@
       }
     }
     @else {
-      <a [routerLink]="['/event', event.reference]" i18n>Read more</a>
+      <a [routerLink]="['/events', event.reference]" i18n>Read more</a>
     }
   </div>
 
-  <!-- Event tags -->
-  <div class="event-tags px-3 mt-2">
-    @for (tag of displayedTags; track tag) {
-      <a [routerLink]="['/search']" [queryParams]="{ tag }" class="app-post-tag">{{ tag }}</a>
-    }
-
-    @if (!allTagsDisplayed && event.tags) {
-      <label class="text-muted mt-2" (click)="showAllTags()" i18n>+{{ event.tags.length - displayedTags.length }} more</label>
-    }
-  </div>
-</div>
+  
+</app-item-card>

@@ -6,6 +6,7 @@ import { AuthComponent } from './auth/auth.component';
 import { PrivacyComponent } from './shared/privacy/privacy.component';
 import { TermsComponent } from './shared/terms/terms.component';
 import { EventListComponent } from './events/event-list/event-list.component';
+import { EventDetailsComponent } from './events/event-details/event-details.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -16,6 +17,7 @@ export const routes: Routes = [
   { path: 'signout', component: SignOutComponent },
   { path: 'search', component: PostListComponent },
   { path: 'auth', component: AuthComponent },
-  { path: 'post/:reference', component: PostDetailsComponent },
+  { path: 'posts/:reference', component: PostDetailsComponent },
+  { path: 'events/:reference', component: EventDetailsComponent },
   { path: '**', redirectTo: '/home'}
 ];

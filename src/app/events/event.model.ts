@@ -5,14 +5,14 @@ export interface Event {
   authorName: string;
   authorProfilePicture?: string;
   publishedOn: string;
-  startDatetime: string;
-  endDatetime?: string;
+  startsOn: string;
+  endsOn: string | null;
   title: string;
   location: string;
   address: string;
   type: EventType;
   summary: string;
-  text?: string;
+  content: string | null;
   status: PostStatus;
   tags?: string[];
   references?: string[];
@@ -20,6 +20,9 @@ export interface Event {
 }
 
 export enum EventType {
-  CONCERT = 'CONCERT',
-  SPORT = 'SPORT'
+  ART_ENTERTAINMENT,
+  MUSIC_PERFORMANCE,
+  SPORT_FITNESS,
+  EDUCATION_NETWORKING,
+  FOOD_LIFESTYLE
 }

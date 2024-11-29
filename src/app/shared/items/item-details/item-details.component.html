@@ -1,0 +1,17 @@
+<div class="container">
+  @if (item()) {
+    <ng-content></ng-content>
+
+    @if (isGalleryDisplayed()) {
+      <app-media-gallery [mediaUris]="item()!.mediaUris" [selectedIndex]="selectedMediaIndex()" (onDismiss)="dismissGallery()" />
+    }
+  }
+  @else {
+    @if (isLoading()) {
+      <app-spinner />
+    }
+    @else {
+      <app-no-results-block />
+    }
+  }
+</div>

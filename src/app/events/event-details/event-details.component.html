@@ -1,5 +1,7 @@
 <app-item-details [item]="item" [isLoading]="isLoading" [isGalleryDisplayed]="isGalleryDisplayed" [selectedMediaIndex]="selectedMediaIndex">
-  
-  <app-post-card [post]="item()!" [displayFull]="true" (onMediaSelected)="displayGallery($event)" />
+
+  @if (item()) {
+    <app-event-card [event]="item()!" [displayFull]="true" (onMediaSelected)="displayGallery($event)" />
+  }
 
 </app-item-details>

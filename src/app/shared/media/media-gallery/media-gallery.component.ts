@@ -1,14 +1,14 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { PostService } from '../post.service';
+import { PostService } from '../../../posts/post.service';
 
 @Component({
-  selector: 'app-post-media-gallery',
+  selector: 'app-media-gallery',
   standalone: true,
   imports: [],
-  templateUrl: './post-media-gallery.component.html',
-  styleUrl: './post-media-gallery.component.css'
+  templateUrl: './media-gallery.component.html',
+  styleUrl: './media-gallery.component.css'
 })
-export class PostMediaGalleryComponent implements OnInit {
+export class MediaGalleryComponent implements OnInit {
 
   @Input({required: false}) mediaUris?: string[];
   @Input() selectedIndex: number = 0;
@@ -16,10 +16,6 @@ export class PostMediaGalleryComponent implements OnInit {
   @Output() onDismiss: EventEmitter<any> = new EventEmitter();
 
   _mediaUris: string[] = [];
-
-  constructor(
-    private postService: PostService
-  ) {}
 
   ngOnInit(): void {
     
