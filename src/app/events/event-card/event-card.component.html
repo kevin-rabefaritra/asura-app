@@ -1,0 +1,50 @@
+<app-item-card [item]="event" [displayFull]="displayFull">
+
+  @if (event.mediaUris) {
+    <div class="event-media">
+      <app-media-grid [mediaUris]="event.mediaUris" [displayAll]="displayFull" (onClickMore)="showEvent()" (onMediaSelected)="selectMedia($event)"/>
+    </div>
+  }
+
+  <!-- Event dates / info -->
+   <div class="container d-inline">
+    <div class="event-dates-block mx-1 p-3">
+      <div class="event-date-block text-center"><p>{{ event.startsOn | date: 'dd' }}</p><span>{{ event.startsOn | date: 'MMM' }}</span></div>
+      
+      @if (event.endsOn) {
+        <i class="bi bi-arrow-right m-auto px-2"></i>
+        <div class="event-date-block text-center"><p>{{ event.endsOn | date: 'dd' }}</p><span>{{ event.endsOn | date: 'MMM' }}</span></div>
+      }
+    </div>
+    <div class="d-inline-flex px-2 align-bottom">
+      <p>
+        <i class="bi bi-geo-alt-fill"></i> {{ event.location }}<br/>
+        <i class="bi bi-flag-fill"></i> {{ event.type }}
+      </p>
+    </div>
+  </div>
+
+  <!-- Event text -->
+  <div class="event-content px-3">
+    <h3>{{ event.title }}</h3>
+    <p class="text-muted">{{ event.address }}</p>
+    <div class="angular-text" [innerHTML]="event.summary | summaryFormat"></div>
+    @if (displayFull) {
+      <hr class="dashed-line" />
+      <p><i class="bi bi-calendar-event"></i> {{ event.startsOn | date: 'medium' }}</p>
+      <div class="angular-text justified-text" [innerHTML]="event.content | summaryFormat"></div>
+
+      @if (event.references) {
+        <br/>
+        @for (reference of event.references; track $index) {
+          <a class="reference-link" [href]="reference"><i class="bi bi-link-45deg"></i> Source {{ $index + 1 }}</a>
+        }
+      }
+    }
+    @else {
+      <a [routerLink]="['/events', event.reference]" i18n>Read more</a>
+    }
+  </div>
+
+  
+</app-item-card>

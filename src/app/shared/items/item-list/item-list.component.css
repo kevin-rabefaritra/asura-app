@@ -1,0 +1,4 @@
+.container {
+  padding: 0px 10px 10px 10px;
+  margin-top: -5px; /* not the best way to fix it but I'm not a CSS expert :( */
+}

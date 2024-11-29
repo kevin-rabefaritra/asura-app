@@ -1,0 +1,22 @@
+<div class="container">
+  @for (item of items(); track item) {
+    @if (isEvent(item)) {
+      <app-event-card [event]="item" (onMediaSelected)="displayGallery($event)" />
+    }
+    @else {
+      <app-post-card [post]="item" (onMediaSelected)="displayGallery($event)" />
+    }
+  }
+
+  @if (!items().length && !isLoading()) {
+    <app-no-results-block />
+  }
+
+  @if (!isLastPage() && isLoading()) {
+    <app-spinner />
+  }
+</div>
+
+@if (isGalleryDisplayed() && items()) {
+  <app-media-gallery [mediaUris]="selectedMediaList()" [selectedIndex]="selectedMediaIndex()" (onDismiss)="dismissGallery()" />
+}

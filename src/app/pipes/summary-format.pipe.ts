@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from "@angular/core";
 })
 export class SummaryFormatPipe implements PipeTransform {
   
-  transform(value?: string, ...args: any[]): string {
+  transform(value?: string | null, ...args: any[]): string {
     if (!value) {
       return '';
     }
