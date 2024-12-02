@@ -18,8 +18,8 @@
     </div>
     <div class="d-inline-flex px-2 align-bottom">
       <p>
-        <i class="bi bi-geo-alt-fill"></i> {{ event.location }}<br/>
-        <i class="bi bi-flag-fill"></i> {{ event.type }}
+        <a [routerLink]="['/events']" [queryParams]="{ location: event.location }" [queryParamsHandling]="'merge'"><i class="bi bi-geo-alt-fill"></i> {{ event.location }}</a><br/>
+        <i class="bi bi-flag-fill"></i> {{ event.type | eventType }}
       </p>
     </div>
   </div>

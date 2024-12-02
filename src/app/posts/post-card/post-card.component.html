@@ -1,6 +1,7 @@
 <app-item-card [item]="post" [displayFull]="displayFull">
   <div class="post-content px-3">
     <div class="angular-text" [innerHTML]="post.summary | summaryFormat"></div>
+    
     @if (displayFull) {
       <hr class="dashed-line" />
       <div class="angular-text justified-text" [innerHTML]="post.text | summaryFormat"></div>
