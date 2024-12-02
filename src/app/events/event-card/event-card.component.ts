@@ -5,11 +5,12 @@ import { Event } from '../event.model';
 import { SummaryFormatPipe } from "../../pipes/summary-format.pipe";
 import { MediaGridComponent } from '../../shared/media/media-grid/media-grid.component';
 import { ItemCardComponent } from "../../shared/items/item-card/item-card.component";
+import { EventTypePipe } from '../event-type.pipe';
 
 @Component({
   selector: 'app-event-card',
   standalone: true,
-  imports: [RouterModule, SummaryFormatPipe, MediaGridComponent, DatePipe, ItemCardComponent],
+  imports: [RouterModule, SummaryFormatPipe, MediaGridComponent, DatePipe, ItemCardComponent, EventTypePipe],
   templateUrl: './event-card.component.html',
   styleUrl: './event-card.component.css'
 })

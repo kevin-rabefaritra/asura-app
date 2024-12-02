@@ -7,6 +7,7 @@ import { SpinnerComponent } from "../../spinner/spinner.component";
 import { ActivatedRoute } from "@angular/router";
 import { PostCardComponent } from "../../../posts/post-card/post-card.component";
 import { EventCardComponent } from "../../../events/event-card/event-card.component";
+import { ItemType, SearchItem } from "../../../search/search-item.model";
 
 @Component({
   selector: 'app-item-list',
@@ -18,7 +19,7 @@ import { EventCardComponent } from "../../../events/event-card/event-card.compon
 export abstract class ItemListComponent implements OnInit {
 
   constructor(
-    private activeRoute: ActivatedRoute,
+    protected activeRoute: ActivatedRoute,
     private titleService: TitleService
   ) {}
 
@@ -62,9 +63,15 @@ export abstract class ItemListComponent implements OnInit {
     this.titleService.setTitle(title);
   }
 
-  applyFetchResults(page: Page<any>): void {
+  appendPage(page: Page<any>): void {
     this.isLoading.set(false);
     this.addItems(page.content);
+    this.isLastPage.set(page.last);
+  }
+
+  updatePage(page: Page<any>): void {
+    this.isLoading.set(false);
+    this.items.set(page.content);
     this.isLastPage.set(page.last);
   }
 
@@ -76,16 +83,6 @@ export abstract class ItemListComponent implements OnInit {
     this.selectedMediaList.set(event.mediaList);
     this.selectedMediaIndex.set(event.mediaIndex);
     this.isGalleryDisplayed.set(true);
-  }
-
-  /**
-   * Returns true if the provided item is an Event
-   * Since Event is an interface, we check the existence of the `startDatetime` field
-   * @param item 
-   * @returns 
-   */
-  isEvent(item: any): boolean {
-    return 'startDatetime' in item;
   }
 
   @HostListener('window:scroll', ['$event'])

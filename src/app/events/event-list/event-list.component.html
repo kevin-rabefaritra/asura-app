@@ -3,10 +3,10 @@
   <hr />
   <div class="row">
     <div class="form-group col-md-6">
-      <ng-select [searchable]="false" [clearable]="false" (change)="fetchItems()" [(ngModel)]="selectedPeriod">
-        <ng-option [value]="7">Next 7 days</ng-option>
-        <ng-option [value]="14">Next 14 days</ng-option>
-        <ng-option [value]="21">Next 21 days</ng-option>
+      <ng-select [searchable]="false" [clearable]="false" (change)="updateParams()" [(ngModel)]="selectedPeriod">
+        <ng-option value="7">Next 7 days</ng-option>
+        <ng-option value="14">Next 14 days</ng-option>
+        <ng-option value="21">Next 21 days</ng-option>
       </ng-select>
     </div>
     <div class="form-group col-md-6">
@@ -19,14 +19,15 @@
         bindLabel="name"
         bindValue="code"
         [(ngModel)]="selectedLocation"
-        (change)="fetchItems()">
+        [clearable]="true"
+        (change)="updateParams()">
       </ng-select>
     </div>
   </div>
 
   <!-- Items -->
   @for (item of items(); track item) {
-    <app-event-card [event]="item" (onMediaSelected)="displayGallery($event)"  />
+    <app-event-card [event]="item.event" (onMediaSelected)="displayGallery($event)"  />
   }
 
   @if (!items().length && !isLoading()) {
