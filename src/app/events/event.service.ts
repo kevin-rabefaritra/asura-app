@@ -33,4 +33,9 @@ export class EventService {
     }
     return EventService.PERIOD_ACCEPTED_VALUES[0];
   }
+
+  moderate(reference: string, approve: boolean): Observable<Event> {
+    let url: string = approve ? `/events/${reference}/approve` : `/events/${reference}/reject`;
+    return this.httpClient.put<Event>(url, null);
+  }
 }

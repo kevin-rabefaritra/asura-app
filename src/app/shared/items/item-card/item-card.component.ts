@@ -15,7 +15,11 @@ import { ItemTagComponent } from '../item-tag/item-tag.component';
 })
 export class ItemCardComponent implements OnInit {
 
+  @Output() onApproved: EventEmitter<any> = new EventEmitter();
+  @Output() onRejected: EventEmitter<any> = new EventEmitter();
+
   @Input({required: true}) item!: any;
+  @Input({required: false}) isLoading: boolean = false;
 
   // Maximum number of tags displayed by default
   static TAGS_LIMIT = 5;
@@ -24,7 +28,6 @@ export class ItemCardComponent implements OnInit {
   @Input() displayFull: boolean = false;
 
   displayedTags: string[] = [];
-  isLoading: WritableSignal<boolean> = signal(false);
   hasUserFocus: WritableSignal<boolean> = signal(false);
 
   private intersectionObserver?: IntersectionObserver;
@@ -74,57 +77,19 @@ export class ItemCardComponent implements OnInit {
     }
     else {
       if (this.item.userScore === 0) {
-        this.upvote();
+        // this.upvote();
       }
       else {
-        this.unvote();
+        // this.unvote();
       }
     }
-  }
-
-  upvote(): void {
-    if (this.isLoading()) {
-      return;
-    }
-
-    this.isLoading.set(true);
-    /* this.postService.upvote(this.post.reference).subscribe({
-      next: () => {
-        this.isLoading.set(false);
-        this.post.userScore = 1;
-      }
-    }); */
-  }
-
-  unvote(): void {
-    if (this.isLoading()) {
-      return;
-    }
-
-    this.isLoading.set(true);
-    /* this.postService.unvote(this.post.reference).subscribe({
-      next: () => {
-        this.isLoading.set(false);
-        this.post.userScore = 0;
-      }
-    }); */
   }
 
   /**
    * Approve a PENDING Post
    */
   approve(): void {
-    if (this.isLoading()) {
-      return;
-    }
-
-    this.isLoading.set(true);
-    /* this.postService.approve(this.post.reference).subscribe({
-      next: () => {
-        this.isLoading.set(false);
-        this.post.status = PostStatus.APPROVED;
-      }
-    }); */
+    this.onApproved.emit();
   }
 
   /**
@@ -132,16 +97,6 @@ export class ItemCardComponent implements OnInit {
    * @returns 
    */
   reject(): void {
-    if (this.isLoading()) {
-      return;
-    }
-
-    this.isLoading.set(true);
-    /* this.postService.reject(this.post.reference).subscribe({
-      next: () => {
-        this.isLoading.set(false);
-        this.post.status = PostStatus.REJECTED;
-      }
-    }); */
+    this.onRejected.emit();
   }
 }
