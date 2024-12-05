@@ -5,6 +5,8 @@ import { SummaryFormatPipe } from "../../pipes/summary-format.pipe";
 import { MediaGridComponent } from '../../shared/media/media-grid/media-grid.component';
 import { ItemCardComponent } from "../../shared/items/item-card/item-card.component";
 import { PostService } from '../post.service';
+import { ToastService } from '../../shared/toast/toast.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-post-card',
@@ -24,7 +26,9 @@ export class PostCardComponent {
 
   constructor(
     private router: Router,
-    private postService: PostService
+    private location: Location,
+    private postService: PostService,
+    private toastService: ToastService
   ) {}
 
   showPost(): void {
@@ -49,6 +53,13 @@ export class PostCardComponent {
         this.isLoading.set(false);
         this.post = value;
       }
+    });
+  }
+
+  copyToClipboard(): void {
+    let link: string = `${location.origin}/posts/${this.post.reference}`;
+    navigator.clipboard.writeText(link).then(() => {
+      this.toastService.notify($localize`Post link copied to clipboard!`);
     });
   }
 }

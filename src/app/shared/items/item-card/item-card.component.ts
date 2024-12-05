@@ -2,8 +2,6 @@ import { NgOptimizedImage } from '@angular/common';
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, signal, WritableSignal } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { DateAgoPipe } from '../../../pipes/date-ago.pipe';
-import { AuthService } from '../../../auth/auth.service';
-import { ToastService } from '../../toast/toast.service';
 import { ItemTagComponent } from '../item-tag/item-tag.component';
 
 @Component({
@@ -17,6 +15,7 @@ export class ItemCardComponent implements OnInit {
 
   @Output() onApproved: EventEmitter<any> = new EventEmitter();
   @Output() onRejected: EventEmitter<any> = new EventEmitter();
+  @Output() onCopy: EventEmitter<any> = new EventEmitter();
 
   @Input({required: true}) item!: any;
   @Input({required: false}) isLoading: boolean = false;
@@ -33,9 +32,7 @@ export class ItemCardComponent implements OnInit {
   private intersectionObserver?: IntersectionObserver;
 
   constructor(
-    private authService: AuthService,
-    private elementRef: ElementRef,
-    private toastService: ToastService
+    private elementRef: ElementRef
   ) {}
 
   ngOnInit(): void {
@@ -70,19 +67,8 @@ export class ItemCardComponent implements OnInit {
     return !this.item.tags || this.displayedTags.length === this.item.tags.length;
   }
 
-  clickVote(): void {
-    if (!this.authService.hasTokenSet()) {
-      // user is not authenticated, request the user to sign in
-      this.toastService.notify($localize`Sign in to upvote posts!`);
-    }
-    else {
-      if (this.item.userScore === 0) {
-        // this.upvote();
-      }
-      else {
-        // this.unvote();
-      }
-    }
+  copyToClipboard(): void {
+    this.onCopy.emit();
   }
 
   /**

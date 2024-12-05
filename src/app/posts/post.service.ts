@@ -36,14 +36,6 @@ export class PostService {
     return `${environment.apiUrl}/media/${mediaPath}`;
   }
 
-  upvote(reference: string): Observable<any> {
-    return this.httpClient.put<any>(`/posts/${reference}/upvote`, null);
-  }
-
-  unvote(reference: string): Observable<any> {
-    return this.httpClient.put<any>(`/posts/${reference}/unvote`, null);
-  }
-
   moderate(reference: string, approve: boolean): Observable<any> {
     let url: string = approve ? `/posts/${reference}/approve` : `/posts/${reference}/reject`;
     return this.httpClient.put<any>(url, null);
