@@ -7,6 +7,7 @@ import { MediaGridComponent } from '../../shared/media/media-grid/media-grid.com
 import { ItemCardComponent } from "../../shared/items/item-card/item-card.component";
 import { EventTypePipe } from '../event-type.pipe';
 import { EventService } from '../event.service';
+import { ToastService } from '../../shared/toast/toast.service';
 
 @Component({
   selector: 'app-event-card',
@@ -25,7 +26,8 @@ export class EventCardComponent implements OnInit {
   isLoading: WritableSignal<boolean> = signal(false);
 
   constructor(
-    private eventService: EventService
+    private eventService: EventService,
+    private toastService: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -52,6 +54,13 @@ export class EventCardComponent implements OnInit {
         this.isLoading.set(false);
         this.event = value;
       }
+    });
+  }
+
+  copyToClipboard(): void {
+    let link: string = `${location.origin}/events/${this.event.reference}`;
+    navigator.clipboard.writeText(link).then(() => {
+      this.toastService.notify($localize`Event link copied to clipboard!`);
     });
   }
 }

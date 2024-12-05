@@ -1,4 +1,4 @@
-<app-item-card [item]="post" [displayFull]="displayFull" (onApproved)="moderate(true)" (onRejected)="moderate(false)" [isLoading]="isLoading()">
+<app-item-card [item]="post" [displayFull]="displayFull" (onApproved)="moderate(true)" (onRejected)="moderate(false)" (onCopy)="copyToClipboard()" [isLoading]="isLoading()">
   <div class="post-content px-3">
     <div class="angular-text" [innerHTML]="post.summary | summaryFormat"></div>
     

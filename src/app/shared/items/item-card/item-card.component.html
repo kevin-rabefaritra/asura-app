@@ -15,7 +15,7 @@
         </div>
         <span class="item-card-extra">
           @if (item.status === 'APPROVED') {
-            <button class="default-btn" [disabled]="isLoading" [class.active]="item.userScore === 1" (click)="clickVote()"><i class="bi bi-hand-thumbs-up-fill"></i></button>
+            <button class="default-btn" (click)="copyToClipboard()"><i class="bi bi-link-45deg"></i></button>
           }
           @else if (item.status === 'REJECTED') {
             <p class="text-uppercase text-danger" i18n><i class="bi bi-x"></i> Rejected</p>
