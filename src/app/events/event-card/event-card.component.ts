@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output, signal, WritableSignal } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { Event } from '../event.model';
 import { SummaryFormatPipe } from "../../pipes/summary-format.pipe";
 import { MediaGridComponent } from '../../shared/media/media-grid/media-grid.component';
@@ -26,6 +26,7 @@ export class EventCardComponent implements OnInit {
   isLoading: WritableSignal<boolean> = signal(false);
 
   constructor(
+    private router: Router,
     private eventService: EventService,
     private toastService: ToastService
   ) {}
@@ -34,6 +35,7 @@ export class EventCardComponent implements OnInit {
   }
 
   showEvent(): void {
+    this.router.navigate(['/events', this.event.reference]);
   }
 
   selectMedia(index: number): void {
