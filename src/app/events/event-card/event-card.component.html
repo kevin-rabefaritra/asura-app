@@ -1,4 +1,4 @@
-<app-item-card [item]="event" [displayFull]="displayFull">
+<app-item-card [item]="event" [displayFull]="displayFull" [isLoading]="isLoading()" (onApproved)="moderate(true)" (onRejected)="moderate(false)">
 
   @if (event.mediaUris) {
     <div class="event-media">

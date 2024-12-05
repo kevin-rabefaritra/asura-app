@@ -44,11 +44,8 @@ export class PostService {
     return this.httpClient.put<any>(`/posts/${reference}/unvote`, null);
   }
 
-  approve(reference: string): Observable<any> {
-    return this.httpClient.put<any>(`/posts/${reference}/approve`, null);
-  }
-
-  reject(reference: string): Observable<any> {
-    return this.httpClient.put<any>(`/posts/${reference}/reject`, null);
+  moderate(reference: string, approve: boolean): Observable<any> {
+    let url: string = approve ? `/posts/${reference}/approve` : `/posts/${reference}/reject`;
+    return this.httpClient.put<any>(url, null);
   }
 }
