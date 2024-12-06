@@ -11,8 +11,7 @@ export interface Event {
   location: string;
   address: string;
   type: EventType;
-  summary: string;
-  content: string | null;
+  content: string;
   status: PostStatus;
   tags?: string[];
   references?: string[];
