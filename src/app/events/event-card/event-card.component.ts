@@ -38,6 +38,10 @@ export class EventCardComponent implements OnInit {
     this.router.navigate(['/events', this.event.reference]);
   }
 
+  shouldDisplayEndDate(): boolean {
+    return !this.event.endsOn && this.event.startsOn.substring(0, 11) === this.event.endsOn?.substring(0, 11);
+  }
+
   selectMedia(index: number): void {
     if (!this.event.mediaUris) {
       return;

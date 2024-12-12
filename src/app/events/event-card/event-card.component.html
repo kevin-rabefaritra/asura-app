@@ -11,7 +11,7 @@
     <div class="event-dates-block mx-1 p-3">
       <div class="event-date-block text-center"><p>{{ event.startsOn | date: 'dd' }}</p><span>{{ event.startsOn | date: 'MMM' }}</span></div>
       
-      @if (event.endsOn) {
+      @if (shouldDisplayEndDate()) {
         <i class="bi bi-arrow-right m-auto px-2"></i>
         <div class="event-date-block text-center"><p>{{ event.endsOn | date: 'dd' }}</p><span>{{ event.endsOn | date: 'MMM' }}</span></div>
       }
@@ -29,7 +29,12 @@
     <h3>{{ event.title }}</h3>
     <p class="text-muted">{{ event.address }}</p>
     @if (displayFull) {
-      <p><i class="bi bi-calendar-event"></i> {{ event.startsOn | date: 'medium' }}</p>
+      <p>
+        <i class="bi bi-calendar-event"></i> {{ event.startsOn | date: 'medium' }}
+        @if (event.endsOn) {
+          <span>- {{ event.endsOn | date: 'medium' }}</span>
+        }
+      </p>
       <hr class="dashed-line" />
     }
     <div class="angular-text justified-text" [innerHTML]="event.content | summaryFormat"></div>
