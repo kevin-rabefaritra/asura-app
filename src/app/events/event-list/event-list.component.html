@@ -4,9 +4,9 @@
   <div class="row">
     <div class="form-group col-md-6">
       <ng-select [searchable]="false" [clearable]="false" (change)="updateParams()" [(ngModel)]="selectedPeriod">
-        <ng-option value="7">Next 7 days</ng-option>
-        <ng-option value="14">Next 14 days</ng-option>
-        <ng-option value="21">Next 21 days</ng-option>
+        <ng-option value="7" i18n>Next 7 days</ng-option>
+        <ng-option value="14" i18n>Next 14 days</ng-option>
+        <ng-option value="21" i18n>Next 21 days</ng-option>
       </ng-select>
     </div>
     <div class="form-group col-md-6">
@@ -20,6 +20,8 @@
         bindValue="code"
         [(ngModel)]="selectedLocation"
         [clearable]="true"
+        i18n-notFoundText
+        notFoundText="no results"
         (change)="updateParams()">
       </ng-select>
     </div>
