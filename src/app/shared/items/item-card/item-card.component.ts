@@ -28,6 +28,7 @@ export class ItemCardComponent implements OnInit {
 
   displayedTags: string[] = [];
   hasUserFocus: WritableSignal<boolean> = signal(false);
+  profilePictureLoaded: WritableSignal<boolean> = signal(false);
 
   private intersectionObserver?: IntersectionObserver;
 
@@ -57,6 +58,10 @@ export class ItemCardComponent implements OnInit {
       });
     }, options);
     this.intersectionObserver.observe(this.elementRef.nativeElement);
+  }
+
+  onProfilePictureLoaded(): void {
+    this.profilePictureLoaded.set(true);
   }
 
   showAllTags(): void {
