@@ -5,7 +5,7 @@
   [class.item-card-focused]="hasUserFocus() || displayFull">
 
   <div class="d-flex p-3">
-    <img [ngSrc]="item.authorProfilePicture || 'assets/images/asura.jpg'" alt="User Avatar" class="avatar me-3 shimmer" width="50" height="50">
+    <img [ngSrc]="item.authorProfilePicture || 'assets/images/asura.jpg'" (load)="onProfilePictureLoaded()" [class.shimmer]="!profilePictureLoaded()" alt="User Avatar" class="avatar me-3" width="50" height="50">
 
     <div class="item-card-info w-100">
       <div class="item-card-header">
