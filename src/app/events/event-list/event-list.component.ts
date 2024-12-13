@@ -28,8 +28,11 @@ export class EventListComponent extends ItemListComponent implements OnDestroy {
   locations: WritableSignal<Location[]> = signal([]);
   locationNameInput$: Subject<string> = new Subject();
 
-  selectedPeriod: WritableSignal<string> = signal('');
-  selectedLocation: WritableSignal<string> = signal('');
+  selectedPeriod: WritableSignal<string> = signal('7');
+  selectedLocation: WritableSignal<string> = signal('any');
+
+  currentPeriod: string = '';
+  currentLocation: string = '';
 
   constructor(
     private eventService: EventService,
@@ -56,12 +59,14 @@ export class EventListComponent extends ItemListComponent implements OnDestroy {
         return;
       }
 
-      // 
       let period: string = this.eventService.getPeriodValue(queryParams['period']);
       let location: string = queryParams['location'] || 'any';
 
-      if (period !== this.selectedPeriod() || location !== this.selectedLocation()) {
+      if (this.currentPeriod !== period || this.currentLocation !== location) {
         this.resetList();
+        this.currentPeriod = period;
+        this.currentLocation = location;
+
         this.selectedPeriod.set(period);
         this.selectedLocation.set(location);
 
