@@ -10,29 +10,14 @@ import { AuthService } from "../auth/auth.service";
 })
 export class UserService {
 
-  static CHECK_USERNAME_URI: string = '/users/username/check';
-  static SIGN_UP_URI: string = '/users/signup';
   static INFO_URI: string = '/users/info';
   static DELETE_USER_URI: string = '/users/delete';
 
   static KEY_USER_INFO: string = 'user_info';
 
   constructor(
-    private httpClient: HttpClient,
-    private authService: AuthService
+    private httpClient: HttpClient
   ) {}
-
-  checkUsername(username: string): Observable<boolean> {
-    return this.httpClient.get<boolean>(`${UserService.CHECK_USERNAME_URI}?v=${username}`);
-  }
-
-  signup(username: string, email: string, password: string): Observable<TokenSet> {
-    return this.httpClient.post<TokenSet>(UserService.SIGN_UP_URI, { username, email, password }).pipe(
-      tap((tokenSet) => {
-        this.authService.storeTokenSet(tokenSet);
-      })
-    );
-  }
 
   /**
    * Fetches user info from remote server

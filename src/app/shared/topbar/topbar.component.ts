@@ -134,13 +134,6 @@ export class TopbarComponent implements OnInit, OnDestroy {
     this.isPreferencesDialogDisplayed.set(false);
   }
 
-  /**
-   * Called when a user sign up is successful
-   */
-  signUpSuccess(): void {
-    this.dismiss();
-  }
-
   get feedbackUrl(): string {
     return environment.feedbackUrl;
   }
