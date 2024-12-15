@@ -38,30 +38,6 @@
           <context context-type="linenumber">69</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="6524778282587457933" datatype="html">
-        <source>Next 7 days</source>
-<target>7 prochains jours</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/events/event-list/event-list.component.html</context>
-          <context context-type="linenumber">7</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="5282735363298141996" datatype="html">
-        <source>Next 14 days</source>
-<target>14 prochains jours</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/events/event-list/event-list.component.html</context>
-          <context context-type="linenumber">8</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="692799479831682598" datatype="html">
-        <source>Next 21 days</source>
-<target>21 prochains jours</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/events/event-list/event-list.component.html</context>
-          <context context-type="linenumber">9</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="2091635543771235998" datatype="html">
         <source>no results</source>
 				<target>aucun résultat</target>
@@ -162,9 +138,9 @@
           <context context-type="linenumber">111</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="3184700926171002527" datatype="html">
-        <source>Any</source>
-<target>Tout</target>
+      <trans-unit id="3908149768883526924" datatype="html">
+        <source>All cities</source>
+<target>Toutes les villes</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/location/location.service.ts</context>
           <context context-type="linenumber">26</context>

@@ -28,10 +28,7 @@ export class EventListComponent extends ItemListComponent implements OnDestroy {
   locations: WritableSignal<Location[]> = signal([]);
   locationNameInput$: Subject<string> = new Subject();
 
-  selectedPeriod: WritableSignal<string> = signal('7');
   selectedLocation: WritableSignal<string> = signal('any');
-
-  currentPeriod: string = '';
   currentLocation: string = '';
 
   constructor(
@@ -54,20 +51,16 @@ export class EventListComponent extends ItemListComponent implements OnDestroy {
   private initUrlParams(): void {
     this.activeRoute.queryParams.subscribe(queryParams => {
       // if no parameter is defined in the url, redirect with default values
-      if (!queryParams['period'] || !queryParams['location']) {
-        this.router.navigate(['/events'], { queryParams: { period: '7', location: 'any' } });
+      if (!queryParams['location']) {
+        this.router.navigate(['/events'], { queryParams: { location: 'any' } });
         return;
       }
 
-      let period: string = this.eventService.getPeriodValue(queryParams['period']);
       let location: string = queryParams['location'] || 'any';
 
-      if (this.currentPeriod !== period || this.currentLocation !== location) {
+      if (this.currentLocation !== location) {
         this.resetList();
-        this.currentPeriod = period;
         this.currentLocation = location;
-
-        this.selectedPeriod.set(period);
         this.selectedLocation.set(location);
 
         // Add fetch locations in case the exact location is already provided in the query parameter
@@ -85,7 +78,7 @@ export class EventListComponent extends ItemListComponent implements OnDestroy {
 
   override fetchItems(): void {
     this.isLoading.set(true);
-    this.eventService.findAll(this.page, this.selectedPeriod(), this.selectedLocation()).subscribe({
+    this.eventService.findAll(this.page, this.selectedLocation()).subscribe({
       next: (value) => {
         this.appendPage(value);
       }
@@ -94,7 +87,6 @@ export class EventListComponent extends ItemListComponent implements OnDestroy {
 
   protected updateParams(): void {
     this.router.navigate(['/events'], { queryParams: {
-      period: this.selectedPeriod(),
       location: this.selectedLocation()
     }});
   }
@@ -116,7 +108,8 @@ export class EventListComponent extends ItemListComponent implements OnDestroy {
     this.locationsLoading.set(true);
     this.locationService.findLocationsByName(term).subscribe({
       next: (value) => {
-        this.locations.set(value);
+        let items = [this.locationService.anyLocation(), ...value];
+        this.locations.set(items);
         this.locationsLoading.set(false);
       }
     });
