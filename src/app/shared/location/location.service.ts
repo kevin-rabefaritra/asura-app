@@ -23,6 +23,6 @@ export class LocationService {
   }
 
   anyLocation(): Location {
-    return { name: $localize`Any`, code: 'any' };
+    return { name: $localize`All cities`, code: 'any' };
   }
 }

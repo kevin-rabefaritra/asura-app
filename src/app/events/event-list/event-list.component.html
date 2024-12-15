@@ -2,14 +2,7 @@
   <!-- Filters -->
   <hr />
   <div class="row">
-    <div class="form-group col-md-6">
-      <ng-select [searchable]="false" [clearable]="false" (change)="updateParams()" [(ngModel)]="selectedPeriod">
-        <ng-option value="7" i18n>Next 7 days</ng-option>
-        <ng-option value="14" i18n>Next 14 days</ng-option>
-        <ng-option value="21" i18n>Next 21 days</ng-option>
-      </ng-select>
-    </div>
-    <div class="form-group col-md-6">
+    <div class="form-group col-md-12">
       <ng-select
         [items]="locations()"
         [typeahead]="locationNameInput$"

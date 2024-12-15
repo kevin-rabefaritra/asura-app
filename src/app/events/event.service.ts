@@ -13,25 +13,17 @@ import { SearchItem } from "../search/search-item.model";
 export class EventService {
 
   private static GET_URI = "/events";
-  static PERIOD_ACCEPTED_VALUES = ['7', '14', '21'];
 
   constructor(
     private httpClient: HttpClient
   ) {}
 
-  findAll(page: number, period: string, location: string): Observable<Page<SearchItem>> {
-    return this.httpClient.get<Page<SearchItem>>(`${EventService.GET_URI}?page=${page}&period=${period}&location=${location}`);
+  findAll(page: number, location: string): Observable<Page<SearchItem>> {
+    return this.httpClient.get<Page<SearchItem>>(`${EventService.GET_URI}?page=${page}&location=${location}`);
   }
 
   findByReference(reference: string): Observable<Event> {
     return this.httpClient.get<Event>(`${EventService.GET_URI}/${reference}`);
-  }
-
-  getPeriodValue(period: string): string {
-    if (EventService.PERIOD_ACCEPTED_VALUES.includes(period)) {
-      return period;
-    }
-    return EventService.PERIOD_ACCEPTED_VALUES[0];
   }
 
   moderate(reference: string, approve: boolean): Observable<Event> {
